@@ -2,30 +2,32 @@ import { useEffect, useState } from "react";
 import { postService } from "../../services/postService";
 import { Post } from "../../types";
 
-const Home = () => {
+const Posts = () => {
     const [posts, setPosts] = useState<Post[]>([])
 
     useEffect(() => {
-        const loadPosts = async () => {
-            const response = await postService.getPosts()
-            if (response && Array.isArray(response)) {
-                setPosts(response as Post[])
-            }
-        }
-        loadPosts()
+        const fetchPosts = async () => {
+            const fetchedPosts = await postService.getPosts();
+            if (fetchedPosts)
+                setPosts(fetchedPosts);
+            console.log(fetchedPosts)
+        };
+
+        fetchPosts();
     }, []);
     return (
         <div>
             <h1>Welcome to the Home Page</h1>
-            {posts.map((post) => (
+            {posts?.map((post) => (
                 <div key={post.id}>
-                    <h2>{post.title}</h2>
+                    <h2>{post.titulo}</h2>
+                    <p dangerouslySetInnerHTML={{ __html: post.texto }} />
                 </div>
             ))}
         </div>
     );
 
 }
-export default Home;
+export default Posts;
 
 

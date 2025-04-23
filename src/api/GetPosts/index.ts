@@ -1,12 +1,22 @@
+import { Post } from "../../types";
 import { api } from "../_core/axios"
 import { GetPostsResponse } from "./interfaces/response"
 
 const GetPosts = async (): Promise<GetPostsResponse> => {
-    const response = await api.get('/posts', {
+    const response = await api.get<Post[]>('/posts', {
+        method: 'GET',
+    })
+    return { posts: response.data };
+
+}
+
+const GetPostsById = async (id: string): Promise<Post> => {
+    const response = await api.get<Post>(`/posts/${id}`, {
         method: 'GET',
     })
     return response.data
 }
 
 export default GetPosts
-export type { GetPostsResponse }
+export { GetPostsById }
+//export type { GetPostsResponse }

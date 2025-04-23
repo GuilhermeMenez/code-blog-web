@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Post from "../pages/Post/view"
-import Home from "../pages/Home/view"
+import PostDetail from "../pages/PostDetail/view"
+import Posts from "../pages/Home/view"
 
 const AppRoutes = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/posts" element={<Post />} />
+                <Route path="/Posts" element={<Posts />} />
+                <Route path="/posts/:id" element={<PostDetail />} />
             </Routes>
         </Router>
     )
