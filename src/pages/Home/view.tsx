@@ -10,7 +10,6 @@ const Posts = () => {
             const fetchedPosts = await postService.getPosts();
             if (fetchedPosts)
                 setPosts(fetchedPosts);
-            console.log(fetchedPosts)
         };
 
         fetchPosts();

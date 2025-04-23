@@ -7,7 +7,7 @@ import { postService } from "../../services/postService";
 
 const PostDetail = () => {
     const { id } = useParams<{ id: string }>();
-    const [post, setPost] = useState<Post | null>(null); // inicia como null
+    const [post, setPost] = useState<Post | null>(null);
 
 
     useEffect(() => {
@@ -15,13 +15,12 @@ const PostDetail = () => {
             const fetchedPost = await postService.getPostByid(id!);
             if (fetchedPost)
                 setPost(fetchedPost);
-            console.log(fetchedPost)
         };
 
         fetchPost();
     }, [id]);
 
-    if (!post) return <p>Carregando post...</p>; // evita erro ao acessar post.*
+    if (!post) return <p>Carregando post...</p>;
 
     return (
         <div>
