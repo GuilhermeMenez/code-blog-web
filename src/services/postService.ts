@@ -1,3 +1,4 @@
+//import DeletePost from "../api/Delete"
 import GetPosts, { GetPostsById } from "../api/GetPosts/"
 import { Post } from "../types"
 
@@ -28,6 +29,22 @@ export const postService = {
                 throw new Error("An unknown error occurred");
             }
         }
-    }
+    },
+
+    // deletePost: async (id: string): Promise<void> => {
+    //     try {
+    //         const response = await DeletePost(id)
+    //         return response
+
+    //     }
+    //     catch (error) {
+    //         if (error instanceof Error) {
+    //             throw error
+    //         }
+    //         else {
+    //             throw new Error("An unknown error occurred");
+    //         }
+    //     }
+    // }
 
 }

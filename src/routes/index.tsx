@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import PostDetail from "../pages/PostDetail/view"
-import Posts from "../pages/Home/view"
+import Posts from "../pages/Posts/view"
 
 const AppRoutes = () => {
     return (

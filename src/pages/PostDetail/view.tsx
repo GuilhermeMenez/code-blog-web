@@ -4,7 +4,6 @@ import { Post } from "../../types";
 import { postService } from "../../services/postService";
 
 
-
 const PostDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [post, setPost] = useState<Post | null>(null);
