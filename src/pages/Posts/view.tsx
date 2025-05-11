@@ -18,7 +18,7 @@ const Posts = () => {
         <div>
             <header className="container-fluid px-0 mb-4">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between px-3">
-                    <span className="navbar-brand mb-0 h1 fw-bold">MyCodeBlog</span>
+                    <a href="/posts" className="navbar-brand mb-0 h1 fw-bold">MyCodeBlog</a>
                     <a href="/newpost" className="btn btn-primary">Novo Post</a>
                 </nav>
             </header>

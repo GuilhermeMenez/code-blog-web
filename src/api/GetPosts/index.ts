@@ -15,4 +15,3 @@ const GetPostsById = async (id: string): Promise<Post> => {
 
 export default GetPosts
 export { GetPostsById }
-//export type { GetPostsResponse }

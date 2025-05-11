@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import PostDetail from "../pages/PostDetail/view"
 import Posts from "../pages/Posts/view"
+import PostForm from "../pages/postForm/view"
+import CreatPost from "../pages/CreatPost/view"
 
 const AppRoutes = () => {
     return (
@@ -8,6 +10,8 @@ const AppRoutes = () => {
             <Routes>
                 <Route path="/Posts" element={<Posts />} />
                 <Route path="/posts/:id" element={<PostDetail />} />
+                <Route path="/posts/edit/:id" element={<PostForm />} />
+                <Route path="/posts/new" element={<CreatPost />} />
             </Routes>
         </Router>
     )
