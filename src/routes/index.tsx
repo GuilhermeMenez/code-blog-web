@@ -8,10 +8,10 @@ const AppRoutes = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/Posts" element={<Posts />} />
+                <Route path="/posts" element={<Posts />} />
                 <Route path="/posts/:id" element={<PostDetail />} />
                 <Route path="/posts/edit/:id" element={<PostForm />} />
-                <Route path="/posts/new" element={<CreatPost />} />
+                <Route path="/newpost" element={<CreatPost />} />
             </Routes>
         </Router>
     )

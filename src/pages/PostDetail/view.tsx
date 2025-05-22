@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Post } from "../../types";
 import { postService } from "../../services/postService";
 
@@ -7,7 +7,13 @@ import { postService } from "../../services/postService";
 const PostDetail = () => {
     const { id } = useParams<{ id: string }>();
     const [post, setPost] = useState<Post | null>(null);
+    const navigate = useNavigate();
 
+
+    function handleDelete() {
+        postService.deletePost(post!.id);
+        navigate("/posts");
+    }
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -29,7 +35,7 @@ const PostDetail = () => {
                     <div className="d-flex gap-2">
                         <a href="/newpost" className="btn btn-primary">Novo Post</a>
                         <a href={`/posts/edit/${post.id}`} className="btn btn-primary">Editar</a>
-                        <button type="button" className="btn btn-secondary">Apagar</button>
+                        <button type="button" className="btn btn-secondary" onClick={handleDelete}>Apagar</button>
                     </div>
                 </nav>
             </header>
