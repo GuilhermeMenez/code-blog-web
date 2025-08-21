@@ -1,5 +1,5 @@
-import { api } from "../_core/axios";
-import { Post } from "../../types";
+import { api } from "../../_core/axios";
+import { Post } from "./Interfaces/request";
 
 const putPost = async (id: string, updatedPost: Post): Promise<Post> => {
     const response = await api.put<Post>(`/posts/edit/${id}`, updatedPost)

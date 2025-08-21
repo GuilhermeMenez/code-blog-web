@@ -1,5 +1,5 @@
-import { Post } from "../../types"
-import { api } from "../_core/axios"
+import { Post } from "../PutPost/Interfaces/request"
+import { api } from "../../_core/axios"
 import { postRequest } from "../GetPosts/interfaces/request"
 
 const PostPost = async (post: postRequest): Promise<Post> => {

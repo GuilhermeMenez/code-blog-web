@@ -1,9 +1,9 @@
-import DeletePost from "../api/DeletePost"
-import GetPosts, { GetPostsById } from "../api/GetPosts/"
-import { postRequest } from "../api/GetPosts/interfaces/request"
-import PostPost from "../api/PostPost"
-import putPost from "../api/PutPost"
-import { Post } from "../types"
+import DeletePost from "../api/Post/DeletePost"
+import GetPosts, { GetPostsById } from "../api/Post/GetPosts"
+import { postRequest } from "../api/Post/GetPosts/interfaces/request"
+import PostPost from "../api/Post/PostPost"
+import putPost from "../api/Post/PutPost"
+import { Post } from "../api/Post/PutPost/Interfaces/request"
 
 export const postService = {
     getPosts: async (): Promise<Post[]> => {

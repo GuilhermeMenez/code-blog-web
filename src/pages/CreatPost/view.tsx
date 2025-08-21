@@ -1,4 +1,4 @@
-import { postRequest } from "../../api/GetPosts/interfaces/request";
+import { postRequest } from "../../api/Post/GetPosts/interfaces/request";
 import { postService } from "../../services/postService";
 import { useNavigate } from "react-router-dom";
 

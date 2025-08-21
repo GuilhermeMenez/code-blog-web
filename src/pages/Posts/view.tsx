@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { postService } from "../../services/postService";
-import { Post } from "../../types";
+import { Post } from "../../api/Post/PutPost/Interfaces/request";
 
 const Posts = () => {
     const [posts, setPosts] = useState<Post[]>([]);
