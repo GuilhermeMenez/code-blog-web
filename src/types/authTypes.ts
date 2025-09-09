@@ -1,5 +1,7 @@
 export interface User {
     sub?: string;
+    id?: string;
+    name?: string;
 }
 
 export interface AuthContextType {
@@ -17,3 +19,16 @@ export interface AuthContextType {
 export interface AuthProviderProps {
     children: React.ReactNode;
 };
+
+export interface SingUpParams {
+    name: string;
+    email: string;
+    password: string;
+    userRole: 'admin' | 'user';
+}
+
+
+export interface SignInParams {
+    login: string,
+    password: string;
+}

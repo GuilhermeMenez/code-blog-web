@@ -1,4 +1,8 @@
-export interface Post {
-    title: string;
-    content: string;
+export interface putPostRequest {
+    id: string;
+    data: {
+        title?: string;
+        content?: string;
+    }
 }
+

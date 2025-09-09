@@ -1,9 +1,9 @@
-import { Post } from "../PutPost/Interfaces/request"
 import { api } from "../../_core/axios"
-import { postRequest } from "../GetPosts/interfaces/request"
+import { postRequest } from "./interfaces/request"
+import { PostPostResponse } from "./interfaces/respose"
 
-const PostPost = async (post: postRequest): Promise<Post> => {
-    const response = await api.post<Post>('/newpost', post)
+const PostPost = async (request: postRequest): Promise<PostPostResponse> => {
+    const response = await api.post('/newpost', request)
     return response.data
 }
 export default PostPost

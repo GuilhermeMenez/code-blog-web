@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState } from "react";
 import { AuthContextType, AuthProviderProps, User } from "../types/authTypes";
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -17,8 +18,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
                 setIsAuthenticated,
                 validateAuth,
                 setValidateAuth,
-            }
-            }
+            }}
         >
             {children}
         </AuthContext.Provider>
@@ -26,3 +26,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 };
 
 export default AuthProvider;
+
+export const useAuthContext = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("AuthProvider must be used within an AuthContext");
+    }
+    return context;
+};
+
