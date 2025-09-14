@@ -1,4 +1,4 @@
-import { api } from "../../_core/axios";
+import { api } from '@/api/_core/axios';
 import { GetPostsByIdRequest } from "./interfaces/request";
 import { GetPostByIdResponse } from "./interfaces/response";
 

@@ -1,4 +1,5 @@
-import { api } from "../../_core/axios.ts";
+import { api } from '@/api/_core/axios';
+
 import { PostUserLoginResponse } from "./interfaces/response.ts";
 import { PostUserLoginRequest } from "./interfaces/request.ts";
 

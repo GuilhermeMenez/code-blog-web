@@ -1,4 +1,4 @@
-export interface putPostRequest {
+export interface PutPostRequest {
     id: string;
     data: {
         title?: string;

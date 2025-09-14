@@ -26,6 +26,7 @@ const PostProvider = ({ children }: PostProviderProps) => {
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const usePostContext = () => {
     const context = useContext(PostContext);
     if (!context) {

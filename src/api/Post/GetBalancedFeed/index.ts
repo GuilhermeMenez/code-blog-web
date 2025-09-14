@@ -1,4 +1,4 @@
-import { api } from "../../_core/axios";
+import { api } from '@/api/_core/axios';
 import { GetBalancedFeedRequest } from "./interfaces/request";
 import { GetBalancedFeedResponse } from "./interfaces/response";
 

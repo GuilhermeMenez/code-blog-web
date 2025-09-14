@@ -9,9 +9,9 @@ import { Post } from "../types/postType";
 
 
 export const postService = {
-    getPosts: async (id: string): Promise<Post[]> => {
+    getPosts: async (request: string): Promise<Post[]> => {
         try {
-            const response = await GetAllPosts({ userId: id })
+            const response = await GetAllPosts({ userId: request })
             return response.posts
         } catch (error) {
             if (error instanceof Error) {
@@ -22,9 +22,9 @@ export const postService = {
         }
     },
 
-    getPostByid: async (id: string): Promise<Post> => {
+    getPostByid: async (request: string): Promise<Post> => {
         try {
-            const response = await GetPostsById({ postId: id })
+            const response = await GetPostsById({ postId: request })
             return response.post
         }
         catch (error) {
@@ -56,9 +56,9 @@ export const postService = {
         }
     },
 
-    deletePost: async (id: string): Promise<void> => {
+    deletePost: async (request: string): Promise<void> => {
         try {
-            const response = await DeletePost({ postId: id })
+            const response = await DeletePost({ postId: request })
             return response
         }
         catch (error) {

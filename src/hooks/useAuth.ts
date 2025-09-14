@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode'
 import { useAuthContext } from "../context/authContext";
-import { authService } from "../services/authenticationService";
+import { authService } from "../services/authService";
 import { SignInParams, SingUpParams, User } from "../types/authTypes";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';

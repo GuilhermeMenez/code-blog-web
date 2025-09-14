@@ -1,9 +1,9 @@
-import { api } from "../../_core/axios"
-import { DeletPostRequest } from "./interfaces/request";
+import { api } from '@/api/_core/axios';
+import { DeletePostRequest } from "./interfaces/request";
 
-const DeletePost = async (id: DeletPostRequest): Promise<void> => {
-    await api.delete(`post/posts/${id}`);
-
+const DeletePost = async (request: DeletePostRequest): Promise<void> => {
+    await api.delete(`post/posts/${request.postId}`);
 }
 
 export default DeletePost
+export type { DeletePostRequest }

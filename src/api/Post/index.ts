@@ -1,20 +1,16 @@
-// import { Post } from "../../../types/postType";
-// import { api } from "../../_core/axios"
-// import { GetAllPostsRequest, GetBalancedFeedRequest, GetPostsByIdRequest } from "./GetAllPosts/interfaces/request";
-// import { GetAllPostsResponse, GetBalancedFeedResponse } from "./GetAllPosts/interfaces/response"
+import DeletePost, { DeletePostRequest } from "./DeletePost";
+import GetAllPosts, { GetAllPostsRequest } from "./GetAllPosts";
+import GetBalancedFeed, { GetBalancedFeedRequest } from "./GetBalancedFeed";
+import GetPostsById, { GetPostsByIdRequest } from "./GetPostsById";
+import PostPost, { PostRequest } from "./PostPost";
+import PutPost, { PutPostRequest } from "./PutPost";
 
-
-
-
-
-
-// // const GetBalancedFeed = async (request: GetBalancedFeedRequest): Promise<GetBalancedFeedResponse> => {
-// //     const response = await api.get(`/posts/balanced-feed`, { params: { userId: request.userId, page: request.page, limit: request.limit } });
-
-
-// //     return response.data;
-// // }
-
-
-// export default GetAllPosts
-// export { GetPostsById }
+const PostApi = {
+    DeletePost: (request: DeletePostRequest) => DeletePost(request),
+    GetAllPosts: (request: GetAllPostsRequest) => GetAllPosts(request),
+    GetBalancedFeed: (request: GetBalancedFeedRequest) => GetBalancedFeed(request),
+    GetPostsById: (request: GetPostsByIdRequest) => GetPostsById(request),
+    PostPost: (request: PostRequest) => PostPost(request),
+    PutPost: (request: PutPostRequest) => PutPost(request),
+}
+export default PostApi;

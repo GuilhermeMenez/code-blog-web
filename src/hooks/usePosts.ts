@@ -3,7 +3,7 @@ import { postService } from "../services/postService";
 import { editPost, Post } from "../types/postType";
 import { usePostContext } from "../context/postContext";
 
-const usePost = () => {
+const usePosts = () => {
     const navigate = useNavigate();
     const {
         post,
@@ -24,8 +24,7 @@ const usePost = () => {
         }
     }
 
-
-    const handleFetcPostById = async (postId: string) => {
+    const handleFetchPostById = async (postId: string) => {
         try {
             const allPosts = await postService.getPostByid(postId);
             setPosts([allPosts]);
@@ -61,7 +60,6 @@ const usePost = () => {
     }
     const handleCreatePost = async (newPost: editPost) => {
         try {
-
             await postService.createPost(newPost);
             await handleFetchAllPosts(newPost.authorId);
             navigate('/posts');
@@ -79,12 +77,10 @@ const usePost = () => {
         selectedPost,
         setSelectedPost,
         handleFetchAllPosts,
-        handleFetcPostById,
+        handleFetchPostById,
         handleDeletePost,
         handleUpdatePost,
         handleCreatePost
-
     };
 }
-
-export { usePost }
+export { usePosts }
