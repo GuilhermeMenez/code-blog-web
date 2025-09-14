@@ -3,6 +3,8 @@ import { PostUserLoginRequest, PostUserLoginResponse } from "../api/Auth/PostUse
 import { PostUserRegisterRequest, PostUserRegisterResponse } from "../api/Auth/PostUserRegister";
 
 export const authService = {
+    //TODO: tratar erros
+
     login: async (request: PostUserLoginRequest): Promise<PostUserLoginResponse> => {
         try {
             const response = await AuthApi.postLogin(request);
@@ -18,6 +20,7 @@ export const authService = {
     },
 
     register: async (request: PostUserRegisterRequest): Promise<PostUserRegisterResponse> => {
+        //TODO: tratar erros
         try {
             const response = await AuthApi.postRegister(request);
             return response;

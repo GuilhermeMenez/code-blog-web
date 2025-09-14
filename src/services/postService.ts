@@ -1,11 +1,9 @@
-import DeletePost from "../api/Post/DeletePost";
-import GetAllPosts from "../api/Post/GetAllPosts";
-import GetPostsById from "../api/Post/GetPostsById";
-import PostPost from "../api/Post/PostPost";
-import { postRequest } from "../api/Post/PostPost/interfaces/request";
-import putPost from "../api/Post/PutPost";
-import { putPostRequest } from "../api/Post/PutPost/Interfaces/request";
-import { Post } from "../types/postType";
+import DeletePost from "@/api/Post/DeletePost";
+import GetAllPosts from "@/api/Post/GetAllPosts";
+import GetPostsById from "@/api/Post/GetPostsById";
+import PostPost, { PostRequest } from "@/api/Post/PostPost";
+import putPost, { PutPostRequest } from "@/api/Post/PutPost";
+import { Post } from "@/types/postType";
 
 
 export const postService = {
@@ -39,7 +37,7 @@ export const postService = {
 
     upDatePost: async (post: Post): Promise<void> => {
         try {
-            const request: putPostRequest = {
+            const request: PutPostRequest = {
                 id: post.id,
                 data: {
                     title: post.title,
@@ -70,7 +68,7 @@ export const postService = {
             }
         }
     },
-    createPost: async (post: postRequest): Promise<string> => {
+    createPost: async (post: PostRequest): Promise<string> => {
         try {
             const response = await PostPost(post);
             return response.postId;

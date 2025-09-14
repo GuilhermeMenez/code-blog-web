@@ -48,9 +48,6 @@ const usePosts = () => {
     const handleDeletePost = async (postId: string) => {
         try {
             await postService.deletePost(postId);
-            if (post) {
-                await handleFetchAllPosts(post.userId);
-            }
             navigate('/posts');
         } catch (error) {
             console.error("Erro ao deletar post:", error);
