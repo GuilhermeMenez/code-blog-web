@@ -1,14 +1,15 @@
-import DeletePost from "../api/DeletePost"
-import GetPosts, { GetPostsById } from "../api/GetPosts/"
-import { postRequest } from "../api/GetPosts/interfaces/request"
-import PostPost from "../api/PostPost"
-import putPost from "../api/PutPost"
-import { Post } from "../types"
+import DeletePost from "@/api/Post/DeletePost";
+import GetAllPosts from "@/api/Post/GetAllPosts";
+import GetPostsById from "@/api/Post/GetPostsById";
+import PostPost, { PostRequest } from "@/api/Post/PostPost";
+import putPost, { PutPostRequest } from "@/api/Post/PutPost";
+import { Post } from "@/types/postType";
+
 
 export const postService = {
-    getPosts: async (): Promise<Post[]> => {
+    getPosts: async (request: string): Promise<Post[]> => {
         try {
-            const response = await GetPosts()
+            const response = await GetAllPosts({ userId: request })
             return response.posts
         } catch (error) {
             if (error instanceof Error) {
@@ -19,10 +20,10 @@ export const postService = {
         }
     },
 
-    getPostByid: async (id: string): Promise<Post> => {
+    getPostByid: async (request: string): Promise<Post> => {
         try {
-            const response = await GetPostsById(id)
-            return response
+            const response = await GetPostsById({ postId: request })
+            return response.post
         }
         catch (error) {
             if (error instanceof Error) {
@@ -34,23 +35,28 @@ export const postService = {
         }
     },
 
-    upDatePost: async (post: Post): Promise<Post> => {
+    upDatePost: async (post: Post): Promise<void> => {
         try {
-            const response = await putPost(post.id, post)
-            return response
+            const request: PutPostRequest = {
+                id: post.id,
+                data: {
+                    title: post.title,
+                    content: post.content,
+                }
+            };
+            await putPost(request)
         } catch (error) {
             if (error instanceof Error) {
-                throw error
+                throw error;
             } else {
                 throw new Error("An unknown error occurred");
             }
         }
     },
 
-
-    deletePost: async (id: string): Promise<void> => {
+    deletePost: async (request: string): Promise<void> => {
         try {
-            const response = await DeletePost(id)
+            const response = await DeletePost({ postId: request })
             return response
         }
         catch (error) {
@@ -62,13 +68,13 @@ export const postService = {
             }
         }
     },
-    createPost: async (post: postRequest): Promise<Post> => {
+    createPost: async (post: PostRequest): Promise<string> => {
         try {
-            const response = await PostPost(post)
-            return response
+            const response = await PostPost(post);
+            return response.postId;
         } catch (error) {
             if (error instanceof Error) {
-                throw error
+                throw error;
             } else {
                 throw new Error("An unknown error occurred");
             }

@@ -1,0 +1,10 @@
+import { api } from '@/api/_core/axios';
+import { PutPostRequest } from "./Interfaces/request";
+
+const PutPost = async (request: PutPostRequest): Promise<void> => {
+    const response = await api.put(`/posts/edit/${request.id}`, request.data);
+    return response.data
+};
+
+export default PutPost
+export type { PutPostRequest };
