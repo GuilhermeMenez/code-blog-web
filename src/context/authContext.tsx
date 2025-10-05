@@ -5,7 +5,7 @@ import { AuthContextType, AuthProviderProps, User } from "../types/authTypes";
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [user, setUser] = useState<User>({});
+const [user, setUser] = useState<User | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [validateAuth, setValidateAuth] = useState<boolean>(false);
 

@@ -5,14 +5,14 @@ export interface User {
 }
 
 export interface AuthContextType {
-    user: User
-    setUser: (user: User) => void;
+    user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
 
     isAuthenticated: boolean;
-    setIsAuthenticated: (isAuthenticated: boolean) => void;
+    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 
-    validateAuth: boolean
-    setValidateAuth: (validateAuth: boolean) => void;
+    validateAuth: boolean;
+    setValidateAuth: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 

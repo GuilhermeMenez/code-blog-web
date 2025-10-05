@@ -7,10 +7,11 @@ import { Post } from "@/types/postType";
 
 
 export const postService = {
-    getPosts: async (request: string): Promise<Post[]> => {
+    getPosts: async (): Promise<Post[]> => {
         try {
-            const response = await GetAllPosts({ userId: request })
-            return response.posts
+            const response = await GetAllPosts()
+            console.log(response)
+            return response
         } catch (error) {
             if (error instanceof Error) {
                 throw error

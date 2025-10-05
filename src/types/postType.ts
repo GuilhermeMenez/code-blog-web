@@ -4,9 +4,12 @@ export interface Post {
     id: string,
     title: string,
     content: string,
-    userId: string
+    userId: string,
+    author:{
+       id: string,
+       name: string
+    },
     createdAt: string,
-    author: string
     comments: Comments[]
 }
 

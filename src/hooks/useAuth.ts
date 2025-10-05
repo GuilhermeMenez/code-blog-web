@@ -2,9 +2,9 @@ import { jwtDecode } from 'jwt-decode'
 import { useAuthContext } from "../context/authContext";
 import { authService } from "../services/authService";
 import { SignInParams, SingUpParams, User } from "../types/authTypes";
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 const useAuth = () => {
     const navigate = useNavigate();
@@ -50,12 +50,13 @@ const useAuth = () => {
                 name: name,
 
             }
+            
 
             setUser(userData)
             handleSessionCookie(token)
             setIsAuthenticated(true)
             setValidateAuth(true)
-            navigate('/posts')
+            navigate('/feed')
 
         } catch (error) {
             console.error("Erro ao fazer login:", error);

@@ -1,7 +1,6 @@
 export interface Comments {
     id: string,
-    postId: string,
-    userId: string,
     content: string,
+    author: string,
     createdAt: string,
 }
