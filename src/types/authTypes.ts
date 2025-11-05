@@ -32,3 +32,7 @@ export interface SignInParams {
     login: string,
     password: string;
 }
+
+export interface LogoutParams {
+    token: string;
+}

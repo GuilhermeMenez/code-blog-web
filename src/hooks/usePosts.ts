@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { postService } from "../services/postService";
-import { editPost, Post } from "../types/postType";
+import { CreatePost, editPost } from "../types/postType";
 import { usePostContext } from "../context/postContext";
 
 const usePosts = () => {
@@ -15,28 +15,24 @@ const usePosts = () => {
       setPosts(posts);
       console.log(posts);
     } catch (error) {
-      console.error("Erro ao buscar posts:", error);
       throw error;
     }
   };
 
   const handleFetchPostById = async (postId: string) => {
     try {
-      const allPosts = await postService.getPostByid(postId);
-      setPosts([allPosts]);
+      const fetchedPost = await postService.getPostByid(postId);
+      setPost(fetchedPost);
     } catch (error) {
-      console.error("Erro ao buscar posts:", error);
       throw error;
     }
   };
 
-  const handleUpdatePost = async (post: Post) => {
+  const handleUpdatePost = async (updatedPost: editPost) => {
     try {
-      await postService.upDatePost(post);
-      await handleFetchAllPosts(post.userId);
-      navigate("/posts");
+      console.log(updatedPost, "hook");
+      await postService.upDatePost(updatedPost);
     } catch (error) {
-      console.error("Erro ao atualizar post:", error);
       throw error;
     }
   };
@@ -46,20 +42,19 @@ const usePosts = () => {
       await postService.deletePost(postId);
       navigate("/posts");
     } catch (error) {
-      console.error("Erro ao deletar post:", error);
       throw error;
     }
   };
-  const handleCreatePost = async (newPost: editPost) => {
+  const handleCreatePost = async (newPost: CreatePost) => {
     try {
       await postService.createPost(newPost);
       await handleFetchAllPosts(newPost.authorId);
       navigate("/posts");
     } catch (error) {
-      console.error("Erro ao criar post:", error);
       throw error;
     }
   };
+
   return {
     post,
     setPost,

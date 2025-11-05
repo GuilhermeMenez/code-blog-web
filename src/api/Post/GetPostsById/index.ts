@@ -3,7 +3,7 @@ import { GetPostsByIdRequest } from "./interfaces/request";
 import { GetPostByIdResponse } from "./interfaces/response";
 
 const GetPostsById = async (request: GetPostsByIdRequest): Promise<GetPostByIdResponse> => {
-    const response = await api.get(`/posts/${request.postId}`);
+    const response = await api.get(`/post/posts/${request.postId}`);
     return response.data
 }
 

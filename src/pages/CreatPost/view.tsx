@@ -1,89 +1,99 @@
-// import { postRequest } from "../../api/Post/GetPosts/GetAllPosts/interfaces/request";
-// import { postService } from "../../services/postService";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { usePosts } from "@/hooks/usePosts";
+import { useAuth } from "@/hooks/useAuth";
+import { FormEvent, useState } from "react";
+import Cookies from 'js-cookie';
 
+const CreatePost = () => {
+    const navigate = useNavigate();
+    const { handleCreatePost } = usePosts();
+    const { user } = useAuth();
 
-// const CreatPost = () => {
-//     const navigate = useNavigate();
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
-//     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-//         event.preventDefault();
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-//         const formData = new FormData(event.currentTarget);
-//         const newPost: postRequest = {
-//             titulo: formData.get("titulo") as string,
-//             autor: formData.get("autor") as string,
-//             texto: formData.get("texto") as string,
-//             data: new Date().toLocaleDateString("pt-BR")
-//         };
+        console.log(title, content, user?.id, Cookies.get("token"));
 
-//         await postService.createPost(newPost);
-//         navigate("/posts");
-//     }
+        if (!user?.id) {
+            alert("Você precisa estar logado para criar um post!");
+            return;
+        }
 
-//     function handleCancel() {
-//         navigate(-1);
-//     }
-//     return (
-//         <div>
-//             <header className="container-fluid px-0 mb-5">
-//                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between px-3">
-//                     <a href="/posts" className="navbar-brand mb-0 h1 fw-bold">MyCodeBlog</a>
-//                 </nav>
-//             </header>
+        try {
+            await handleCreatePost({title, content, authorId: user.id});
 
-//             <div className="mb-2 w-60 mx-auto bg-white rounded shadow-sm p-4">
-//                 <form className="p-4 border rounded shadow" onSubmit={handleSubmit}>
-//                     <div className="form-group mb-3">
-//                         <input
-//                             type="text"
-//                             className="form-control bg-light text-dark"
-//                             name="titulo"
-//                             placeholder="Título *"
-//                             required
-//                         />
-//                     </div>
+            console.log("Post criado com sucesso!");
+            navigate("/posts");
+        } catch (error) {
+            console.error("Erro ao criar post:", error);
+             console.log("Erro ao criar post. Tente novamente.");
+        }
+    };
 
-//                     <div className="form-group mb-3">
-//                         <input
-//                             type="text"
-//                             className="form-control bg-light text-dark"
-//                             name="autor"
-//                             placeholder="Autor *"
-//                             required
-//                         />
-//                     </div>
+    const handleCancel = () => {
+        navigate(-1);
+    };
 
-//                     <div className="form-group mb-3">
-//                         <textarea
-//                             id="summernote"
-//                             className="form-control bg-light text-dark"
-//                             name="texto"
-//                             placeholder="Texto *"
-//                             rows={5}
-//                             required
-//                         ></textarea>
-//                     </div>
+    return (
+        <div>
+            <header className="container-fluid px-0 mb-5">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between px-3">
+                    <a href="/posts" className="navbar-brand mb-0 h1 fw-bold">
+                        MyCodeBlog
+                    </a>
+                </nav>
+            </header>
 
-//                     <small className="form-text text-muted mb-3 d-block">
-//                         (*) Campos obrigatórios
-//                     </small>
+            <div className="mb-2 w-60 mx-auto bg-white rounded shadow-sm p-4">
+                <form className="p-4 border rounded shadow" onSubmit={handleSubmit}>
+                    <div className="form-group mb-3">
+                        <input
+                            type="text"
+                            className="form-control bg-light text-dark"
+                            name="titulo"
+                            placeholder="Título *"
+                            required
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </div>
 
-//                     <div className="d-flex gap-2">
-//                         <button type="submit" className="btn btn-primary">
-//                             Publicar
-//                         </button>
-//                         <button
-//                             type="button"
-//                             className="btn btn-light"
-//                             onClick={handleCancel}
-//                         >
-//                             Cancelar
-//                         </button>
-//                     </div>
-//                 </form>
-//             </div>
-//         </div>
-//     )
-// }
-// export default CreatPost
+                    <div className="form-group mb-3">
+                        <textarea
+                            id="summernote"
+                            className="form-control bg-light text-dark"
+                            name="texto"
+                            placeholder="Texto *"
+                            rows={5}
+                            required
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        ></textarea>
+                    </div>
+
+                    <small className="form-text text-muted mb-3 d-block">
+                        (*) Campos obrigatórios
+                    </small>
+
+                    <div className="d-flex gap-2">
+                        <button type="submit" className="btn btn-primary">
+                            Publicar
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-light"
+                            onClick={handleCancel}
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default CreatePost;

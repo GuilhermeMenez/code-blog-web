@@ -17,4 +17,3 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-//todo Deleter o token 

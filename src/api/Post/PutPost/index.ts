@@ -2,7 +2,7 @@ import { api } from '@/api/_core/axios';
 import { PutPostRequest } from "./Interfaces/request";
 
 const PutPost = async (request: PutPostRequest): Promise<void> => {
-    const response = await api.put(`/posts/edit/${request.id}`, request.data);
+    const response = await api.put(`/posts/edit/${request.postId}`, request);
     return response.data
 };
 

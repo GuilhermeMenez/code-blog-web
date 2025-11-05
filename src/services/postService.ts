@@ -3,7 +3,7 @@ import GetAllPosts from "@/api/Post/GetAllPosts";
 import GetPostsById from "@/api/Post/GetPostsById";
 import PostPost, { PostRequest } from "@/api/Post/PostPost";
 import putPost, { PutPostRequest } from "@/api/Post/PutPost";
-import { Post } from "@/types/postType";
+import { editPost, Post } from "@/types/postType";
 
 
 export const postService = {
@@ -24,7 +24,8 @@ export const postService = {
     getPostByid: async (request: string): Promise<Post> => {
         try {
             const response = await GetPostsById({ postId: request })
-            return response.post
+            console.log(response)
+            return response.post;
         }
         catch (error) {
             if (error instanceof Error) {
@@ -36,16 +37,11 @@ export const postService = {
         }
     },
 
-    upDatePost: async (post: Post): Promise<void> => {
+    upDatePost: async (request: editPost): Promise<void> => {
         try {
-            const request: PutPostRequest = {
-                id: post.id,
-                data: {
-                    title: post.title,
-                    content: post.content,
-                }
-            };
-            await putPost(request)
+            console.log(request, "service")
+           const response = await putPost(request)
+           return response
         } catch (error) {
             if (error instanceof Error) {
                 throw error;
@@ -54,7 +50,7 @@ export const postService = {
             }
         }
     },
-
+    
     deletePost: async (request: string): Promise<void> => {
         try {
             const response = await DeletePost({ postId: request })
@@ -69,9 +65,9 @@ export const postService = {
             }
         }
     },
-    createPost: async (post: PostRequest): Promise<string> => {
+    createPost: async (request: PostRequest): Promise<string> => {
         try {
-            const response = await PostPost(post);
+            const response = await PostPost(request);
             return response.postId;
         } catch (error) {
             if (error instanceof Error) {

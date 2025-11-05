@@ -1,8 +1,9 @@
 export interface PutPostRequest {
-    id: string;
-    data: {
-        title?: string;
-        content?: string;
-    }
+    title: string;
+    content: string;
+    authorId: string;
+    userid: string;
+    postId: string;
 }
+
 

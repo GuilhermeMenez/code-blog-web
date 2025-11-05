@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode'
 import { useAuthContext } from "../context/authContext";
 import { authService } from "../services/authService";
-import { SignInParams, SingUpParams, User } from "../types/authTypes";
+import { LogoutParams, SignInParams, SingUpParams, User } from "../types/authTypes";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
@@ -51,7 +51,6 @@ const useAuth = () => {
 
             }
             
-
             setUser(userData)
             handleSessionCookie(token)
             setIsAuthenticated(true)
@@ -62,9 +61,19 @@ const useAuth = () => {
             console.error("Erro ao fazer login:", error);
             throw error;
         }
+    }
 
-        //fazer o signout
-
+    const handleLougout = async ({ token }: LogoutParams) => {
+        try  {
+            authService.logout({ token })
+        } catch (error) {
+            console.error("Erro ao fazer logout:", error);
+        }
+       
+        Cookies.remove('token')
+        setIsAuthenticated(false)
+        setUser(null)
+        navigate('/login')
     }
 
     useEffect(() => {
@@ -75,7 +84,6 @@ const useAuth = () => {
                 setUser(jwtDecode<User>(token))
             }
         }
-
         loadCookie()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -89,7 +97,8 @@ const useAuth = () => {
         validateAuth,
         setValidateAuth,
         handleSignUp,
-        handleSignIn
+        handleSignIn,
+        handleLougout
     };
 }
 

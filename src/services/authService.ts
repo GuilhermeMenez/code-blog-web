@@ -1,6 +1,7 @@
 import AuthApi from "../api/Auth/index";
 import { PostUserLoginRequest, PostUserLoginResponse } from "../api/Auth/PostUserLogin";
 import { PostUserRegisterRequest, PostUserRegisterResponse } from "../api/Auth/PostUserRegister";
+import { PostUserLogoutResquest } from "@/api/Auth/PostUserLogOut";
 
 export const authService = {
     //TODO: tratar erros
@@ -33,8 +34,21 @@ export const authService = {
             }
         }
 
+    },
+
+    logout: async (request: PostUserLogoutResquest): Promise<void> => {
+        try {
+            const response = await AuthApi.postLogout(request);
+            return response;
+        }catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            } else {
+                throw new Error("Erro ao deslogar usuário");
+            }
+        }
     }
-
-
-
 }
+
+
+

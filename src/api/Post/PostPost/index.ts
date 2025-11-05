@@ -3,7 +3,7 @@ import { PostRequest } from "./interfaces/request"
 import { PostPostResponse } from "./interfaces/respose"
 
 const PostPost = async (request: PostRequest): Promise<PostPostResponse> => {
-    const response = await api.post('/newpost', request)
+    const response = await api.post('/post/newpost', request)
     return response.data
 }
 export default PostPost

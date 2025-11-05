@@ -1,7 +1,7 @@
 import { Comments } from "./commentsType"
 
 export interface Post {
-    id: string,
+    postId: string,
     title: string,
     content: string,
     userId: string,
@@ -13,6 +13,12 @@ export interface Post {
     comments: Comments[]
 }
 
+
+export interface CreatePost {
+    title: string;
+    content: string;
+    authorId: string;
+}
 
 
 export interface PostContextType {
@@ -36,4 +42,6 @@ export interface editPost {
     title: string;
     content: string;
     authorId: string;
+    userid: string;
+    postId: string;
 }

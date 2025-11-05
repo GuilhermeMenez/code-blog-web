@@ -8,7 +8,7 @@ const { posts, handleFetchAllPosts, } = usePosts();
 
     useEffect(() => {
         handleFetchAllPosts(user?.id)
-    }, [])
+    }, [user?.id])
 
   
     return (
@@ -28,17 +28,17 @@ const { posts, handleFetchAllPosts, } = usePosts();
                         </ol>
                     </nav>
                     <div className="row w-60 mx-auto">
-                        {posts?.map((posts) => (
-                            <div className="col-12 mb-4" key={posts.id}>
-                                <a href={`/posts/${posts.id}`} className="card shadow-sm bg-white rounded text-start h-100">
+                        {posts?.map((post) => (
+                            <div className="col-12 mb-4" key={post.postId}>
+                                <a href={`/posts/${post.postId}`} className="card shadow-sm bg-white rounded text-start h-100">
                                     <div className="card-body">
-                                        <h4 className="card-title fw-bold text-dark">{posts.title}</h4>
+                                        <h4 className="card-title fw-bold text-dark">{post.title}</h4>
                                         <div className="card-subtitle text-muted mb-2">
-                                            <p className="mb-1">{posts.author.name}</p>
-                                            <span>{posts.createdAt.toLocaleString()}</span>
+                                            <p className="mb-1">{post.author.name}</p>
+                                            <span>{post.createdAt.toLocaleString()}</span>
                                         </div>
                                         <p className="card-text text-dark">
-                                            {posts.content.substring(0, 400)}
+                                            {post.content.substring(0, 400)}
                                         </p>
                                     </div>
                                 </a>
