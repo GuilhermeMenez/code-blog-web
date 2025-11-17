@@ -42,6 +42,6 @@ export interface editPost {
     title: string;
     content: string;
     authorId: string;
-    userid: string;
+    userId: string;
     postId: string;
 }

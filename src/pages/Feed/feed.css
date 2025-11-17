@@ -1,0 +1,45 @@
+/* 
+.card:hover {
+  box-shadow: 0 4px 8px rgba(128, 0, 128, 0.2) !important;
+  transition: box-shadow 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(128, 0, 128, 0.1) !important;
+  color: #6a0dad !important;
+}
+
+.btn-link:hover {
+  color: #6a0dad !important;
+}
+
+a.text-decoration-none:hover {
+  color: #6a0dad !important;
+}
+
+
+.modal.show {
+  display: block !important;
+}
+
+.modal-dialog {
+  z-index: 1050;
+}
+
+.modal-content {
+  border-radius: 8px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+}
+
+.btn-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+ */

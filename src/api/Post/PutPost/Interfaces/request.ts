@@ -2,7 +2,7 @@ export interface PutPostRequest {
     title: string;
     content: string;
     authorId: string;
-    userid: string;
+    userId: string;
     postId: string;
 }
 

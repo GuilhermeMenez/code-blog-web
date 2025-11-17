@@ -2,7 +2,7 @@ import DeletePost from "@/api/Post/DeletePost";
 import GetAllPosts from "@/api/Post/GetAllPosts";
 import GetPostsById from "@/api/Post/GetPostsById";
 import PostPost, { PostRequest } from "@/api/Post/PostPost";
-import putPost, { PutPostRequest } from "@/api/Post/PutPost";
+import putPost from "@/api/Post/PutPost";
 import { editPost, Post } from "@/types/postType";
 
 

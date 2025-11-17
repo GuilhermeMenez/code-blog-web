@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import { usePosts } from "@/hooks/usePosts";
+import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
 
 
 const PostDetail = () => {
     const { id } = useParams();
     const { post, handleFetchPostById, handleDeletePost  } = usePosts();
+    const { user } = useAuth();
 
    useEffect(() => {
   if (id) {
@@ -18,6 +20,11 @@ const PostDetail = () => {
         await handleDeletePost(post.postId);
     }
 
+    const isMyPost = () => {
+        if (!post || !user) return false;
+        return post.userId === user.id || post.author.id === user.id;
+    };
+
     if (!post) return <p>Carregando post...</p>;
 
     return (
@@ -27,8 +34,12 @@ const PostDetail = () => {
                     <a href="/posts" className="navbar-brand mb-0 h1 fw-bold">MyCodeBlog</a>
                     <div className="d-flex gap-2">
                         <a href="/newpost" className="btn btn-primary">Novo Post</a>
-                         <a href={`/posts/edit/${post.postId}`} className="btn btn-primary">Editar</a> 
-                         <button type="button" className="btn btn-secondary" onClick={deletePost} >Apagar</button> 
+                        {isMyPost() && (
+                            <>
+                                <a href={`/posts/edit/${post.postId}`} className="btn btn-primary">Editar</a> 
+                                <button type="button" className="btn btn-secondary" onClick={deletePost}>Apagar</button>
+                            </>
+                        )}
                     </div>
                 </nav>
             </header>

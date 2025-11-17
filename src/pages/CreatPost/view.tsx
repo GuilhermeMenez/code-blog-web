@@ -71,6 +71,7 @@ const CreatePost = () => {
                             required
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
+                            style={{ resize: 'none' }}
                         ></textarea>
                     </div>
 

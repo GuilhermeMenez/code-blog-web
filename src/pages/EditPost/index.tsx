@@ -1,10 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { usePosts } from "@/hooks/usePosts";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const EditPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { post, handleFetchPostById, handleUpdatePost } = usePosts();
 
   const [title, setTitle] = useState("");
@@ -13,6 +15,7 @@ const EditPost = () => {
   useEffect(() => {
     if (id) {
       handleFetchPostById(id);
+      console.log(id, "id")
     }
   }, [id]);
 
@@ -27,11 +30,16 @@ const EditPost = () => {
     e.preventDefault();
     if (!post) return;
 
+    if (!user?.id) {
+      alert("Você precisa estar logado para editar um post!");
+      return;
+    }
+
     const updatedPost = {
       title,
       content,
       authorId: post.author?.id || "",
-      userid: post.userId || "",
+      userId: user.id,
       postId: post.postId
     };
 
@@ -82,6 +90,7 @@ const EditPost = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               required
+              style={{ resize: 'none' }}
             />
           </div>
 
