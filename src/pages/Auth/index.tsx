@@ -1,23 +1,46 @@
 import { useState } from "react";
-import SingUpPage from "./components/FormSignUp";
-import SingInPage from "./components/FormSignIn";
+import "./styles.css";
+
+import SignInForm from "./components/SignInForm";
+import SingUpForm from "./components/SingUpForm";
 import { Card, Flex, Text } from "@radix-ui/themes";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <Flex justify="center" align="center" height="100vh">
-      <Card size="4">
-        <Flex direction="row" align="center" gap="4" width="1326px" >
-          <Flex direction="column" style={{ width: '40%' }}>
-            <Text size={"9"}>Code Blog</Text>
+    <Flex className="auth-wrapper" justify="center" align="center">
+      <Card className="auth-card" size="3">
+        <Flex direction="row" className="auth-content">
+          <Flex
+            className="auth-landing"
+            direction="column"
+            justify="end"
+          >
+            <Flex direction="column" gap="2">
+              <Text className="auth-title" weight="regular">
+                Code Blog
+              </Text>
+
+              <Text className="auth-subtitle" weight="regular">
+                [subtitle]
+                {/* Compartilhe conhecimento com a comunidade. */}
+                {/* Compartilhe <span style={{ textDecoration: " line-through" }}>sexo</span> conhecimento com a comunidade. */}
+                {/* Busquem conhecimento */}
+              </Text>
+            </Flex>
           </Flex>
-          <Flex direction="column" align="center" gap="4" style={{ width: '60%' }}>
+
+          <Flex
+            className="auth-form"
+            direction="column"
+            align="center"
+            justify="center"
+          >
             {isLogin ? (
-              <SingInPage callback={() => setIsLogin(false)} />
+              <SignInForm callback={() => setIsLogin(false)} />
             ) : (
-              <SingUpPage callback={() => setIsLogin(true)} />
+              <SingUpForm callback={() => setIsLogin(true)} />
             )}
           </Flex>
         </Flex>

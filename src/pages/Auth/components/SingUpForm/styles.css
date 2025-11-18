@@ -1,0 +1,60 @@
+.signup-wrapper {
+   width: 100%;
+   max-width: 400px;
+   height: 100%;
+}
+
+.signup-subtitle {
+   color: #B5B3AD;
+}
+
+.signup-form {
+   display: flex;
+   flex-direction: column;
+   gap: 44px;
+}
+
+.signup-field {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+}
+
+.signup-label {
+   font-size: 0.875rem;
+   color: #B5B3AD;
+}
+
+.signup-input {
+   height: 34px;
+   border-radius: 5px;
+}
+
+.signup-error {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+   font-size: 0.875rem;
+   font-weight: 400;
+   color: #f3373dff;
+}
+
+.signup-button {
+   width: 100%;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.signup-create-account {
+   font-size: 0.875rem;
+   font-weight: 300;
+}
+
+.signup-create-button {
+   cursor: pointer;
+}
+
+.signup-create-button:hover {
+   text-decoration: underline;
+   background-color: transparent;
+}
