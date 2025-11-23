@@ -14,6 +14,14 @@ export interface Post {
 }
 
 
+export interface EditPost {
+    title: string;
+    content: string;
+    authorId: string;
+    userId: string;
+    postId: string;
+}
+
 export interface CreatePost {
     title: string;
     content: string;
@@ -37,11 +45,3 @@ export interface PostProviderProps {
     children: React.ReactNode;
 };
 
-
-export interface editPost {
-    title: string;
-    content: string;
-    authorId: string;
-    userId: string;
-    postId: string;
-}

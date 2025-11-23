@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface User {
     sub?: string;
     id?: string;
@@ -6,18 +8,18 @@ export interface User {
 
 export interface AuthContextType {
     user: User | null;
-    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+    setUser: (user: User | null) => void;
 
     isAuthenticated: boolean;
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsAuthenticated: (auth: boolean) => void;
 
     validateAuth: boolean;
-    setValidateAuth: React.Dispatch<React.SetStateAction<boolean>>;
+    setValidateAuth: (validate: boolean) => void;
 }
 
 
 export interface AuthProviderProps {
-    children: React.ReactNode;
+    children: ReactNode;
 };
 
 export interface SingUpParams {

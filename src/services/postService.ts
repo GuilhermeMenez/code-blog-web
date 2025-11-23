@@ -3,14 +3,13 @@ import GetAllPosts from "@/api/Post/GetAllPosts";
 import GetPostsById from "@/api/Post/GetPostsById";
 import PostPost, { PostRequest } from "@/api/Post/PostPost";
 import putPost from "@/api/Post/PutPost";
-import { editPost, Post } from "@/types/postType";
+import { EditPost, Post } from "@/types/postType";
 
 
 export const postService = {
     getPosts: async (): Promise<Post[]> => {
         try {
             const response = await GetAllPosts()
-            console.log(response)
             return response
         } catch (error) {
             if (error instanceof Error) {
@@ -24,7 +23,6 @@ export const postService = {
     getPostByid: async (request: string): Promise<Post> => {
         try {
             const response = await GetPostsById({ postId: request })
-            console.log(response)
             return response.post;
         }
         catch (error) {
@@ -37,9 +35,8 @@ export const postService = {
         }
     },
 
-    upDatePost: async (request: editPost): Promise<void> => {
+    upDatePost: async (request: EditPost): Promise<void> => {
         try {
-            console.log(request, "service")
            const response = await putPost(request)
            return response
         } catch (error) {

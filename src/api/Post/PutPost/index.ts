@@ -3,7 +3,6 @@ import { PutPostRequest } from "./Interfaces/request";
 
 const PutPost = async (request: PutPostRequest): Promise<void> => {
     const response = await api.put(`/post/posts/edit/${request.postId}`, request);
-    console.log(request, "api")
     return response.data
 };
 

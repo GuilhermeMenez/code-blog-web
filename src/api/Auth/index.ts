@@ -1,6 +1,5 @@
 import PostUserLogin, { PostUserLoginRequest } from "./PostUserLogin";
-import PostUserLogOut from "./PostUserLogOut";
-import { PostUserLogoutResquest } from "./PostUserLogOut/interfaces/request";
+import PostUserLogOut, { PostUserLogoutResquest } from "./PostUserLogOut";
 import PostUserRegister, { PostUserRegisterRequest } from "./PostUserRegister";
 
 const AuthApi = {

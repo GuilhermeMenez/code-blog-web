@@ -18,15 +18,12 @@ const AuthPage = () => {
             justify="end"
           >
             <Flex direction="column" gap="2">
-              <Text className="auth-title" weight="regular">
+              <Text as = "p" className="auth-title" weight="regular">
                 Code Blog
               </Text>
 
               <Text className="auth-subtitle" weight="regular">
-                [subtitle]
-                {/* Compartilhe conhecimento com a comunidade. */}
-                {/* Compartilhe <span style={{ textDecoration: " line-through" }}>sexo</span> conhecimento com a comunidade. */}
-                {/* Busquem conhecimento */}
+                Compartilhe <span style={{ textDecoration: " line-through" }}></span> conhecimento com a comunidade.
               </Text>
             </Flex>
           </Flex>

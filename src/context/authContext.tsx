@@ -6,8 +6,8 @@ export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
 const [user, setUser] = useState<User | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [validateAuth, setValidateAuth] = useState<boolean>(false);
+const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+const [validateAuth, setValidateAuth] = useState<boolean>(false);
 
     return (
         <AuthContext.Provider

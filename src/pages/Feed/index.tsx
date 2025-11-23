@@ -1,204 +1,162 @@
 import { useAuth } from "@/hooks/useAuth";
 import { usePosts } from "@/hooks/usePosts";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postService } from "@/services/postService";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import "./feed.css";
 
 const Feed = () => {
-const { user } = useAuth();
-const { posts, handleFetchAllPosts, setPosts } = usePosts();
-const navigate = useNavigate();
-const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-const [showDeleteModal, setShowDeleteModal] = useState(false);
-const [postToDelete, setPostToDelete] = useState<string | null>(null);
-const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth();
+  const { posts, handleFetchAllPosts, setPosts } = usePosts();
+  const navigate = useNavigate();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-    useEffect(() => {
-        handleFetchAllPosts(user?.id)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user?.id])
+  useEffect(() => {
+    handleFetchAllPosts();
+  }, []);
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setOpenDropdown(null);
-            }
-        };
+  const isMyPost = (post: (typeof posts)[0]) => {
+    return post.userId === user?.id || post.author.id === user?.id;
+  };
 
-        if (openDropdown) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
+  const openDeleteModal = (postId: string) => {
+    setPostToDelete(postId);
+    setShowDeleteModal(true);
+  };
 
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [openDropdown]);
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setPostToDelete(null);
+    setIsDeleting(false);
+  };
 
-    const isMyPost = (post: typeof posts[0]) => {
-        return post.userId === user?.id || post.author.id === user?.id;
-    };
+  const confirmDelete = async () => {
+    if (!postToDelete) return;
 
-    const openDeleteModal = (postId: string) => {
-        setPostToDelete(postId);
-        setShowDeleteModal(true);
-        setOpenDropdown(null);
-    };
+    setIsDeleting(true);
 
-    const closeDeleteModal = () => {
-        setShowDeleteModal(false);
-        setPostToDelete(null);
-    };
+    try {
+      await postService.deletePost(postToDelete);
+      setPosts(posts.filter((post) => post.postId !== postToDelete));
+      setShowDeleteModal(false);
+      setPostToDelete(null);
+    } catch (error) {
+      console.error("Erro ao excluir post:", error);
+      setIsDeleting(false);
+    }
+  };
 
-    const confirmDelete = async () => {
-        if (!postToDelete) return;
-        
-        try {
-            await postService.deletePost(postToDelete);
-            setPosts(posts.filter(post => post.postId !== postToDelete));
-            closeDeleteModal();
-        } catch (error) {
-            console.error("Erro ao excluir post:", error);
-            alert("Erro ao excluir post. Tente novamente.");
-            closeDeleteModal();
-        }
-    };
+  const handleEdit = (postId: string) => {
+    navigate(`/posts/edit/${postId}`);
+  };
 
-    const handleEdit = (postId: string) => {
-        navigate(`/posts/edit/${postId}`);
-        setOpenDropdown(null);
-    };
-
-    const toggleDropdown = (postId: string, e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setOpenDropdown(openDropdown === postId ? null : postId);
-    };
-  
-    return (
-        <>
-            <header className="container-fluid px-0 mb-4">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between px-3">
-                    <a href="/posts" className="navbar-brand mb-0 h1 fw-bold">MyCodeBlog</a>
-                    <a href="/newpost" className="btn btn-primary">Novo Post</a>
-                </nav>
-            </header>
-
-            <section>
-                <div>
-                    <nav aria-label="breadcrumb">
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item active" aria-current="page">Posts</li>
-                        </ol>
-                    </nav>
-                    <div className="row w-60 mx-auto">
-                        {posts?.map((post) => (
-                            <div className="col-12 mb-4" key={post.postId}>
-                                <div className="card shadow-sm bg-white rounded text-start h-100">
-                                    <div className="card-body">
-                                        <div className="d-flex justify-content-between align-items-start mb-2">
-                                            <h4 className="card-title fw-bold text-dark mb-0">{post.title}</h4>
-                                            {isMyPost(post) && (
-                                                <div className="dropdown" ref={openDropdown === post.postId ? dropdownRef : null}>
-                                                    <button
-                                                        className="btn btn-link text-dark p-0"
-                                                        type="button"
-                                                        id={`dropdownMenuButton-${post.postId}`}
-                                                        onClick={(e) => toggleDropdown(post.postId, e)}
-                                                        style={{ fontSize: '1.2rem', lineHeight: '1', cursor: 'pointer' }}
-                                                    >
-                                                        ⋯
-                                                    </button>
-                                                    {openDropdown === post.postId && (
-                                                        <div 
-                                                            className="dropdown-menu show" 
-                                                            style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000, minWidth: '120px' }}
-                                                        >
-                                                            <button
-                                                                className="dropdown-item"
-                                                                onClick={() => handleEdit(post.postId)}
-                                                                style={{ cursor: 'pointer' }}
-                                                            >
-                                                                Editar
-                                                            </button>
-                                                            <button
-                                                                className="dropdown-item text-danger"
-                                                                onClick={() => openDeleteModal(post.postId)}
-                                                                style={{ cursor: 'pointer' }}
-                                                            >
-                                                                Excluir
-                                                            </button>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="card-subtitle text-muted mb-2">
-                                            <p className="mb-1">{post.author.name}</p>
-                                            <span>{new Date(post.createdAt).toLocaleString()}</span>
-                                        </div>
-                                        <a href={`/posts/${post.postId}`} className="text-decoration-none text-dark">
-                                        <p className="card-text text-dark">
-                                            {post.content.substring(0, 400)}
-                                                {post.content.length > 400 && "..."}
-                                        </p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+  return (
+    <div className="feed-container">
+      {/* MAIN CONTENT */}
+      <main className="posts-section">
+        <div className="posts-container">
+          {posts?.length === 0 ? (
+            <div className="empty-state">
+              <p>Nenhum post encontrado. Crie um novo post para começar!</p>
+            </div>
+          ) : (
+            posts.map((post) => (
+              <article key={post.postId} className="post-card">
+                <div className="post-header">
+                  <div className="post-info">
+                    <h2 className="post-title">{post.title}</h2>
+                    <div className="post-meta">
+                      <p className="post-author">{post.author.name}</p>
+                      <time className="post-date">
+                        {new Date(post.createdAt).toLocaleString("pt-BR")}
+                      </time>
                     </div>
-                </div>
-            </section>
+                  </div>
 
-            {/* Modal de Confirmação de Exclusão */}
-            {showDeleteModal && (
-                <div 
-                    className="modal show d-block" 
-                    tabIndex={-1}
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-                    onClick={closeDeleteModal}
+                  {/* MENU DE AÇÕES DO POST */}
+                  {isMyPost(post) && (
+                    <DropdownMenu.Root>
+                      <DropdownMenu.Trigger asChild>
+                        <button 
+                          className="post-menu-button" 
+                          aria-label="Menu do post"
+                        >
+                          ⋯
+                        </button>
+                      </DropdownMenu.Trigger>
+
+                      <DropdownMenu.Portal>
+                        <DropdownMenu.Content className="dropdown-content" align="end">
+                          <DropdownMenu.Item
+                            className="dropdown-item"
+                            onClick={() => handleEdit(post.postId)}
+                          >
+                            ✏️ Editar
+                          </DropdownMenu.Item>
+                          <DropdownMenu.Item
+                            className="dropdown-item delete"
+                            onClick={() => openDeleteModal(post.postId)}
+                          >
+                            🗑️ Excluir
+                          </DropdownMenu.Item>
+                        </DropdownMenu.Content>
+                      </DropdownMenu.Portal>
+                    </DropdownMenu.Root>
+                  )}
+                </div>
+
+                <a href={`/posts/${post.postId}`} className="post-content-link">
+                  <p className="post-content">
+                    {post.content.substring(0, 400)}
+                    {post.content.length > 400 && "..."}
+                  </p>
+                </a>
+              </article>
+            ))
+          )}
+        </div>
+      </main>
+
+      {/* RADIX ALERT DIALOG - CONFIRMAÇÃO DE EXCLUSÃO */}
+      <AlertDialog.Root open={showDeleteModal} onOpenChange={setShowDeleteModal}>
+        <AlertDialog.Portal>
+          <AlertDialog.Overlay className="alert-overlay" />
+          <AlertDialog.Content className="alert-content">
+            <AlertDialog.Title className="alert-title">
+              Confirmar Exclusão
+            </AlertDialog.Title>
+            <AlertDialog.Description className="alert-description">
+              Tem certeza que deseja excluir este post? Esta ação não pode ser desfeita.
+            </AlertDialog.Description>
+
+            <div className="alert-buttons">
+              <AlertDialog.Cancel asChild>
+                <button 
+                  className="button button-secondary"
+                  disabled={isDeleting}
                 >
-                    <div 
-                        className="modal-dialog modal-dialog-centered"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Confirmar Exclusão</h5>
-                                <button 
-                                    type="button" 
-                                    className="btn-close" 
-                                    onClick={closeDeleteModal}
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div className="modal-body">
-                                <p>Tem certeza que deseja excluir este post? Esta ação não pode ser desfeita.</p>
-                            </div>
-                            <div className="modal-footer">
-                                <button 
-                                    type="button" 
-                                    className="btn btn-secondary" 
-                                    onClick={closeDeleteModal}
-                                >
-                                    Cancelar
-                                </button>
-                                <button 
-                                    type="button" 
-                                    className="btn btn-danger" 
-                                    onClick={confirmDelete}
-                                >
-                                    Excluir
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </>
-    );
-}
-  
+                  Cancelar
+                </button>
+              </AlertDialog.Cancel>
+              <AlertDialog.Action asChild>
+                <button 
+                  className="button button-danger"
+                  onClick={confirmDelete}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? "Excluindo..." : "Excluir"}
+                </button>
+              </AlertDialog.Action>
+            </div>
+          </AlertDialog.Content>
+        </AlertDialog.Portal>
+      </AlertDialog.Root>
+    </div>
+  );
+};
 
 export default Feed;

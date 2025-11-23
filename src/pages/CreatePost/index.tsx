@@ -1,43 +1,25 @@
+import { useNavigate } from "react-router";
 import { usePosts } from "@/hooks/usePosts";
-import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { FormEvent, useState } from "react";
+import Cookies from "js-cookie";
 import "./style.css";
-import { useNavigate, useParams } from "react-router-dom";
 
-const EditPost = () => {
-  const { id } = useParams();
+const CreatePost = () => {
   const navigate = useNavigate();
+  const { handleCreatePost } = usePosts();
   const { user } = useAuth();
-  const { post, handleFetchPostById, handleUpdatePost } = usePosts();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [hasLoaded, setHasLoaded] = useState(false);
 
-  // Fetch post apenas uma vez quando o ID mudar
-  useEffect(() => {
-    if (id) {
-      handleFetchPostById(id);
-    }
-  }, [id]); // Apenas id como dependência
-
-  // Atualizar os campos apenas quando o post muda e ainda não foi carregado
-  useEffect(() => {
-    if (post && !hasLoaded) {
-      setTitle(post.title || "");
-      setContent(post.content || "");
-      setHasLoaded(true);
-    }
-  }, [post, hasLoaded]); // post e hasLoaded como dependências
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!post) return;
 
     if (!user?.id) {
-      setError("Você precisa estar logado para editar um post!");
+      setError("Você precisa estar logado para criar um post!");
       return;
     }
 
@@ -51,54 +33,59 @@ const EditPost = () => {
       return;
     }
 
+    if (!Cookies.get("token")) {
+      setError("Token de autenticação não encontrado!");
+      return;
+    }
+
     setIsLoading(true);
     setError("");
 
-    const updatedPost = {
-      title: title.trim(),
-      content: content.trim(),
-      authorId: post.author?.id || "",
-      userId: user.id,
-      postId: post.postId,
-    };
-
     try {
-      await handleUpdatePost(updatedPost);
+      await handleCreatePost({
+        title: title.trim(),
+        content: content.trim(),
+        authorId: user.id,
+      });
+
+      navigate("/feed");
     } catch (error) {
-      setError("Erro ao atualizar post. Tente novamente.");
+      setError("Erro ao criar post. Tente novamente.");
       setIsLoading(false);
     }
   };
 
-  if (!post)
-    return (
-      <div className="loading-container">
-        <p className="loading-text">Carregando post...</p>
-      </div>
-    );
+  const handleCancel = () => {
+    if (title.trim() || content.trim()) {
+      if (
+        window.confirm("Você tem alterações não salvas. Deseja descartar?")
+      ) {
+        navigate(-1);
+      }
+    } else {
+      navigate(-1);
+    }
+  };
 
   return (
-    <div className="edit-post-layout">
+    <div className="create-post-layout">
       {/* HEADER */}
-      <header className="edit-header">
+      <header className="create-header">
         <div className="header-content">
           <a href="/feed" className="header-logo">
             MyCodeBlog
           </a>
-          <div className="header-actions">
-            <a href="/newpost" className="action-button primary">
-              + Novo Post
-            </a>
-          </div>
         </div>
       </header>
 
       {/* MAIN CONTENT */}
-      <main className="edit-main">
-        <div className="edit-container">
-          <div className="edit-header-section">
-            <h1 className="edit-title">Editar Post</h1>
-            <p className="edit-subtitle">Atualize o título e conteúdo do seu post</p>
+      <main className="create-main">
+        <div className="create-container">
+          <div className="create-header-section">
+            <h1 className="create-title">Criar Novo Post</h1>
+            <p className="create-subtitle">
+              Compartilhe suas ideias e conhecimentos com a comunidade
+            </p>
           </div>
 
           {/* ERROR MESSAGE */}
@@ -110,17 +97,18 @@ const EditPost = () => {
           )}
 
           {/* FORM */}
-          <form onSubmit={handleSubmit} className="edit-form">
+          <form onSubmit={handleSubmit} className="create-form">
             {/* TITLE INPUT */}
             <div className="form-group">
               <label className="form-label">Título</label>
               <input
                 type="text"
                 className="form-input"
+                placeholder="Digite um título atraente para seu post"
+                required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Digite o título do post"
-                required
+                disabled={isLoading}
               />
               <span className="form-hint">
                 {title.length}/100 caracteres
@@ -132,15 +120,22 @@ const EditPost = () => {
               <label className="form-label">Conteúdo</label>
               <textarea
                 className="form-textarea"
-                rows={10}
+                placeholder="Digite o conteúdo do seu post aqui..."
+                rows={12}
+                required
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                placeholder="Digite o conteúdo do seu post..."
-                required
-              />
+                disabled={isLoading}
+              ></textarea>
               <span className="form-hint">
                 {content.length}/5000 caracteres
               </span>
+            </div>
+
+            {/* REQUIRED FIELDS NOTE */}
+            <div className="required-note">
+              <span className="required-icon">ℹ️</span>
+              <span>Todos os campos marcados com * são obrigatórios</span>
             </div>
 
             {/* FORM ACTIONS */}
@@ -148,7 +143,7 @@ const EditPost = () => {
               <button
                 type="button"
                 className="button button-secondary"
-                onClick={() => navigate(`/posts/${post.postId}`)}
+                onClick={handleCancel}
                 disabled={isLoading}
               >
                 Cancelar
@@ -158,18 +153,20 @@ const EditPost = () => {
                 className="button button-primary"
                 disabled={isLoading}
               >
-                {isLoading ? "Salvando..." : "Salvar Alterações"}
+                {isLoading ? "Publicando..." : "Publicar Post"}
               </button>
             </div>
           </form>
 
-          {/* TIPS */}
-          <div className="edit-tips">
-            <h3 className="tips-title">💡 Dicas</h3>
+          {/* TIPS SECTION */}
+          <div className="create-tips">
+            <h3 className="tips-title">💡 Dicas para um bom post</h3>
             <ul className="tips-list">
-              <li>Mantenha o título conciso e descritivo</li>
-              <li>Use parágrafos para melhor legibilidade</li>
-              <li>Revise o conteúdo antes de salvar</li>
+              <li>Crie um título claro e descritivo</li>
+              <li>Organize seu conteúdo em parágrafos bem estruturados</li>
+              <li>Use exemplos práticos e código quando relevante</li>
+              <li>Revise ortografia e gramática antes de publicar</li>
+              <li>Considere adicionar referências ou links úteis</li>
             </ul>
           </div>
         </div>
@@ -178,4 +175,4 @@ const EditPost = () => {
   );
 };
 
-export default EditPost;
+export default CreatePost;

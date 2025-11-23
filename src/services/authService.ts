@@ -1,6 +1,6 @@
-import AuthApi from "../api/Auth/index";
-import { PostUserLoginRequest, PostUserLoginResponse } from "../api/Auth/PostUserLogin";
-import { PostUserRegisterRequest, PostUserRegisterResponse } from "../api/Auth/PostUserRegister";
+import AuthApi from "@/api/Auth/index";
+import { PostUserLoginRequest, PostUserLoginResponse } from "@/api/Auth/PostUserLogin";
+import { PostUserRegisterRequest, PostUserRegisterResponse } from "@/api/Auth/PostUserRegister";
 import { PostUserLogoutResquest } from "@/api/Auth/PostUserLogOut";
 
 export const authService = {
@@ -21,7 +21,6 @@ export const authService = {
     },
 
     register: async (request: PostUserRegisterRequest): Promise<PostUserRegisterResponse> => {
-        //TODO: tratar erros
         try {
             const response = await AuthApi.postRegister(request);
             return response;
