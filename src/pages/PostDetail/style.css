@@ -64,7 +64,9 @@
   background-color: var(--slate-3);
   border-bottom: 1px solid var(--slate-4);
   padding: 16px 32px;
-  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.12), 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 4px 12px rgba(109, 40, 217, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.15);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -207,7 +209,7 @@
 }
 
 .breadcrumb-item:not(:last-child)::after {
-  content: "/";
+  content: '/';
   margin-left: 12px;
   color: var(--slate-6);
 }
@@ -232,13 +234,17 @@
   border-radius: 8px;
   padding: 32px;
   border: 1px solid var(--slate-5);
-  box-shadow: 0 8px 24px rgba(109, 40, 217, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 8px 24px rgba(109, 40, 217, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
 .post-detail-card:hover {
   border-color: var(--violet-9);
-  box-shadow: 0 12px 32px rgba(109, 40, 217, 0.2), 0 6px 16px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 12px 32px rgba(109, 40, 217, 0.2),
+    0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
 .post-detail-header-section {
@@ -272,12 +278,7 @@
 
 .post-detail-divider {
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--violet-9),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, var(--violet-9), transparent);
   margin: 24px 0;
 }
 

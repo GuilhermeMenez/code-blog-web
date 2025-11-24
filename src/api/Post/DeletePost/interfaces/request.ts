@@ -1,3 +1,3 @@
 export interface DeletePostRequest {
-    postId: string;
+  postId: string;
 }

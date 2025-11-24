@@ -1,3 +1,3 @@
 export interface PostUserLogoutResquest {
-    token: string;
+  token: string;
 }

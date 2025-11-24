@@ -1,21 +1,21 @@
-import { useAuth } from "@/hooks/useAuth";
-import { useState } from "react";
-import "./styles.css";
+import { useAuth } from '@/hooks/useAuth';
+import { useState } from 'react';
+import './styles.css';
 
-import IconClose from "@/assets/icons/IconClose";
+import IconClose from '@/assets/icons/IconClose';
 
-import { Form } from "radix-ui";
-import { Flex, TextField, Text, Button } from "@radix-ui/themes";
+import { Form } from 'radix-ui';
+import { Flex, TextField, Text, Button } from '@radix-ui/themes';
 
 interface SignInProps {
   callback: () => void;
 }
 
-const SignInForm = ({callback}: SignInProps) => {
+const SignInForm = ({ callback }: SignInProps) => {
   const { handleSignIn } = useAuth();
 
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,12 +23,7 @@ const SignInForm = ({callback}: SignInProps) => {
   };
 
   return (
-    <Flex
-      className="signin-wrapper"
-      direction="column"
-      justify="center"
-      gap="9"
-    >
+    <Flex className="signin-wrapper" direction="column" justify="center" gap="9">
       <Flex direction="column" gap="2">
         <Text className="signin-title" size="8" weight="regular">
           Entre com sua conta
@@ -57,8 +52,7 @@ const SignInForm = ({callback}: SignInProps) => {
             </Form.Control>
 
             <Form.Message className="signin-error" match="valueMissing">
-              <IconClose width="15px" height="15px" color="#f3373dff" />
-              O email é obrigatório
+              <IconClose width="15px" height="15px" color="#f3373dff" />O email é obrigatório
             </Form.Message>
 
             <Form.Message className="signin-error" match="typeMismatch">
@@ -83,19 +77,20 @@ const SignInForm = ({callback}: SignInProps) => {
             </Form.Control>
 
             <Form.Message className="signin-error" match="valueMissing">
-              <IconClose width="15px" height="15px" color="#f3373dff" />
-              A senha é obrigatória
+              <IconClose width="15px" height="15px" color="#f3373dff" />A senha é obrigatória
             </Form.Message>
           </Form.Field>
         </Flex>
 
         <Flex direction="column" gap="5">
           <Form.Submit asChild>
-            <Button className="signin-button" size="3">Entrar</Button>  
+            <Button className="signin-button" size="3">
+              Entrar
+            </Button>
           </Form.Submit>
 
           <Flex gap="2">
-            <span className="signin-create-account">Não tem uma conta?{" "}</span>
+            <span className="signin-create-account">Não tem uma conta? </span>
             <Button className="signin-create-button" variant="ghost" onClick={callback}>
               Cadastre-se.
             </Button>

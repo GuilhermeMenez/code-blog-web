@@ -1,4 +1,4 @@
-import { IconProps } from '@/types/iconTypes'
+import { IconProps } from '@/types/iconTypes';
 
 const IconClose = ({ width, height, color }: IconProps) => {
   return (
@@ -17,7 +17,7 @@ const IconClose = ({ width, height, color }: IconProps) => {
         clip-rule="evenodd"
       ></path>
     </svg>
-  )
-}
+  );
+};
 
-export default IconClose
+export default IconClose;

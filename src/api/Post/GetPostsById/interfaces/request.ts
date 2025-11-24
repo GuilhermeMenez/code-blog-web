@@ -1,3 +1,3 @@
 export interface GetPostsByIdRequest {
-    postId: string;
+  postId: string;
 }

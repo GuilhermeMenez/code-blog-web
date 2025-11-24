@@ -1,9 +1,9 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { usePosts } from "@/hooks/usePosts";
-import { useAuth } from "@/hooks/useAuth";
-import { useEffect, useState, useRef } from "react";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import "./style.css";
+import { useParams, useNavigate } from 'react-router-dom';
+import { usePosts } from '@/hooks/usePosts';
+import { useAuth } from '@/hooks/useAuth';
+import { useEffect, useState, useRef } from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import './style.css';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const PostDetail = () => {
       handleFetchPostById(id);
       hasLoadedRef.current = true;
     }
-  }, [id]); 
+  }, [id]);
 
   useEffect(() => {
     hasLoadedRef.current = false;
@@ -29,9 +29,9 @@ const PostDetail = () => {
     try {
       await handleDeletePost(post.postId);
       setShowDeleteModal(false);
-      navigate("/feed");
+      navigate('/feed');
     } catch (error) {
-      alert("Erro ao excluir post. Tente novamente.");
+      alert('Erro ao excluir post. Tente novamente.');
     }
   };
 
@@ -113,7 +113,7 @@ const PostDetail = () => {
                 <div className="post-detail-meta">
                   <p className="post-detail-author">{post.author.name}</p>
                   <time className="post-detail-date">
-                    {new Date(post.createdAt).toLocaleString("pt-BR")}
+                    {new Date(post.createdAt).toLocaleString('pt-BR')}
                   </time>
                 </div>
               </div>
@@ -131,10 +131,7 @@ const PostDetail = () => {
       {/* DELETE MODAL */}
       {showDeleteModal && (
         <div className="modal-overlay" onClick={() => setShowDeleteModal(false)}>
-          <div
-            className="modal-dialog"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
             <div className="modal-content">
               <h2 className="modal-title">Confirmar Exclusão</h2>
               <p className="modal-text">

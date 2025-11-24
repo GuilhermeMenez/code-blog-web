@@ -1,5 +1,5 @@
-import { Post } from "@/types/postType";
+import { Post } from '@/types/postType';
 
 export interface GetPostByIdResponse {
-    post: Post
+  post: Post;
 }

@@ -1,8 +1,8 @@
-import { usePosts } from "@/hooks/usePosts";
-import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import "./style.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { usePosts } from '@/hooks/usePosts';
+import { useEffect, useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import './style.css';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -10,10 +10,10 @@ const EditPost = () => {
   const { user } = useAuth();
   const { post, handleFetchPostById, handleUpdatePost } = usePosts();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [hasLoaded, setHasLoaded] = useState(false);
 
   // Fetch post apenas uma vez quando o ID mudar
@@ -26,8 +26,8 @@ const EditPost = () => {
   // Atualizar os campos apenas quando o post muda e ainda não foi carregado
   useEffect(() => {
     if (post && !hasLoaded) {
-      setTitle(post.title || "");
-      setContent(post.content || "");
+      setTitle(post.title || '');
+      setContent(post.content || '');
       setHasLoaded(true);
     }
   }, [post, hasLoaded]); // post e hasLoaded como dependências
@@ -37,27 +37,27 @@ const EditPost = () => {
     if (!post) return;
 
     if (!user?.id) {
-      setError("Você precisa estar logado para editar um post!");
+      setError('Você precisa estar logado para editar um post!');
       return;
     }
 
     if (!title.trim()) {
-      setError("O título não pode estar vazio!");
+      setError('O título não pode estar vazio!');
       return;
     }
 
     if (!content.trim()) {
-      setError("O conteúdo não pode estar vazio!");
+      setError('O conteúdo não pode estar vazio!');
       return;
     }
 
     setIsLoading(true);
-    setError("");
+    setError('');
 
     const updatedPost = {
       title: title.trim(),
       content: content.trim(),
-      authorId: post.author?.id || "",
+      authorId: post.author?.id || '',
       userId: user.id,
       postId: post.postId,
     };
@@ -65,7 +65,7 @@ const EditPost = () => {
     try {
       await handleUpdatePost(updatedPost);
     } catch (error) {
-      setError("Erro ao atualizar post. Tente novamente.");
+      setError('Erro ao atualizar post. Tente novamente.');
       setIsLoading(false);
     }
   };
@@ -122,9 +122,7 @@ const EditPost = () => {
                 placeholder="Digite o título do post"
                 required
               />
-              <span className="form-hint">
-                {title.length}/100 caracteres
-              </span>
+              <span className="form-hint">{title.length}/100 caracteres</span>
             </div>
 
             {/* CONTENT TEXTAREA */}
@@ -138,9 +136,7 @@ const EditPost = () => {
                 placeholder="Digite o conteúdo do seu post..."
                 required
               />
-              <span className="form-hint">
-                {content.length}/5000 caracteres
-              </span>
+              <span className="form-hint">{content.length}/5000 caracteres</span>
             </div>
 
             {/* FORM ACTIONS */}
@@ -153,12 +149,8 @@ const EditPost = () => {
               >
                 Cancelar
               </button>
-              <button
-                type="submit"
-                className="button button-primary"
-                disabled={isLoading}
-              >
-                {isLoading ? "Salvando..." : "Salvar Alterações"}
+              <button type="submit" className="button button-primary" disabled={isLoading}>
+                {isLoading ? 'Salvando...' : 'Salvar Alterações'}
               </button>
             </div>
           </form>

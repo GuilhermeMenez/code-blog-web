@@ -1,45 +1,45 @@
-import { useNavigate } from "react-router";
-import { usePosts } from "@/hooks/usePosts";
-import { useAuth } from "@/hooks/useAuth";
-import { FormEvent, useState } from "react";
-import Cookies from "js-cookie";
-import "./style.css";
+import { useNavigate } from 'react-router';
+import { usePosts } from '@/hooks/usePosts';
+import { useAuth } from '@/hooks/useAuth';
+import { FormEvent, useState } from 'react';
+import Cookies from 'js-cookie';
+import './style.css';
 
 const CreatePost = () => {
   const navigate = useNavigate();
   const { handleCreatePost } = usePosts();
   const { user } = useAuth();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!user?.id) {
-      setError("Você precisa estar logado para criar um post!");
+      setError('Você precisa estar logado para criar um post!');
       return;
     }
 
     if (!title.trim()) {
-      setError("O título não pode estar vazio!");
+      setError('O título não pode estar vazio!');
       return;
     }
 
     if (!content.trim()) {
-      setError("O conteúdo não pode estar vazio!");
+      setError('O conteúdo não pode estar vazio!');
       return;
     }
 
-    if (!Cookies.get("token")) {
-      setError("Token de autenticação não encontrado!");
+    if (!Cookies.get('token')) {
+      setError('Token de autenticação não encontrado!');
       return;
     }
 
     setIsLoading(true);
-    setError("");
+    setError('');
 
     try {
       await handleCreatePost({
@@ -48,18 +48,16 @@ const CreatePost = () => {
         authorId: user.id,
       });
 
-      navigate("/feed");
+      navigate('/feed');
     } catch (error) {
-      setError("Erro ao criar post. Tente novamente.");
+      setError('Erro ao criar post. Tente novamente.');
       setIsLoading(false);
     }
   };
 
   const handleCancel = () => {
     if (title.trim() || content.trim()) {
-      if (
-        window.confirm("Você tem alterações não salvas. Deseja descartar?")
-      ) {
+      if (window.confirm('Você tem alterações não salvas. Deseja descartar?')) {
         navigate(-1);
       }
     } else {
@@ -110,9 +108,7 @@ const CreatePost = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 disabled={isLoading}
               />
-              <span className="form-hint">
-                {title.length}/100 caracteres
-              </span>
+              <span className="form-hint">{title.length}/100 caracteres</span>
             </div>
 
             {/* CONTENT TEXTAREA */}
@@ -127,9 +123,7 @@ const CreatePost = () => {
                 onChange={(e) => setContent(e.target.value)}
                 disabled={isLoading}
               ></textarea>
-              <span className="form-hint">
-                {content.length}/5000 caracteres
-              </span>
+              <span className="form-hint">{content.length}/5000 caracteres</span>
             </div>
 
             {/* REQUIRED FIELDS NOTE */}
@@ -148,12 +142,8 @@ const CreatePost = () => {
               >
                 Cancelar
               </button>
-              <button
-                type="submit"
-                className="button button-primary"
-                disabled={isLoading}
-              >
-                {isLoading ? "Publicando..." : "Publicar Post"}
+              <button type="submit" className="button button-primary" disabled={isLoading}>
+                {isLoading ? 'Publicando...' : 'Publicar Post'}
               </button>
             </div>
           </form>
