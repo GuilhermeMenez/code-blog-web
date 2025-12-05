@@ -1,3 +1,5 @@
+@import '@/styles/theme.css';
+
 .signin-wrapper {
   width: 100%;
   max-width: 400px;
@@ -5,7 +7,7 @@
 }
 
 .signin-subtitle {
-  color: #b5b3ad;
+  color: var(--slate-11);
 }
 
 .signin-form {
@@ -22,12 +24,11 @@
 
 .signin-label {
   font-size: 0.875rem;
-  color: #b5b3ad;
 }
 
 .signin-input {
   height: 34px;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .signin-error {
@@ -36,12 +37,12 @@
   gap: 6px;
   font-size: 0.875rem;
   font-weight: 400;
-  color: #f3373dff;
+  color: var(--danger);
 }
 
 .signin-button {
   width: 100%;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -54,7 +55,8 @@
   cursor: pointer;
 }
 
-.signin-create-button:hover {
+.signin-create-button:hover,
+.signin-create-button:active {
   text-decoration: underline;
   background-color: transparent;
 }

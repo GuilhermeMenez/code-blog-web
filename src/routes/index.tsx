@@ -1,38 +1,33 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import AuthPage from '../pages/Auth';
-import Feed from '../pages/Feed';
-import PostDetail from '../pages/PostDetail/view';
-import CreatPost from '../pages/CreatePost';
-import EditPost from '../pages/EditPost';
-import Layout from '@/components/sidebar/Index';
+import { BrowserRouter, Routes, Route } from 'react-router'
+import AuthLayout from '@/layouts/AuthLayout'
+import MainLayout from '@/layouts/MainLayout'
+
+import AuthPage from '../pages/Auth'
+import Feed from '../pages/Feed'
+import PostDetail from '../pages/PostDetail/view'
+import CreatPost from '../pages/CreatePost'
+import EditPost from '../pages/EditPost'
 
 const AppRoutes = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        {/* Rotas sem Layout (Autenticação) */}
-        <Route path="/" element={<AuthPage />} />
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<AuthPage />} />
+        </Route>
 
-        {/* Rotas com Layout (Sidebar persistente) */}
-        <Route
-          path="/*"
-          element={
-            <Layout>
-              <Routes>
-                <Route path="/feed" element={<Feed />} />
-                <Route path="/posts/:id" element={<PostDetail />} />
-                <Route path="/posts/edit/:id" element={<EditPost />} />
-                <Route path="/newpost" element={<CreatPost />} />
+        <Route element={<MainLayout />}>
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/profile" element={<div>Profile Page</div>} />
+          <Route path="/favorites" element={<div>Favorites Page</div>} />
 
-                {/* Redirect padrão */}
-                <Route path="/" element={<Navigate to="/feed" replace />} />
-              </Routes>
-            </Layout>
-          }
-        />
+          <Route path="/posts/:id" element={<PostDetail />} />
+          <Route path="/posts/edit/:id" element={<EditPost />} />
+          <Route path="/newpost" element={<CreatPost />} />
+        </Route>
       </Routes>
-    </Router>
-  );
-};
+    </BrowserRouter>
+  )
+}
 
-export default AppRoutes;
+export default AppRoutes

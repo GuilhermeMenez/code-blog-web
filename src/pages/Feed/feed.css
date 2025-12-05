@@ -80,7 +80,7 @@
 
 /* ========== CONTAINER PRINCIPAL ========== */
 .feed-container {
-  width: 100%;
+  width: 500px;
   height: 100%;
   background-color: var(--slate-2);
   display: flex;
@@ -90,16 +90,16 @@
 
 /* ========== POSTS SECTION ========== */
 .posts-section {
-  width: 100%;
+  width: 500px;
   flex: 1;
   overflow-y: auto;
   padding: 32px;
 }
 
 .posts-container {
-  max-width: 800px;
+  max-width: 500px;
   margin: 0 auto;
-  width: 100%;
+  width: 500px;
   display: flex;
   flex-direction: column;
   gap: 20px;

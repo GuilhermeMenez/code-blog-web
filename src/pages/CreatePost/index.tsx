@@ -1,69 +1,69 @@
-import { useNavigate } from 'react-router';
-import { usePosts } from '@/hooks/usePosts';
-import { useAuth } from '@/hooks/useAuth';
-import { FormEvent, useState } from 'react';
-import Cookies from 'js-cookie';
-import './style.css';
+import { useNavigate } from 'react-router'
+import { usePosts } from '@/hooks/usePosts'
+import { useAuth } from '@/hooks/useAuth'
+import { FormEvent, useState } from 'react'
+import Cookies from 'js-cookie'
+// import './style.css';
 
 const CreatePost = () => {
-  const navigate = useNavigate();
-  const { handleCreatePost } = usePosts();
-  const { user } = useAuth();
+  const navigate = useNavigate()
+  const { handleCreatePost } = usePosts()
+  const { user } = useAuth()
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!user?.id) {
-      setError('Você precisa estar logado para criar um post!');
-      return;
+      setError('Você precisa estar logado para criar um post!')
+      return
     }
 
     if (!title.trim()) {
-      setError('O título não pode estar vazio!');
-      return;
+      setError('O título não pode estar vazio!')
+      return
     }
 
     if (!content.trim()) {
-      setError('O conteúdo não pode estar vazio!');
-      return;
+      setError('O conteúdo não pode estar vazio!')
+      return
     }
 
     if (!Cookies.get('token')) {
-      setError('Token de autenticação não encontrado!');
-      return;
+      setError('Token de autenticação não encontrado!')
+      return
     }
 
-    setIsLoading(true);
-    setError('');
+    setIsLoading(true)
+    setError('')
 
     try {
       await handleCreatePost({
         title: title.trim(),
         content: content.trim(),
         authorId: user.id,
-      });
+      })
 
-      navigate('/feed');
+      navigate('/feed')
     } catch (error) {
-      setError('Erro ao criar post. Tente novamente.');
-      setIsLoading(false);
+      setError('Erro ao criar post. Tente novamente.')
+      setIsLoading(false)
     }
-  };
+  }
 
   const handleCancel = () => {
     if (title.trim() || content.trim()) {
       if (window.confirm('Você tem alterações não salvas. Deseja descartar?')) {
-        navigate(-1);
+        navigate(-1)
       }
     } else {
-      navigate(-1);
+      navigate(-1)
     }
-  };
+  }
 
   return (
     <div className="create-post-layout">
@@ -162,7 +162,7 @@ const CreatePost = () => {
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default CreatePost;
+export default CreatePost

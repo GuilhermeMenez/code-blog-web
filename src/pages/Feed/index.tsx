@@ -1,58 +1,58 @@
-import { useAuth } from '@/hooks/useAuth';
-import { usePosts } from '@/hooks/usePosts';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { postService } from '@/services/postService';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import * as AlertDialog from '@radix-ui/react-alert-dialog';
-import './feed.css';
+import { useAuth } from '@/hooks/useAuth'
+import { usePosts } from '@/hooks/usePosts'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { postService } from '@/services/postService'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
+// import './feed.css';
 
 const Feed = () => {
-  const { user } = useAuth();
-  const { posts, handleFetchAllPosts, setPosts } = usePosts();
-  const navigate = useNavigate();
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [postToDelete, setPostToDelete] = useState<string | null>(null);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const { user } = useAuth()
+  const { posts, handleFetchAllPosts, setPosts } = usePosts()
+  const navigate = useNavigate()
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [postToDelete, setPostToDelete] = useState<string | null>(null)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
-    handleFetchAllPosts();
-  }, []);
+    handleFetchAllPosts()
+  }, [])
 
   const isMyPost = (post: (typeof posts)[0]) => {
-    return post.userId === user?.id || post.author.id === user?.id;
-  };
+    return post.userId === user?.id || post.author.id === user?.id
+  }
 
   const openDeleteModal = (postId: string) => {
-    setPostToDelete(postId);
-    setShowDeleteModal(true);
-  };
+    setPostToDelete(postId)
+    setShowDeleteModal(true)
+  }
 
   const closeDeleteModal = () => {
-    setShowDeleteModal(false);
-    setPostToDelete(null);
-    setIsDeleting(false);
-  };
+    setShowDeleteModal(false)
+    setPostToDelete(null)
+    setIsDeleting(false)
+  }
 
   const confirmDelete = async () => {
-    if (!postToDelete) return;
+    if (!postToDelete) return
 
-    setIsDeleting(true);
+    setIsDeleting(true)
 
     try {
-      await postService.deletePost(postToDelete);
-      setPosts(posts.filter((post) => post.postId !== postToDelete));
-      setShowDeleteModal(false);
-      setPostToDelete(null);
+      await postService.deletePost(postToDelete)
+      setPosts(posts.filter((post) => post.postId !== postToDelete))
+      setShowDeleteModal(false)
+      setPostToDelete(null)
     } catch (error) {
-      console.error('Erro ao excluir post:', error);
-      setIsDeleting(false);
+      console.error('Erro ao excluir post:', error)
+      setIsDeleting(false)
     }
-  };
+  }
 
   const handleEdit = (postId: string) => {
-    navigate(`/posts/edit/${postId}`);
-  };
+    navigate(`/posts/edit/${postId}`)
+  }
 
   return (
     <div className="feed-container">
@@ -148,7 +148,7 @@ const Feed = () => {
         </AlertDialog.Portal>
       </AlertDialog.Root>
     </div>
-  );
-};
+  )
+}
 
-export default Feed;
+export default Feed

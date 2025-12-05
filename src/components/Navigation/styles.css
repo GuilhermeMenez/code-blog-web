@@ -1,0 +1,138 @@
+@import '@/styles/theme.css';
+
+.logo-header {
+  position: fixed;
+  top: 16px;
+  left: 18px;
+  max-width: calc(var(--navigation-width) - 34px);
+  width: 100%;
+  transition: max-width 0.3s ease;
+  z-index: 1000;
+}
+
+.logo-header.menu-off {
+  max-width: 186px;
+}
+
+.hamburger-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--slate-11);
+  cursor: pointer;
+}
+
+.hamburger-menu:hover {
+  color: var(--white-12);
+}
+
+.logo-btn-hamburger {
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.logo-btn-hamburger.menu-on {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.btn-hamburger {
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+.btn-hamburger.menu-off {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.link-logo {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  padding-top: 6px;
+  color: var(--white-12);
+  transform: translateX(-34px);
+  transition: transform 0.3s ease;
+}
+
+.link-logo.menu-off {
+  transform: translateX(0);
+}
+
+.navigation-box {
+  position: fixed;
+  width: var(--navigation-width);
+  height: 100vh;
+  padding: 92px 10px 10px;
+  background-color: var(--color-panel-translucent);
+  border-right: 1px solid var(--slate-6);
+  transition: transform 0.3s ease;
+}
+
+.navigation-box.menu-off {
+  transform: translateX(calc(-1 * var(--navigation-width)));
+}
+
+.navigation-button {
+  padding: 0;
+  margin: 0;
+  border-radius: 4px;
+}
+
+.navigation-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  color: var(--slate-11);
+  text-decoration: none;
+}
+
+.navigation-item span {
+  font-size: 1rem;
+  padding-top: 4px;
+}
+
+.navigation-item.active {
+  background-color: var(--accent-a3);
+  border-radius: 4px;
+  color: var(--slate-12);
+}
+
+.navigation-item:hover {
+  color: var(--slate-12);
+}
+
+.navigation-item.active:hover {
+  background-color: transparent;
+}
+
+.active-item {
+  position: absolute;
+  left: 0px;
+  width: 2px;
+  height: 28px;
+  background-color: var(--violet-9);
+}
+
+@media (max-width: 768px) {
+  .navigation-box {
+    transform: translateX(calc(-1 * var(--navigation-width)));
+  }
+
+  .navigation-box.menu-on {
+    transform: translateX(0);
+  }
+
+  .main-box {
+    padding-left: 16px;
+  }
+}

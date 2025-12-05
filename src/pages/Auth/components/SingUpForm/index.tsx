@@ -1,27 +1,26 @@
-import { useAuth } from '@/hooks/useAuth';
-import { useState } from 'react';
-import './styles.css';
+import { useAuth } from '@/hooks/useAuth'
+import { useState } from 'react'
+import './styles.css'
 
-import IconClose from '@/assets/icons/IconClose';
-
-import { Form } from 'radix-ui';
-import { Flex, TextField, Text, Button } from '@radix-ui/themes';
+import IconClose from '@/assets/icons/IconClose'
+import { Form } from 'radix-ui'
+import { Flex, TextField, Text, Button } from '@radix-ui/themes'
 
 interface SignUpProps {
-  callback: () => void;
+  callback: () => void
 }
 
 const SingUpForm = ({ callback }: SignUpProps) => {
-  const { handleSignUp } = useAuth();
+  const { handleSignUp } = useAuth()
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleSignUp({ name, email, password, userRole: 'user' });
-  };
+    event.preventDefault()
+    handleSignUp({ name, email, password, userRole: 'user' })
+  }
 
   return (
     <Flex className="signup-wrapper" direction="column" justify="center" gap="8">
@@ -53,7 +52,8 @@ const SingUpForm = ({ callback }: SignUpProps) => {
             </Form.Control>
 
             <Form.Message className="signup-error" match="valueMissing">
-              <IconClose width="15px" height="15px" color="#f3373dff" />O nome é obrigatório.
+              <IconClose width="15px" height="15px" />
+              O nome é obrigatório.
             </Form.Message>
           </Form.Field>
 
@@ -73,11 +73,12 @@ const SingUpForm = ({ callback }: SignUpProps) => {
             </Form.Control>
 
             <Form.Message className="signup-error" match="valueMissing">
-              <IconClose width="15px" height="15px" color="#f3373dff" />O email é obrigatório.
+              <IconClose width="15px" height="15px" />
+              O email é obrigatório.
             </Form.Message>
 
             <Form.Message className="signup-error" match="typeMismatch">
-              <IconClose width="15px" height="15px" color="#f3373dff" />
+              <IconClose width="15px" height="15px" />
               Digite um email válido.
             </Form.Message>
           </Form.Field>
@@ -98,7 +99,8 @@ const SingUpForm = ({ callback }: SignUpProps) => {
             </Form.Control>
 
             <Form.Message className="signup-error" match="valueMissing">
-              <IconClose width="15px" height="15px" color="#f3373dff" />A senha é obrigatória.
+              <IconClose width="15px" height="15px" />
+              A senha é obrigatória.
             </Form.Message>
           </Form.Field>
         </Flex>
@@ -112,14 +114,14 @@ const SingUpForm = ({ callback }: SignUpProps) => {
 
           <Flex gap="2">
             <span className="signup-create-account">Já tem uma conta? </span>
-            <Button className="signin-create-button" variant="ghost" onClick={callback}>
+            <Button className="signup-create-button" variant="ghost" onClick={callback}>
               Entre.
             </Button>
           </Flex>
         </Flex>
       </Form.Root>
     </Flex>
-  );
-};
+  )
+}
 
-export default SingUpForm;
+export default SingUpForm

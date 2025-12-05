@@ -1,26 +1,25 @@
-import { useAuth } from '@/hooks/useAuth';
-import { useState } from 'react';
-import './styles.css';
+import { useAuth } from '@/hooks/useAuth'
+import { useState } from 'react'
+import './styles.css'
 
-import IconClose from '@/assets/icons/IconClose';
-
-import { Form } from 'radix-ui';
-import { Flex, TextField, Text, Button } from '@radix-ui/themes';
+import IconClose from '@/assets/icons/IconClose'
+import { Form } from 'radix-ui'
+import { Flex, TextField, Text, Button } from '@radix-ui/themes'
 
 interface SignInProps {
-  callback: () => void;
+  callback: () => void
 }
 
 const SignInForm = ({ callback }: SignInProps) => {
-  const { handleSignIn } = useAuth();
+  const { handleSignIn } = useAuth()
 
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleSignIn({ login, password });
-  };
+    event.preventDefault()
+    handleSignIn({ login, password })
+  }
 
   return (
     <Flex className="signin-wrapper" direction="column" justify="center" gap="9">
@@ -52,11 +51,12 @@ const SignInForm = ({ callback }: SignInProps) => {
             </Form.Control>
 
             <Form.Message className="signin-error" match="valueMissing">
-              <IconClose width="15px" height="15px" color="#f3373dff" />O email é obrigatório
+              <IconClose width="15px" height="15px" />
+              O email é obrigatório
             </Form.Message>
 
             <Form.Message className="signin-error" match="typeMismatch">
-              <IconClose width="15px" height="15px" color="#f3373dff" />
+              <IconClose width="15px" height="15px" />
               Insira um email válido
             </Form.Message>
           </Form.Field>
@@ -77,7 +77,8 @@ const SignInForm = ({ callback }: SignInProps) => {
             </Form.Control>
 
             <Form.Message className="signin-error" match="valueMissing">
-              <IconClose width="15px" height="15px" color="#f3373dff" />A senha é obrigatória
+              <IconClose width="15px" height="15px" />
+              A senha é obrigatória
             </Form.Message>
           </Form.Field>
         </Flex>
@@ -98,7 +99,7 @@ const SignInForm = ({ callback }: SignInProps) => {
         </Flex>
       </Form.Root>
     </Flex>
-  );
-};
+  )
+}
 
-export default SignInForm;
+export default SignInForm

@@ -1,58 +1,58 @@
-import { usePosts } from '@/hooks/usePosts';
-import { useEffect, useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import './style.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { usePosts } from '@/hooks/usePosts'
+import { useEffect, useState } from 'react'
+import { useAuth } from '@/hooks/useAuth'
+// import './style.css';
+import { useNavigate, useParams } from 'react-router-dom'
 
 const EditPost = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const { post, handleFetchPostById, handleUpdatePost } = usePosts();
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const { user } = useAuth()
+  const { post, handleFetchPostById, handleUpdatePost } = usePosts()
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [hasLoaded, setHasLoaded] = useState(false);
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [hasLoaded, setHasLoaded] = useState(false)
 
   // Fetch post apenas uma vez quando o ID mudar
   useEffect(() => {
     if (id) {
-      handleFetchPostById(id);
+      handleFetchPostById(id)
     }
-  }, [id]); // Apenas id como dependência
+  }, [id]) // Apenas id como dependência
 
   // Atualizar os campos apenas quando o post muda e ainda não foi carregado
   useEffect(() => {
     if (post && !hasLoaded) {
-      setTitle(post.title || '');
-      setContent(post.content || '');
-      setHasLoaded(true);
+      setTitle(post.title || '')
+      setContent(post.content || '')
+      setHasLoaded(true)
     }
-  }, [post, hasLoaded]); // post e hasLoaded como dependências
+  }, [post, hasLoaded]) // post e hasLoaded como dependências
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!post) return;
+    e.preventDefault()
+    if (!post) return
 
     if (!user?.id) {
-      setError('Você precisa estar logado para editar um post!');
-      return;
+      setError('Você precisa estar logado para editar um post!')
+      return
     }
 
     if (!title.trim()) {
-      setError('O título não pode estar vazio!');
-      return;
+      setError('O título não pode estar vazio!')
+      return
     }
 
     if (!content.trim()) {
-      setError('O conteúdo não pode estar vazio!');
-      return;
+      setError('O conteúdo não pode estar vazio!')
+      return
     }
 
-    setIsLoading(true);
-    setError('');
+    setIsLoading(true)
+    setError('')
 
     const updatedPost = {
       title: title.trim(),
@@ -60,22 +60,22 @@ const EditPost = () => {
       authorId: post.author?.id || '',
       userId: user.id,
       postId: post.postId,
-    };
+    }
 
     try {
-      await handleUpdatePost(updatedPost);
+      await handleUpdatePost(updatedPost)
     } catch (error) {
-      setError('Erro ao atualizar post. Tente novamente.');
-      setIsLoading(false);
+      setError('Erro ao atualizar post. Tente novamente.')
+      setIsLoading(false)
     }
-  };
+  }
 
   if (!post)
     return (
       <div className="loading-container">
         <p className="loading-text">Carregando post...</p>
       </div>
-    );
+    )
 
   return (
     <div className="edit-post-layout">
@@ -167,7 +167,7 @@ const EditPost = () => {
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default EditPost;
+export default EditPost

@@ -1,51 +1,51 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { usePosts } from '@/hooks/usePosts';
-import { useAuth } from '@/hooks/useAuth';
-import { useEffect, useState, useRef } from 'react';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import './style.css';
+import { useParams, useNavigate } from 'react-router-dom'
+import { usePosts } from '@/hooks/usePosts'
+import { useAuth } from '@/hooks/useAuth'
+import { useEffect, useState, useRef } from 'react'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+// import './style.css';
 
 const PostDetail = () => {
-  const { id } = useParams();
-  const { post, handleFetchPostById, handleDeletePost } = usePosts();
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const hasLoadedRef = useRef(false);
+  const { id } = useParams()
+  const { post, handleFetchPostById, handleDeletePost } = usePosts()
+  const { user } = useAuth()
+  const navigate = useNavigate()
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const hasLoadedRef = useRef(false)
 
   useEffect(() => {
     if (id && !hasLoadedRef.current) {
-      handleFetchPostById(id);
-      hasLoadedRef.current = true;
+      handleFetchPostById(id)
+      hasLoadedRef.current = true
     }
-  }, [id]);
+  }, [id])
 
   useEffect(() => {
-    hasLoadedRef.current = false;
-  }, [id]);
+    hasLoadedRef.current = false
+  }, [id])
 
   const deletePost = async () => {
-    if (!post?.postId) return;
+    if (!post?.postId) return
     try {
-      await handleDeletePost(post.postId);
-      setShowDeleteModal(false);
-      navigate('/feed');
+      await handleDeletePost(post.postId)
+      setShowDeleteModal(false)
+      navigate('/feed')
     } catch (error) {
-      alert('Erro ao excluir post. Tente novamente.');
+      alert('Erro ao excluir post. Tente novamente.')
     }
-  };
+  }
 
   const isMyPost = () => {
-    if (!post || !user) return false;
-    return post.userId === user.id || post.author.id === user.id;
-  };
+    if (!post || !user) return false
+    return post.userId === user.id || post.author.id === user.id
+  }
 
   if (!post)
     return (
       <div className="loading-container">
         <p className="loading-text">Carregando post...</p>
       </div>
-    );
+    )
 
   return (
     <div className="post-detail-layout">
@@ -153,7 +153,7 @@ const PostDetail = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PostDetail;
+export default PostDetail

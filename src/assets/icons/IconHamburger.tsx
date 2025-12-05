@@ -1,0 +1,22 @@
+import { IconProps } from '@/types/iconTypes'
+
+const IconHamburger = ({ width, height, className }: IconProps) => {
+  return (
+    <svg 
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      className={`${className}`}
+      style={{ flexShrink: 0 }}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill="currentColor"
+        d="M20.6 17.51a.5.5 0 0 1 0 .98l-.1.01h-17a.5.5 0 0 1 0-1h17zm0-6a.5.5 0 0 1 0 .98l-.1.01h-17a.5.5 0 0 1 0-1h17zm0-6a.5.5 0 0 1 0 .98l-.1.01h-17a.5.5 0 0 1 0-1h17z"
+      ></path>
+    </svg>
+  )
+}
+
+export default IconHamburger

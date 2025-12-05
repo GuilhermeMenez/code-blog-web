@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse } from 'msw'
 
 export const postHandlers = [
   http.get('/post/posts', () => {
@@ -148,6 +148,6 @@ export const postHandlers = [
         createdAt: '2025-11-22',
         comments: [],
       },
-    ]);
+    ])
   }),
-];
+]

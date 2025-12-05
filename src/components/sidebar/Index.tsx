@@ -1,32 +1,32 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import './style.css';
+import { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import './style.css'
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { user } = useAuth();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { user } = useAuth()
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   const menuItems = [
     { id: 'feed', label: 'Feed', icon: '📰', href: '/feed' },
     { id: 'newpost', label: 'Novo Post', icon: '✍️', href: '/newpost' },
     { id: 'profile', label: 'Perfil', icon: '👤', href: '/profile' },
     { id: 'favorites', label: 'Favoritos', icon: '⭐', href: '/favorites' },
-  ];
+  ]
 
-  const isActive = (href: string) => location.pathname === href;
+  const isActive = (href: string) => location.pathname === href
 
   const handleLogout = () => {
     //logout();
-    navigate('/login');
-  };
+    navigate('/login')
+  }
 
   return (
     <div className="layout-container">
@@ -100,7 +100,7 @@ const Layout = ({ children }: LayoutProps) => {
       {/* MAIN CONTENT */}
       <div className="layout-main">{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

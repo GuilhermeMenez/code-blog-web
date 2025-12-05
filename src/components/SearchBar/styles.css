@@ -1,0 +1,25 @@
+@import '@/styles/theme.css';
+
+.search-box {
+  padding-top: 2px;
+  height: 38px;
+}
+
+.search-bar {
+  width: 342px;
+  height: 100%;
+  padding: 0 4px;
+  font-weight: 500;
+  color: var(--white-12);
+  background-color: var(--slate-2);
+}
+
+.search-bar > input::placeholder {
+  color: var(--slate-10);
+  opacity: 1;
+}
+
+.search-icon {
+  padding-right: 10px;
+  color: var(--slate-10);
+}

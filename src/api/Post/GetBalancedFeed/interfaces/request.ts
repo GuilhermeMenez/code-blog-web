@@ -1,3 +1,3 @@
 export interface GetBalancedFeedRequest {
-  userId: string;
+  userId: string
 }

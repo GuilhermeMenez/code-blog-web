@@ -1,3 +1,3 @@
 export interface PostPostResponse {
-  postId: string;
+  postId: string
 }

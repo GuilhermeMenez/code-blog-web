@@ -1,3 +1,3 @@
 export interface PostUserRegisterResponse {
-  token: string;
+  token: string
 }

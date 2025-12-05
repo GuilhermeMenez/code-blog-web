@@ -1,17 +1,17 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { worker } from './api/_mocks/browser';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { worker } from './api/_mocks/browser'
 
-import { Theme } from '@radix-ui/themes';
-import '@radix-ui/themes/styles.css';
-import './theme/global.css';
+import { Theme } from '@radix-ui/themes'
+import '@radix-ui/themes/styles.css'
+import './styles/global.css'
 
-import AppRoutes from './routes';
-import AuthProvider from './context/authContext.tsx';
-import PostProvider from './context/postContext.tsx';
+import AppRoutes from './routes'
+import AuthProvider from './context/authContext'
+import PostProvider from './context/postContext'
 
 if (import.meta.env.VITE_MSW_MOCKS === 'true') {
-  await worker.start();
+  await worker.start()
 }
 
 createRoot(document.getElementById('root')!).render(
@@ -20,7 +20,7 @@ createRoot(document.getElementById('root')!).render(
       <PostProvider>
         <Theme
           accentColor="violet"
-          grayColor="sand"
+          grayColor="slate"
           panelBackground="translucent"
           radius="large"
           scaling="100%"
@@ -30,5 +30,5 @@ createRoot(document.getElementById('root')!).render(
         </Theme>
       </PostProvider>
     </AuthProvider>
-  </StrictMode>
-);
+  </StrictMode>,
+)
