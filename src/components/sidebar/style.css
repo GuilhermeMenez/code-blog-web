@@ -1,33 +1,4 @@
-/* ========== CORES DO RADIX THEMES - DARK + VIOLET ========== */
-:root {
-  /* Violet Scale (Accent) */
-  --violet-1: #faf8ff;
-  --violet-2: #f7f0ff;
-  --violet-3: #ede9fe;
-  --violet-4: #e4d9f7;
-  --violet-5: #d8ccf1;
-  --violet-6: #c9b8e4;
-  --violet-7: #b99ed4;
-  --violet-8: #a085c2;
-  --violet-9: #6d28d9;
-  --violet-10: #7c3aed;
-  --violet-11: #a78bfa;
-  --violet-12: #ede9fe;
-
-  /* Slate Gray (Paired with Violet) */
-  --slate-1: #09090b;
-  --slate-2: #18181b;
-  --slate-3: #27272a;
-  --slate-4: #3f3f46;
-  --slate-5: #52525b;
-  --slate-6: #71717a;
-  --slate-7: #a1a1a6;
-  --slate-8: #d4d4d8;
-  --slate-9: #e4e4e7;
-  --slate-10: #f4f4f5;
-  --slate-11: #fafafa;
-  --slate-12: #ffffff;
-}
+@import '@/styles/theme.css';
 
 /* ========== LAYOUT CONTAINER ========== */
 .layout-container {
@@ -109,13 +80,13 @@
   padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   padding: 12px 16px;
   border-radius: 6px;
   background-color: transparent;
@@ -174,7 +145,7 @@
 .user-button-sidebar {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   padding: 8px 12px;
   border-radius: 6px;
   background-color: transparent;
@@ -358,12 +329,12 @@
   .nav-list {
     flex-direction: row;
     overflow-x: auto;
-    gap: 0;
+    gap: 0rem;
   }
 
   .nav-link {
     flex-direction: column;
-    gap: 4px;
+    gap: 0.25rem;
     padding: 8px 12px;
     min-height: 60px;
     justify-content: center;
@@ -388,3 +359,4 @@
     margin-bottom: 80px;
   }
 }
+

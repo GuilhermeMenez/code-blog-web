@@ -1,13 +1,15 @@
 :root {
+  --white-12: #1C2024;
   --danger: #f3373d;
-
+  
   --landing-text: #edeef0;
   --landing-bg: url('../assets/svgs/auth-landing-light.svg');
-
+  
   --navigation-width: 312px;
 }
 
 .dark {
+  --white-12: #ffffff;
   --danger: #f3373d;
 
   --landing-text: #edeef0;

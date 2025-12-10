@@ -1,6 +1,6 @@
 import axios from 'axios'
 import cookies from 'js-cookie'
-import getBaseUrl from '@/utils/GetBaseUrl'
+import getBaseUrl from '@/utils/network/getBaseUrl'
 
 export const api = axios.create({
   baseURL: getBaseUrl(),

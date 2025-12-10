@@ -17,7 +17,7 @@ const MainLayout = () => {
       <Flex className={`main-content ${!isMenuOpen ? 'menu-off' : ''}`} direction="column">
         <Header isMenuOpen={isMenuOpen} />
 
-        <Container size="3">
+        <Container size="3" py="5">
           <Outlet />
         </Container>
       </Flex>

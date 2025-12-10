@@ -3,7 +3,8 @@ import './styles.css'
 import IconNewPost from '@/assets/icons/IconNewPost'
 // import IconSearch from '@/assets/icons/IconSearch'
 import IconBell from '@/assets/icons/IconBell'
-import { Flex, Text, Box, Avatar } from '@radix-ui/themes'
+import AvatarUser from '@/components/AvatarUser'
+import { Flex, Text, Box } from '@radix-ui/themes'
 
 interface HeaderProps {
   isMenuOpen: boolean
@@ -20,8 +21,8 @@ const Header = ({ isMenuOpen }: HeaderProps) => {
       {/* <SearchBar /> */}
 
       <Flex gap="5">
-        <Flex className="header-item" justify="center" align="center">
-          <Box className="icon-box" pr="2">
+        <Flex className="header-item" justify="center" align="center" gap="1">
+          <Box className="icon-box">
             <IconNewPost width={20} height={20} />
           </Box>
 
@@ -43,15 +44,13 @@ const Header = ({ isMenuOpen }: HeaderProps) => {
             </Box>
           </Flex>
 
-          <Flex className="header-item profile" justify="center" align="center" pl="2">
-            <Box>
-              <Avatar
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="A"
-                radius="full"
-              />
-            </Box>
-          </Flex>
+          <Box pl="2">
+            <AvatarUser
+              // src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+              letter="CB"
+              size="medium"
+            />
+          </Box>
         </Flex>
       </Flex>
     </Flex>

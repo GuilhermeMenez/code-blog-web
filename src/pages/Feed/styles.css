@@ -1,0 +1,73 @@
+@import '@/styles/theme.css';
+
+.feed-container {
+  width: 100%;
+}
+
+.feed-container {
+  width: 100%;
+  max-width: 872px;
+  gap: 32px;
+}
+
+.feed-label-item {
+  color: var(--slate-11);
+}
+
+.feed-label-date {
+  color: var(--slate-9);
+}
+
+.dropdown-post-trigger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--slate-10);
+  cursor: pointer;
+}
+
+.dropdown-post-trigger:hover {
+  color: var(--slate-12);
+}
+
+.feed-comment-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-top: 2px;
+  padding-left: 8px;
+  color: var(--slate-11);
+  font-size: 13px;
+}
+
+.dropdown-content {
+  min-width: 184px;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  height: 28px;
+  margin-bottom: 2px;
+  color: var(--slate-11);
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  color: var(--slate-12);
+  background-color: var(--accent-a3);
+}
+
+.dropdown-item:active {
+  background-color: var(--accent-a4);
+}
+
+.dropdown-item.delete {
+  color: var(--accent-a11);
+}
+
+.dropdown-item > div:nth-child(1) {
+  font-size: 0.813rem;
+  color: var(--slate-9);
+}

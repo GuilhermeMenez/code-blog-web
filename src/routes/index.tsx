@@ -2,11 +2,11 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 import AuthLayout from '@/layouts/AuthLayout'
 import MainLayout from '@/layouts/MainLayout'
 
-import AuthPage from '../pages/Auth'
-import Feed from '../pages/Feed'
-import PostDetail from '../pages/PostDetail/view'
-import CreatPost from '../pages/CreatePost'
-import EditPost from '../pages/EditPost'
+import AuthPage from '@/pages/Auth'
+import Feed from '@/pages/Feed'
+import PostDetail from '@/pages/PostDetail'
+import CreatPost from '@/pages/CreatePost'
+import EditPost from '@/pages/EditPost'
 
 const AppRoutes = () => {
   return (

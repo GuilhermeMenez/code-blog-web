@@ -7,7 +7,7 @@
   max-width: calc(var(--navigation-width) - 34px);
   width: 100%;
   transition: max-width 0.3s ease;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .logo-header.menu-off {
@@ -55,7 +55,7 @@
   align-items: center;
   height: 38px;
   padding-top: 6px;
-  color: var(--white-12);
+  color: var(--slate-12);
   transform: translateX(-34px);
   transition: transform 0.3s ease;
 }
@@ -93,6 +93,7 @@
   height: 38px;
   padding: 0 10px;
   color: var(--slate-11);
+  border-radius: 4px;
   text-decoration: none;
 }
 
@@ -103,7 +104,6 @@
 
 .navigation-item.active {
   background-color: var(--accent-a3);
-  border-radius: 4px;
   color: var(--slate-12);
 }
 

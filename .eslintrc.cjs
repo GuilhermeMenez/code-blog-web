@@ -60,4 +60,12 @@ module.exports = {
       },
     ],
   },
+  ignorePatterns: [
+    "dist",
+    "node_modules",
+    "tsconfig.json",
+    "tsconfig.app.json",
+    "tsconfig.node.json",
+    "vite.config.ts"
+  ],
 }

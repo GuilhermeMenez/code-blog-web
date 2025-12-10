@@ -22,7 +22,7 @@ createRoot(document.getElementById('root')!).render(
           accentColor="violet"
           grayColor="slate"
           panelBackground="translucent"
-          radius="large"
+          radius="small"
           scaling="100%"
           appearance="dark"
         >

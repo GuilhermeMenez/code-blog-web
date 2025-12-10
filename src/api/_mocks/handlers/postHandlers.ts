@@ -4,6 +4,17 @@ export const postHandlers = [
   http.get('/post/posts', () => {
     return HttpResponse.json([
       {
+        postId: '29a7eeb9-ebe9-47a7-acf6-35838e963a54',
+        title: 'Code Bob test',
+        content: 'somo amigue o no somo amigue?',
+        author: {
+          id: '039e789d-6bc5-4b26-8fc2-79a8081300e3',
+          name: 'Amigue',
+        },
+        createdAt: '2025-11-21',
+        comments: [],
+      },
+      {
         postId: '8830589a-ef19-454a-a611-54b033178b1b',
         title: 'Spring Boot e JPA',
         content: 'Hoje vou compartilhar um pouco sobre como integrar o Spring Boot com JPA...',
@@ -105,17 +116,6 @@ export const postHandlers = [
         ],
       },
       {
-        postId: '29a7eeb9-ebe9-47a7-acf6-35838e963a54',
-        title: 'new',
-        content: 'new new',
-        author: {
-          id: '039e789d-6bc5-4b26-8fc2-79a8081300e3',
-          name: 'bea',
-        },
-        createdAt: '2025-11-21',
-        comments: [],
-      },
-      {
         postId: 'd8964364-d2d8-40a4-b21b-b9a36b72a447',
         title: 'teste',
         content: 'test12',
@@ -149,5 +149,19 @@ export const postHandlers = [
         comments: [],
       },
     ])
+  }),
+
+  http.get('/post/posts/:postId', () => {
+    return HttpResponse.json({
+      postId: '8830589a-ef19-454a-a611-54b033178b1b',
+      title: 'Spring Boot e JPA',
+      content: 'Hoje vou compartilhar um pouco sobre como integrar o Spring Boot com JPA...',
+      author: {
+        id: 'edf1d42a-d22e-4178-aa89-7abc8419f52e',
+        name: 'Maria Souza',
+      },
+      createdAt: '2025-09-20',
+      comments: [],
+    })
   }),
 ]

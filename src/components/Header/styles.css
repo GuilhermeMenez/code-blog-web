@@ -8,7 +8,7 @@
   height: 70px;
   padding: 16px 18px;
   background-color: var(--color-background);
-  z-index: 900;
+  z-index: 1000;
 }
 
 .main-header.menu-off {
@@ -22,7 +22,7 @@
 }
 
 .header-item:hover {
-  color: var(--white-12);
+  color: var(--slate-12);
 }
 
 .icon-box {
@@ -41,8 +41,4 @@
   height: 10px;
   background-color: var(--accent-indicator);
   border-radius: 50%;
-}
-
-.header-item.profile:hover {
-  opacity: 0.7;
 }
