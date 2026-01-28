@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './pages/__root'
 import { Route as AppLayoutRouteImport } from './pages/_app/layout'
+import { Route as DesignSystemIndexRouteImport } from './pages/design-system/index'
 import { Route as AuthIndexRouteImport } from './pages/_auth/index'
 import { Route as AppFeedIndexRouteImport } from './pages/_app/feed/index'
 import { Route as AppWriterIndexRouteImport } from './pages/_app/$writer/index'
@@ -19,6 +20,11 @@ import { Route as AppWriterPostIdIndexRouteImport } from './pages/_app/$writer/$
 
 const AppLayoutRoute = AppLayoutRouteImport.update({
   id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesignSystemIndexRoute = DesignSystemIndexRouteImport.update({
+  id: '/design-system/',
+  path: '/design-system/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
@@ -54,6 +60,7 @@ const AppWriterPostIdIndexRoute = AppWriterPostIdIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthIndexRoute
+  '/design-system/': typeof DesignSystemIndexRoute
   '/me/following': typeof AppMeFollowingRoute
   '/me/library': typeof AppMeLibraryRoute
   '/$writer/': typeof AppWriterIndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof AuthIndexRoute
+  '/design-system': typeof DesignSystemIndexRoute
   '/me/following': typeof AppMeFollowingRoute
   '/me/library': typeof AppMeLibraryRoute
   '/$writer': typeof AppWriterIndexRoute
@@ -72,6 +80,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppLayoutRouteWithChildren
   '/_auth/': typeof AuthIndexRoute
+  '/design-system/': typeof DesignSystemIndexRoute
   '/_app/me/following': typeof AppMeFollowingRoute
   '/_app/me/library': typeof AppMeLibraryRoute
   '/_app/$writer/': typeof AppWriterIndexRoute
@@ -82,6 +91,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/design-system/'
     | '/me/following'
     | '/me/library'
     | '/$writer/'
@@ -90,6 +100,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/design-system'
     | '/me/following'
     | '/me/library'
     | '/$writer'
@@ -99,6 +110,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_app'
     | '/_auth/'
+    | '/design-system/'
     | '/_app/me/following'
     | '/_app/me/library'
     | '/_app/$writer/'
@@ -109,6 +121,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AppLayoutRoute: typeof AppLayoutRouteWithChildren
   AuthIndexRoute: typeof AuthIndexRoute
+  DesignSystemIndexRoute: typeof DesignSystemIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -118,6 +131,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AppLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/design-system/': {
+      id: '/design-system/'
+      path: '/design-system'
+      fullPath: '/design-system/'
+      preLoaderRoute: typeof DesignSystemIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_auth/': {
@@ -188,6 +208,7 @@ const AppLayoutRouteWithChildren = AppLayoutRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   AppLayoutRoute: AppLayoutRouteWithChildren,
   AuthIndexRoute: AuthIndexRoute,
+  DesignSystemIndexRoute: DesignSystemIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
