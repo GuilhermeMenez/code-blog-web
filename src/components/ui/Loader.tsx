@@ -1,4 +1,4 @@
-import type { IconProps } from '@/types/iconProps'
+import type { IconProps } from '@/types/icon.types'
 import { twMerge } from 'tailwind-merge'
 
 interface LoaderProps extends IconProps {
