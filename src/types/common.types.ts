@@ -1,14 +1,3 @@
-export interface ApiError {
-  message: string
-  code?: string
-  status?: number
-}
-
-export interface ServiceResponse<T> {
-  data: T | null
-  error: ApiError | null
-}
-
 export interface PaginatedResponse<T> {
   data: T[]
   total: number
@@ -19,4 +8,5 @@ export interface PaginatedResponse<T> {
 export interface PaginationParams {
   page?: number
   limit?: number
+  [key: string]: unknown
 }

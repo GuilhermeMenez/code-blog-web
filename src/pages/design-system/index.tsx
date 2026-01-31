@@ -25,21 +25,21 @@ function DesignSystem() {
         <div className='flex flex-col gap-6'>
           <div>
             <span className='block mb-2 text-base font-bold'>Inter</span>
-            <p className='font-inter font-bold text-2xl italic'>The quick brown fox jumps over the lazy dog</p>
+            <p className='font-inter font-bold text-2xl'>The quick brown fox jumps over the lazy dog</p>
             <p className='font-inter font-medium text-lg'>The quick brown fox jumps over the lazy dog</p>
             <p className='font-inter font-light text-base'>The quick brown fox jumps over the lazy dog</p>
           </div>
 
           <div>
             <span className='block mb-2 text-base font-bold'>Lusitana</span>
-            <p className='font-lusitana font-bold text-2xl italic'>The quick brown fox jumps over the lazy dog</p>
+            <p className='font-lusitana font-bold text-2xl'>The quick brown fox jumps over the lazy dog</p>
             <p className='font-lusitana font-medium text-lg'>The quick brown fox jumps over the lazy dog</p>
             <p className='font-lusitana font-light text-base'>The quick brown fox jumps over the lazy dog</p>
           </div>
 
           <div>
             <span className='block mb-2 text-base font-bold'>Source Serif 4</span>
-            <p className='font-source font-bold text-2xl italic'>The quick brown fox jumps over the lazy dog</p>
+            <p className='font-source font-bold text-2xl'>The quick brown fox jumps over the lazy dog</p>
             <p className='font-source font-medium text-lg'>The quick brown fox jumps over the lazy dog</p>
             <p className='font-source font-light text-base'>The quick brown fox jumps over the lazy dog</p>
           </div>

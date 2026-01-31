@@ -1,91 +1,92 @@
-import { useState, useCallback } from 'react'
-import { authService } from '@/services/auth.services'
-import type { User, LoginDTO, RegisterDTO } from '@/types/auth.types'
-import type { ApiError } from '@/types/common.types'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 
-export function useAuth() {
-  const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [error, setError] = useState<ApiError | null>(null)
+import { authApi } from '@/http/endpoints/auth'
+import { queryKeys } from '@/lib/query-client'
 
-  const login = useCallback(async (payload: LoginDTO) => {
-    setIsLoading(true)
-    setError(null)
+import type { LoginDTO, RegisterDTO } from '@/types/auth.types'
 
-    const { data, error } = await authService.login(payload)
+// ======= Queries =======
 
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return false
-    }
+// Hook para buscar dados do usuário autenticado
+export function useMe() {
+  return useQuery({
+    queryKey: queryKeys.auth.me(),
+    queryFn: authApi.me,
+    staleTime: 1000 * 60 * 10, // 10 minutos
+    retry: false, // Não retry se não autenticado
+  })
+}
 
-    setUser(data!.user)
-    setIsAuthenticated(true)
-    setIsLoading(false)
-    return true
-  }, [])
-
-  const register = useCallback(async (payload: RegisterDTO) => {
-    setIsLoading(true)
-    setError(null)
-
-    const { data, error } = await authService.register(payload)
-
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return false
-    }
-
-    setUser(data!.user)
-    setIsAuthenticated(true)
-    setIsLoading(false)
-    return true
-  }, [])
-
-  const logout = useCallback(async () => {
-    setIsLoading(true)
-
-    await authService.logout()
-
-    setUser(null)
-    setIsAuthenticated(false)
-    setIsLoading(false)
-  }, [])
-
-  const fetchUser = useCallback(async () => {
-    setIsLoading(true)
-    setError(null)
-
-    const { data, error } = await authService.me()
-
-    if (error) {
-      setError(error)
-      setIsAuthenticated(false)
-      setIsLoading(false)
-      return
-    }
-
-    setUser(data)
-    setIsAuthenticated(true)
-    setIsLoading(false)
-  }, [])
-
-  const clearError = useCallback(() => {
-    setError(null)
-  }, [])
+// Hook para verificar se usuário está autenticado
+export function useIsAuthenticated() {
+  const { data, isLoading, isError } = useMe()
 
   return {
-    user,
+    isAuthenticated: !!data && !isError,
     isLoading,
-    isAuthenticated,
-    error,
-    login,
-    register,
-    logout,
-    fetchUser,
-    clearError,
+    user: data,
   }
+}
+
+// ======= Mutations =======
+
+// Hook para login
+export function useLogin() {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: (data: LoginDTO) => authApi.login(data),
+    onSuccess: (response) => {
+      // Salva token
+      localStorage.setItem('token', response.token)
+
+      // Atualiza cache do usuário
+      queryClient.setQueryData(queryKeys.auth.me(), response.user)
+
+      // Redireciona para feed
+      navigate({ to: '/feed' })
+    },
+  })
+}
+
+// Hook para registro
+export function useRegister() {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: (data: RegisterDTO) => authApi.register(data),
+    onSuccess: (response) => {
+      // Salva token
+      localStorage.setItem('token', response.token)
+
+      // Atualiza cache do usuário
+      queryClient.setQueryData(queryKeys.auth.me(), response.user)
+
+      // Redireciona para feed
+      navigate({ to: '/feed' })
+    },
+  })
+}
+
+// Hook para logout
+export function useLogout() {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: authApi.logout,
+    onSettled: () => {
+      // Remove token mesmo se a API falhar
+      localStorage.removeItem('token')
+
+      // Limpa todo o cache
+      queryClient.clear()
+
+      // Redireciona para auth
+      navigate({ to: '/auth' })
+    },
+  })
 }

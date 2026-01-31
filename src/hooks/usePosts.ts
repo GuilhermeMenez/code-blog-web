@@ -1,190 +1,102 @@
-import { useState, useCallback } from 'react'
-import { postsService } from '@/services/posts.services'
-import type { Post, CreatePostDTO, UpdatePostDTO } from '@/types/posts.types'
-import type { ApiError, PaginationParams } from '@/types/common.types'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
-export function usePosts() {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [currentPost, setCurrentPost] = useState<Post | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<ApiError | null>(null)
-  const [pagination, setPagination] = useState({
-    total: 0,
-    page: 1,
-    limit: 10,
+import { postsApi } from '@/http/endpoints/posts'
+import { queryKeys } from '@/lib/query-client'
+
+import type { PaginationParams } from '@/types/common.types'
+import type { CreatePostDTO, UpdatePostDTO } from '@/types/posts.types'
+
+// ======= Queries =======
+
+// Hook para buscar todos os posts
+export function usePosts(params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.list(params),
+    queryFn: () => postsApi.getAll(params),
   })
+}
 
-  const fetchPosts = useCallback(async (params?: PaginationParams) => {
-    setIsLoading(true)
-    setError(null)
+// Hook para buscar feed do usuário
+export function useFeed(params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.feed(params),
+    queryFn: () => postsApi.getFeed(params),
+  })
+}
 
-    const { data, error } = await postsService.getAll(params)
+// Hook para buscar um post específico
+export function usePost(id: string) {
+  return useQuery({
+    queryKey: queryKeys.posts.detail(id),
+    queryFn: () => postsApi.getById(id),
+    enabled: !!id,
+  })
+}
 
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return
-    }
+// Hook para buscar posts de um autor
+export function usePostsByAuthor(authorId: string, params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.byAuthor(authorId, params),
+    queryFn: () => postsApi.getByAuthor(authorId, params),
+    enabled: !!authorId,
+  })
+}
 
-    setPosts(data!.data)
-    setPagination({
-      total: data!.total,
-      page: data!.page,
-      limit: data!.limit,
-    })
-    setIsLoading(false)
-  }, [])
+// Hook para buscar posts por pesquisa
+export function useSearchPosts(query: string, params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.search(query, params),
+    queryFn: () => postsApi.search(query, params),
+    enabled: query.length > 2, // Só busca se tiver mais de 2 caracteres
+  })
+}
 
-  const fetchFeed = useCallback(async (params?: PaginationParams) => {
-    setIsLoading(true)
-    setError(null)
+// ======= Mutations =======
 
-    const { data, error } = await postsService.getFeed(params)
+// Hook para criar um post
+export function useCreatePost() {
+  const queryClient = useQueryClient()
 
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return
-    }
+  return useMutation({
+    mutationFn: (data: CreatePostDTO) => postsApi.create(data),
+    onSuccess: () => {
+      // Invalida listas de posts para refetch
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.feed() })
+    },
+  })
+}
 
-    setPosts(data!.data)
-    setPagination({
-      total: data!.total,
-      page: data!.page,
-      limit: data!.limit,
-    })
-    setIsLoading(false)
-  }, [])
+// Hook para atualizar um post
+export function useUpdatePost() {
+  const queryClient = useQueryClient()
 
-  const fetchPostById = useCallback(async (id: string) => {
-    setIsLoading(true)
-    setError(null)
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: UpdatePostDTO }) => postsApi.update(id, data),
+    onSuccess: (updatedPost, { id }) => {
+      // Atualiza o cache do post específico
+      queryClient.setQueryData(queryKeys.posts.detail(id), updatedPost)
 
-    const { data, error } = await postsService.getById(id)
+      // Invalida listas para refetch
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.feed() })
+    },
+  })
+}
 
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return null
-    }
+// Hook para deletar um post
+export function useDeletePost() {
+  const queryClient = useQueryClient()
 
-    setCurrentPost(data)
-    setIsLoading(false)
-    return data
-  }, [])
+  return useMutation({
+    mutationFn: (id: string) => postsApi.delete(id),
+    onSuccess: (_, id) => {
+      // Remove do cache
+      queryClient.removeQueries({ queryKey: queryKeys.posts.detail(id) })
 
-  const fetchPostsByAuthor = useCallback(async (authorId: string, params?: PaginationParams) => {
-    setIsLoading(true)
-    setError(null)
-
-    const { data, error } = await postsService.getByAuthor(authorId, params)
-
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return
-    }
-
-    setPosts(data!.data)
-    setPagination({
-      total: data!.total,
-      page: data!.page,
-      limit: data!.limit,
-    })
-    setIsLoading(false)
-  }, [])
-
-  const createPost = useCallback(async (payload: CreatePostDTO) => {
-    setIsLoading(true)
-    setError(null)
-
-    const { data, error } = await postsService.create(payload)
-
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return null
-    }
-
-    setPosts((prev) => [data!, ...prev])
-    setIsLoading(false)
-    return data
-  }, [])
-
-  const updatePost = useCallback(async (id: string, payload: UpdatePostDTO) => {
-    setIsLoading(true)
-    setError(null)
-
-    const { data, error } = await postsService.update(id, payload)
-
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return null
-    }
-
-    setPosts((prev) => prev.map((post) => (post.id === id ? data! : post)))
-    setCurrentPost(data)
-    setIsLoading(false)
-    return data
-  }, [])
-
-  const deletePost = useCallback(async (id: string) => {
-    setIsLoading(true)
-    setError(null)
-
-    const { error } = await postsService.delete(id)
-
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return false
-    }
-
-    setPosts((prev) => prev.filter((post) => post.id !== id))
-    setIsLoading(false)
-    return true
-  }, [])
-
-  const searchPosts = useCallback(async (query: string, params?: PaginationParams) => {
-    setIsLoading(true)
-    setError(null)
-
-    const { data, error } = await postsService.search(query, params)
-
-    if (error) {
-      setError(error)
-      setIsLoading(false)
-      return
-    }
-
-    setPosts(data!.data)
-    setPagination({
-      total: data!.total,
-      page: data!.page,
-      limit: data!.limit,
-    })
-    setIsLoading(false)
-  }, [])
-
-  const clearError = useCallback(() => {
-    setError(null)
-  }, [])
-
-  return {
-    posts,
-    currentPost,
-    isLoading,
-    error,
-    pagination,
-    fetchPosts,
-    fetchFeed,
-    fetchPostById,
-    fetchPostsByAuthor,
-    createPost,
-    updatePost,
-    deletePost,
-    searchPosts,
-    clearError,
-  }
+      // Invalida listas para refetch
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.feed() })
+    },
+  })
 }
