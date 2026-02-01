@@ -1,73 +1,224 @@
-# React + TypeScript + Vite
+# Code Blog Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para blog de código desenvolvida com React 19 e tecnologias modernas de frontend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📚 Índice
 
-## React Compiler
+- [Stack](#-stack)
+- [Requisitos](#-requisitos)
+- [Instalação](#-instalação)
+- [Scripts Disponíveis](#-scripts-disponíveis)
+- [Estrutura de Diretórios](#-estrutura-de-diretórios)
+- [Padrões de Nomenclatura](#-padrões-de-nomenclatura)
+- [Estrutura de Componentes](#-estrutura-de-componentes)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Categoria         | Tecnologia                                                  | Versão         |
+|-------------------|-------------------------------------------------------------|----------------|
+| **Framework**     | [React](https://react.dev/)                                 | 19             |
+| **Linguagem**     | [TypeScript](https://www.typescriptlang.org/)               | 5.9 (strict)   |
+| **Build Tool**    | [Vite](https://vite.dev/)                                   | 7              |
+| **Estilização**   | [Tailwind CSS](https://tailwindcss.com/)                    | 4              |
+| **Variantes**     | [Tailwind Variants](https://www.tailwind-variants.org/)     | 3              |
+| **Merge Classes** | [Tailwind Merge](https://github.com/dcastil/tailwind-merge) | 3              |
+| **UI Headless**   | [Base UI React](https://base-ui.com/)                       | 1              |
+| **HTTP Client**   | [Axios](https://axios-http.com/)                            | 1              |
+| **Server State**  | [TanStack Query](https://tanstack.com/query)                | 5              |
+| **Roteamento**    | [TanStack Router](https://tanstack.com/router)              | 1 (file-based) |
+| **API Mocking**   | [Mock Service Worker](https://mswjs.io/)                    | 2              |
+| **Linter**        | [ESLint](https://eslint.org/)                               | 9              |
+| **Formatter**     | [Prettier](https://prettier.io/)                            | 3              |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📋 Requisitos
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Antes de começar, certifique-se de ter instalado:
+
+- **Node.js** >= 20.x
+- **npm** >= 10.x (gerenciador de pacotes padrão do projeto)
+
+---
+
+## 🚀 Instalação
+
+### 1. Clone o repositório
+
+```bash
+git clone <repository-url>
+cd code-blog-web
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instale as dependências
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+### 3. Configure as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+VITE_API_URL='http://localhost:8080/'
+VITE_ENABLE_MOCKS=false
+```
+
+### 4. Inicie o servidor de desenvolvimento
+
+```bash
+npm start
+```
+
+A aplicação estará disponível em `http://localhost:5173`
+
+---
+
+## 📜 Scripts Disponíveis
+
+| Script     | Comando            | Descrição                                            |
+|------------|--------------------|------------------------------------------------------|
+| `start`    | `npm start`        | Inicia o servidor de desenvolvimento                 |
+| `build`    | `npm run build`    | Compila TypeScript e gera build de produção          |
+| `preview`  | `npm run preview`  | Visualiza o build de produção localmente             |
+| `lint`     | `npm run lint`     | Executa o ESLint para verificar problemas no código  |
+| `lint:fix` | `npm run lint:fix` | Executa o ESLint e corrige problemas automaticamente |
+| `format`   | `npm run format`   | Formata o código com Prettier                        |
+
+---
+
+## 📁 Estrutura de Diretórios
+
+```
+src/
+├── assets/                       # Assets estáticos
+│   └── icons/                    # Componentes de ícones SVG
+│
+├── components/
+│   ├── ui/                       # Componentes primitivos (Button, Input, etc.)
+│   ├── layout/                   # Componentes de layout (Header, Footer, etc.)
+│   └── common/                   # Componentes compartilhados
+│
+├── hooks/                        # Custom hooks (useAuth, usePosts, useUsers)
+│
+├── http/
+│   ├── endpoints/                # Funções de chamadas API (auth, posts, users)
+│   └── axios.ts                  # Configuração do cliente HTTP
+│
+├── lib/                          # Configurações de bibliotecas externas
+│
+├── pages/                        # Páginas (TanStack Router file-based)
+│
+├── types/                        # Definições de tipos e interfaces
+├── enums/                        # Definições de enums
+├── constants/                    # Constantes da aplicação
+│
+├── utils/                        # Funções utilitárias
+│
+├── App.tsx                       # Componente raiz da aplicação
+├── index.css                     # Estilos globais e configuração Tailwind
+├── main.tsx                      # Entry point da aplicação
+└── route-tree.gen.ts             # Arquivo gerado pelo TanStack Router
+```
+
+---
+
+## 📝 Padrões de Nomenclatura
+
+| Tipo            | Convenção                  | Exemplo                           |
+|-----------------|----------------------------|-----------------------------------|
+| **Componentes** | `PascalCase.tsx`           | `Button.tsx`, `PostCard.tsx`      |
+| **Ícones**      | `PascalCaseIcon.tsx`       | `PlusIcon.tsx`, `SearchIcon.tsx`  |
+| **Hooks**       | `useCamelCase.ts`          | `usePosts.ts`, `useAuth.ts`       |
+| **HTTP/Lib**    | `kebab-case.ts`            | `posts.ts`, `query-client.ts`     |
+| **Pages**       | TanStack Router file-based | `index.tsx`, `$postId/index.tsx`  |
+| **Estilos**     | `kebab-case.css`           | `index.css`                       |
+| **Types**       | `kebab-case.types.ts`      | `posts.types.ts`, `auth.types.ts` |
+| **Enums**       | `kebab-case.enums.ts`      | `posts.enums.ts`                  |
+| **Constantes**  | `kebab-case.constants.ts`  | `api.constants.ts`                |
+| **Utilitários** | `kebab-case.ts`            | `format-date.ts`                  |
+
+---
+
+## 🧩 Estrutura de Componentes
+
+Os componentes seguem um padrão consistente utilizando **Tailwind Variants** para gerenciamento de variantes e **Tailwind Merge** para composição de classes.
+
+### Exemplo de Componente
+
+```tsx
+import { tv, type VariantProps } from 'tailwind-variants'
+import { twMerge } from 'tailwind-merge'
+import type { ComponentProps } from 'react'
+
+// 1. Definição das variantes com tailwind-variants
+export const buttonVariants = tv({
+  base: [
+    'inline-flex cursor-pointer items-center justify-center font-medium rounded-lg border transition-colors',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+    'data-disabled:pointer-events-none data-disabled:opacity-50',
+  ],
+  variants: {
+    variant: {
+      primary: 'border-primary bg-primary text-primary-foreground hover:bg-primary-hover',
+      secondary: 'border-border bg-secondary text-secondary-foreground hover:bg-muted',
+      ghost: 'border-transparent bg-transparent text-muted-foreground hover:text-foreground',
+      destructive: 'border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90',
+    },
+    size: {
+      sm: 'h-6 px-2 gap-1.5 text-xs [&_svg]:size-3',
+      md: 'h-7 px-3 gap-2 text-sm [&_svg]:size-3.5',
+      lg: 'h-9 px-4 gap-2.5 text-base [&_svg]:size-4',
     },
   },
-])
+  defaultVariants: { variant: 'primary', size: 'md' },
+})
+
+// 2. Interface do componente extendendo props nativas + variantes
+export interface ButtonProps
+  extends ComponentProps<'button'>,
+    VariantProps<typeof buttonVariants> {}
+
+// 3. Componente funcional (sem forwardRef no React 19)
+export function Button({ 
+  className, 
+  variant, 
+  size, 
+  disabled, 
+  children, 
+  ...props 
+}: ButtonProps) {
+  return (
+    <button
+      type="button"
+      data-slot="button"
+      data-disabled={disabled ? '' : undefined}
+      className={twMerge(buttonVariants({ variant, size }), className)}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+    </button>
+  )
+}
 ```
+
+### Principais Características
+
+- **React 19**: Não utiliza `forwardRef` (ref é passado automaticamente via props)
+- **Tailwind Variants**: Gerencia variantes de estilo de forma type-safe
+- **Tailwind Merge**: Permite sobrescrever classes via prop `className`
+- **Data Attributes**: Utiliza `data-*` para estados (ex: `data-disabled`)
+- **Tailwind CSS v4**: Utiliza `@theme` e CSS variables para tokens de design
+
+---
+
+## 📄 Licença
+
+Este projeto é privado e de uso interno
+
