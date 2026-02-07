@@ -2,8 +2,8 @@ import type { ComponentProps } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { twMerge } from 'tailwind-merge'
 
-import { SearchIcon } from '@/assets/icons/SearchIcon'
 import { Field } from '@base-ui/react/field'
+import { SearchIcon } from '@/assets/icons/SearchIcon'
 
 export const inputVariants = tv({
   base: [
@@ -41,7 +41,6 @@ export interface InputProps
     VariantProps<typeof inputVariants> {
   label?: string
   error?: string
-  // icon?: ReactNode
   className?: string
 }
 
