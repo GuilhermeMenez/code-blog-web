@@ -25,15 +25,15 @@
 
   --color-accent-50: #684BDF;
   --color-accent-40: #7459E2;
-  --color-accent-30: #7F66E4;
+  --color-accent-30: #856DE5;
 
   --color-success-50: #1A8917;
   --color-success-40: #34A845;
   --color-success-30: #52BD62;
 
-  --color-danger-50: #DC373D;
-  --color-danger-40: #F54F55;
-  --color-danger-30: #FF7671;
+  --color-danger-50: #C84141;
+  --color-danger-40: #CC5454;
+  --color-danger-30: #D16060;
 
   /* spacings */
   --spacing-4.5: 1.125rem;

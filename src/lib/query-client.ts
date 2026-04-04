@@ -1,24 +1,19 @@
 import { QueryClient } from '@tanstack/react-query'
-import { isAxiosError } from 'axios'
+import { isApiError, isClientError } from '@/types/api-error.types'
 
 function handleQueryError(error: unknown): void {
-  if (isAxiosError(error)) {
-    const status = error.response?.status
-    const message = error.response?.data?.message || error.message
-
+  if (isApiError(error)) {
     // Log apenas em desenvolvimento
     if (import.meta.env.DEV) {
-      console.error(`[Query Error] Status: ${status}, Message: ${message}`)
+      console.error(`[Query Error] Status: ${error.status}, Message: ${error.message}`)
     }
   }
 }
 
 function handleQueryRetry(failureCount: number, error: unknown): boolean {
-  if (isAxiosError(error) && error.response?.status) { // Não retry para erros 4xx
-    const status = error.response.status
-    if (status >= 400 && status < 500) {
-      return false
-    }
+  // Não retry para erros 4xx (client errors)
+  if (isApiError(error) && isClientError(error)) {
+    return false
   }
   return failureCount < 1
 }

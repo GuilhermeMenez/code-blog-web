@@ -3,11 +3,9 @@ import { mockPosts, findPostById, filterPostsByAuthor, searchPosts, currentUser 
 import { paginate, extractPaginationParams } from '../utils/pagination'
 import type { CreatePostDTO, UpdatePostDTO } from '@/types/posts.types'
 
-const BASE_URL = import.meta.env.VITE_API_URL
-
 export const postsHandlers = [
   // GET /posts
-  http.get(`${BASE_URL}/posts`, async ({ request }) => {
+  http.get('*/posts', async ({ request }) => {
     await delay(150)
 
     const url = new URL(request.url)
@@ -17,7 +15,7 @@ export const postsHandlers = [
   }),
 
   // GET /posts/feed
-  http.get(`${BASE_URL}/posts/feed`, async ({ request }) => {
+  http.get('*/posts/feed', async ({ request }) => {
     await delay(200)
 
     const url = new URL(request.url)
@@ -30,7 +28,7 @@ export const postsHandlers = [
   }),
 
   // GET /posts/search
-  http.get(`${BASE_URL}/posts/search`, async ({ request }) => {
+  http.get('*/posts/search', async ({ request }) => {
     await delay(150)
 
     const url = new URL(request.url)
@@ -43,7 +41,7 @@ export const postsHandlers = [
   }),
 
   // GET /posts/author/:authorId
-  http.get(`${BASE_URL}/posts/author/:authorId`, async ({ params, request }) => {
+  http.get('*/posts/author/:authorId', async ({ params, request }) => {
     await delay(150)
 
     const { authorId } = params as { authorId: string }
@@ -56,7 +54,7 @@ export const postsHandlers = [
   }),
 
   // GET /posts/:id
-  http.get(`${BASE_URL}/posts/:id`, async ({ params }) => {
+  http.get('*/posts/:id', async ({ params }) => {
     await delay(100)
 
     const { id } = params as { id: string }
@@ -73,7 +71,7 @@ export const postsHandlers = [
   }),
 
   // POST /posts
-  http.post(`${BASE_URL}/posts`, async ({ request }) => {
+  http.post('*/posts', async ({ request }) => {
     await delay(200)
 
     const authHeader = request.headers.get('Authorization')
@@ -103,7 +101,7 @@ export const postsHandlers = [
   }),
 
   // PUT /posts/:id
-  http.put(`${BASE_URL}/posts/:id`, async ({ params, request }) => {
+  http.put('*/posts/:id', async ({ params, request }) => {
     await delay(150)
 
     const authHeader = request.headers.get('Authorization')
@@ -145,7 +143,7 @@ export const postsHandlers = [
   }),
 
   // DELETE /posts/:id
-  http.delete(`${BASE_URL}/posts/:id`, async ({ params, request }) => {
+  http.delete('*/posts/:id', async ({ params, request }) => {
     await delay(100)
 
     const authHeader = request.headers.get('Authorization')

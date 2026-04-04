@@ -29,7 +29,7 @@ const dialogContentVariants = tv({
       sm: 'w-full max-w-sm',
       md: 'w-full max-w-md',
       lg: 'w-full max-w-lg',
-      xl: 'w-full max-w-141',
+      xl: 'w-full max-w-2xl',
     },
   },
   defaultVariants: {

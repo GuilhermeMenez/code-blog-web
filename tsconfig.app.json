@@ -23,10 +23,9 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@mocks/*": [".mocks/*"]
+      "@/*": ["./src/*"],
+      "@mocks/*": ["./.mocks/*"]
     }
   },
   "include": ["src"]

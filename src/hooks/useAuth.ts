@@ -86,7 +86,7 @@ export function useLogout() {
       queryClient.clear()
 
       // Redireciona para auth
-      navigate({ to: '/auth' })
+      navigate({ to: '/' })
     },
   })
 }

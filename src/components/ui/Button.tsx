@@ -6,7 +6,7 @@ import { Loader } from './Loader'
 
 export const buttonVariants = tv({
 	base: [
-		'relative inline-flex justify-center items-center font-normal rounded-md border select-none cursor-pointer focus-ring',
+		'relative inline-flex justify-center items-center font-inter font-light rounded-md border select-none cursor-pointer focus-ring',
 		'data-disabled:pointer-events-none data-disabled:opacity-50',
 	],
 	variants: {
@@ -27,7 +27,7 @@ export const buttonVariants = tv({
 		size: {
 			sm: 'h-7 px-2 gap-1 text-xs [&_svg:not([data-loader])]:size-3',
 			md: 'h-8 px-3 gap-1.5 text-md [&_svg:not([data-loader])]:size-3.5',
-			lg: 'h-10 px-4 gap-2 text-base [&_svg:not([data-loader])]:size-4',
+			lg: 'h-9.5 px-4 gap-2 text-md [&_svg:not([data-loader])]:size-4',
 		},
 		iconOnly: {
 			true: 'px-0 aspect-square',
@@ -48,6 +48,7 @@ export const buttonVariants = tv({
 
 export interface ButtonProps extends ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
   loading?: boolean
+	fullWidth?: boolean
 }
 
 export function Button({
@@ -56,6 +57,7 @@ export function Button({
 	size,
 	iconOnly,
   loading,
+	fullWidth,
 	disabled,
 	children,
 	...props
@@ -69,6 +71,7 @@ export function Button({
 			className={twMerge(
 				buttonVariants({ variant, size, iconOnly }),
 				loading && 'text-transparent pointer-events-none',
+				fullWidth && 'w-full',
 				className
 			)}
 			disabled={disabled}

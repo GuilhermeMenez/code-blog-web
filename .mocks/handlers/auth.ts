@@ -2,11 +2,9 @@ import { http, HttpResponse, delay } from 'msw'
 import { currentUser, createAuthResponse, findUserByEmail } from '../data'
 import type { LoginDTO, RegisterDTO } from '@/types/auth.types'
 
-const BASE_URL = import.meta.env.VITE_API_URL
-
 export const authHandlers = [
   // POST /auth/login
-  http.post(`${BASE_URL}/auth/login`, async ({ request }) => {
+  http.post('*/auth/login', async ({ request }) => {
     await delay(150)
 
     const body = (await request.json()) as LoginDTO
@@ -32,7 +30,7 @@ export const authHandlers = [
   }),
 
   // POST /auth/register
-  http.post(`${BASE_URL}/auth/register`, async ({ request }) => {
+  http.post('*/auth/register', async ({ request }) => {
     await delay(200)
 
     const body = (await request.json()) as RegisterDTO
@@ -57,7 +55,7 @@ export const authHandlers = [
   }),
 
   // GET /auth/me
-  http.get(`${BASE_URL}/auth/me`, async ({ request }) => {
+  http.get('*/auth/me', async ({ request }) => {
     await delay(100)
 
     const authHeader = request.headers.get('Authorization')
@@ -73,13 +71,13 @@ export const authHandlers = [
   }),
 
   // POST /auth/logout
-  http.post(`${BASE_URL}/auth/logout`, async () => {
+  http.post('*/auth/logout', async () => {
     await delay(50)
     return new HttpResponse(null, { status: 204 })
   }),
 
   // POST /auth/refresh
-  http.post(`${BASE_URL}/auth/refresh`, async ({ request }) => {
+  http.post('*/auth/refresh', async ({ request }) => {
     await delay(100)
 
     const authHeader = request.headers.get('Authorization')

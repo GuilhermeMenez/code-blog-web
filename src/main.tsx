@@ -7,17 +7,16 @@ import App from './App'
 
 async function enableMocks() {
   if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCKS === 'true') {
-
     return await worker.start({
       onUnhandledRequest: 'bypass',
     })
   }
 }
 
-enableMocks()
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+enableMocks().then(() => {
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  )
+})

@@ -3,8 +3,6 @@ import { mockUsers, findUserById, currentUser } from '../data'
 import { paginate, extractPaginationParams } from '../utils/pagination'
 import type { UpdateProfileDTO } from '@/types/users.types'
 
-const BASE_URL = import.meta.env.VITE_API_URL
-
 // Simulated follow relationships
 const followingMap = new Map<string, Set<string>>([
   ['1', new Set(['2', '3', '4'])],
@@ -14,7 +12,7 @@ const followingMap = new Map<string, Set<string>>([
 
 export const usersHandlers = [
   // GET /users/search
-  http.get(`${BASE_URL}/users/search`, async ({ request }) => {
+  http.get('*/users/search', async ({ request }) => {
     await delay(150)
 
     const url = new URL(request.url)
@@ -32,7 +30,7 @@ export const usersHandlers = [
   }),
 
   // GET /users/:userId
-  http.get(`${BASE_URL}/users/:userId`, async ({ params }) => {
+  http.get('*/users/:userId', async ({ params }) => {
     await delay(100)
 
     const { userId } = params as { userId: string }
@@ -49,7 +47,7 @@ export const usersHandlers = [
   }),
 
   // PUT /users/profile
-  http.put(`${BASE_URL}/users/profile`, async ({ request }) => {
+  http.put('*/users/profile', async ({ request }) => {
     await delay(150)
 
     const authHeader = request.headers.get('Authorization')
@@ -80,7 +78,7 @@ export const usersHandlers = [
   }),
 
   // GET /users/:userId/followers
-  http.get(`${BASE_URL}/users/:userId/followers`, async ({ params, request }) => {
+  http.get('*/users/:userId/followers', async ({ params, request }) => {
     await delay(150)
 
     const { userId } = params as { userId: string }
@@ -106,7 +104,7 @@ export const usersHandlers = [
   }),
 
   // GET /users/:userId/following
-  http.get(`${BASE_URL}/users/:userId/following`, async ({ params, request }) => {
+  http.get('*/users/:userId/following', async ({ params, request }) => {
     await delay(150)
 
     const { userId } = params as { userId: string }
@@ -129,7 +127,7 @@ export const usersHandlers = [
   }),
 
   // POST /users/:userId/follow
-  http.post(`${BASE_URL}/users/:userId/follow`, async ({ params, request }) => {
+  http.post('*/users/:userId/follow', async ({ params, request }) => {
     await delay(100)
 
     const authHeader = request.headers.get('Authorization')
@@ -170,7 +168,7 @@ export const usersHandlers = [
   }),
 
   // DELETE /users/:userId/follow
-  http.delete(`${BASE_URL}/users/:userId/follow`, async ({ params, request }) => {
+  http.delete('*/users/:userId/follow', async ({ params, request }) => {
     await delay(100)
 
     const authHeader = request.headers.get('Authorization')
