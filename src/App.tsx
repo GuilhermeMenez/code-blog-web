@@ -1,10 +1,27 @@
-import './App.css'
-import AppRoutes from './routes'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import { queryClient } from '@/lib/query-client'
+import { routeTree } from './route-tree.gen'
+
+const router = createRouter({ routeTree })
+
+declare module '@tanstack/react-router' {
+  interface RegisterRouter {
+    router: typeof router
+  }
+}
 
 function App() {
-
   return (
-    <AppRoutes />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      
+      {/* {import.meta.env.DEV && (
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
+      )} */}
+    </QueryClientProvider>
   )
 }
 

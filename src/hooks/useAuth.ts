@@ -1,97 +1,92 @@
-import { jwtDecode } from 'jwt-decode'
-import { useAuthContext } from "../context/authContext";
-import { authService } from "../services/authService";
-import { SignInParams, SingUpParams, User } from "../types/authTypes";
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 
-const useAuth = () => {
-    const navigate = useNavigate();
-    const {
-        user,
-        setUser,
-        isAuthenticated,
-        setIsAuthenticated,
-        validateAuth,
-        setValidateAuth
-    } = useAuthContext();
+import { authApi } from '@/http/endpoints/auth'
+import { queryKeys } from '@/lib/query-client'
 
-    const handleSessionCookie = (token: string) => {
-        Cookies.set('token', token, { expires: 30 })
-        setIsAuthenticated(true)
-    }
+import type { LoginDTO, RegisterDTO } from '@/types/auth.types'
 
-    const handleSignUp = async ({ name, email, password }: SingUpParams) => {
-        try {
-            const response = await authService.register({ name, email, password, userRole: 'user' });
-            const { token } = response
+// ======= Queries =======
 
-            setUser(jwtDecode(token))
-            handleSessionCookie(token)
-            navigate('/posts')
-
-        } catch (error) {
-            console.error("Erro ao registrar usuário:", error);
-            throw error;
-        }
-    }
-
-    const handleSignIn = async ({ login, password }: SignInParams) => {
-        try {
-            const response = await authService.login({ login, password });
-
-            const { token } = response
-            const { sub, name, id } = jwtDecode<User>(token)
-
-            const userData: User = {
-                sub: sub,
-                id: id,
-                name: name,
-
-            }
-
-            setUser(userData)
-            handleSessionCookie(token)
-            setIsAuthenticated(true)
-            setValidateAuth(true)
-            navigate('/posts')
-
-        } catch (error) {
-            console.error("Erro ao fazer login:", error);
-            throw error;
-        }
-
-        //fazer o signout
-
-    }
-
-    useEffect(() => {
-        function loadCookie() {
-            const token = Cookies.get('token')
-
-            if (token) {
-                setUser(jwtDecode<User>(token))
-            }
-        }
-
-        loadCookie()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-
-    return {
-        user,
-        setUser,
-        isAuthenticated,
-        setIsAuthenticated,
-        validateAuth,
-        setValidateAuth,
-        handleSignUp,
-        handleSignIn
-    };
+// Hook para buscar dados do usuário autenticado
+export function useMe() {
+  return useQuery({
+    queryKey: queryKeys.auth.me(),
+    queryFn: authApi.me,
+    staleTime: 1000 * 60 * 10, // 10 minutos
+    retry: false, // Não retry se não autenticado
+  })
 }
 
+// Hook para verificar se usuário está autenticado
+export function useIsAuthenticated() {
+  const { data, isLoading, isError } = useMe()
 
+  return {
+    isAuthenticated: !!data && !isError,
+    isLoading,
+    user: data,
+  }
+}
 
-export { useAuth }
+// ======= Mutations =======
+
+// Hook para login
+export function useLogin() {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: (data: LoginDTO) => authApi.login(data),
+    onSuccess: (response) => {
+      // Salva token
+      localStorage.setItem('token', response.token)
+
+      // Atualiza cache do usuário
+      queryClient.setQueryData(queryKeys.auth.me(), response.user)
+
+      // Redireciona para feed
+      navigate({ to: '/feed' })
+    },
+  })
+}
+
+// Hook para registro
+export function useRegister() {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: (data: RegisterDTO) => authApi.register(data),
+    onSuccess: (response) => {
+      // Salva token
+      localStorage.setItem('token', response.token)
+
+      // Atualiza cache do usuário
+      queryClient.setQueryData(queryKeys.auth.me(), response.user)
+
+      // Redireciona para feed
+      navigate({ to: '/feed' })
+    },
+  })
+}
+
+// Hook para logout
+export function useLogout() {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: authApi.logout,
+    onSettled: () => {
+      // Remove token mesmo se a API falhar
+      localStorage.removeItem('token')
+
+      // Limpa todo o cache
+      queryClient.clear()
+
+      // Redireciona para auth
+      navigate({ to: '/' })
+    },
+  })
+}

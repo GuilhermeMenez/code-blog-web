@@ -6,36 +6,48 @@
   "scripts": {
     "start": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "format": "prettier --write .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "axios": "^1.8.4",
-    "bootstrap": "^5.3.5",
-    "jwt-decode": "^4.0.0",
-    "path": "^0.12.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.5.2",
-    "uuid": "^11.1.0"
+    "@base-ui/react": "^1.1.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.90.20",
+    "@tanstack/react-router": "^1.154.6",
+    "axios": "1.14.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.4.0",
+    "tailwind-variants": "^3.2.2",
+    "tailwindcss": "^4.1.18"
+  },
+  "overrides": {
+    "axios": "1.14.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.22.0",
-    "@types/bootstrap": "^5.2.10",
-    "@types/js-cookie": "^3.0.6",
-    "@types/jwt-decode": "^2.2.1",
-    "@types/node": "^24.4.0",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react-swc": "^3.8.0",
-    "eslint": "^9.22.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
-    "sass": "^1.87.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.26.1",
-    "vite": "^6.3.1"
+    "@eslint/js": "^9.39.1",
+    "@tanstack/router-plugin": "^1.154.6",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "msw": "^2.12.7",
+    "prettier": "^3.8.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

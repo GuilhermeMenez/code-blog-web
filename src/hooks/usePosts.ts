@@ -1,83 +1,102 @@
-import { useNavigate } from "react-router-dom";
-import { postService } from "../services/postService";
-import { editPost, Post } from "../types/postType";
-import { usePostContext } from "../context/postContext";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
-const usePosts = () => {
-    const navigate = useNavigate();
-    const {
-        post,
-        setPost,
-        posts,
-        setPosts,
-        selectedPost,
-        setSelectedPost
-    } = usePostContext();
+import { postsApi } from '@/http/endpoints/posts'
+import { queryKeys } from '@/lib/query-client'
 
-    const handleFetchAllPosts = async (userId: string) => {
-        try {
-            const allPosts = await postService.getPosts(userId);
-            setPosts(allPosts);
-        } catch (error) {
-            console.error("Erro ao buscar posts:", error);
-            throw error;
-        }
-    }
+import type { PaginationParams } from '@/types/common.types'
+import type { CreatePostDTO, UpdatePostDTO } from '@/types/posts.types'
 
-    const handleFetchPostById = async (postId: string) => {
-        try {
-            const allPosts = await postService.getPostByid(postId);
-            setPosts([allPosts]);
-        } catch (error) {
-            console.error("Erro ao buscar posts:", error);
-            throw error;
-        }
-    }
+// ======= Queries =======
 
-    const handleUpdatePost = async (post: Post) => {
-        try {
-            await postService.upDatePost(post);
-            await handleFetchAllPosts(post.userId);
-            navigate('/posts');
-        } catch (error) {
-            console.error("Erro ao atualizar post:", error);
-            throw error;
-        }
-    }
-
-    const handleDeletePost = async (postId: string) => {
-        try {
-            await postService.deletePost(postId);
-            navigate('/posts');
-        } catch (error) {
-            console.error("Erro ao deletar post:", error);
-            throw error;
-        }
-
-    }
-    const handleCreatePost = async (newPost: editPost) => {
-        try {
-            await postService.createPost(newPost);
-            await handleFetchAllPosts(newPost.authorId);
-            navigate('/posts');
-        } catch (error) {
-            console.error("Erro ao criar post:", error);
-            throw error;
-        }
-
-    }
-    return {
-        post,
-        setPost,
-        posts,
-        setPosts,
-        selectedPost,
-        setSelectedPost,
-        handleFetchAllPosts,
-        handleFetchPostById,
-        handleDeletePost,
-        handleUpdatePost,
-        handleCreatePost
-    };
+// Hook para buscar todos os posts
+export function usePosts(params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.list(params),
+    queryFn: () => postsApi.getAll(params),
+  })
 }
-export { usePosts }
+
+// Hook para buscar feed do usuário
+export function useFeed(params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.feed(params),
+    queryFn: () => postsApi.getFeed(params),
+  })
+}
+
+// Hook para buscar um post específico
+export function usePost(id: string) {
+  return useQuery({
+    queryKey: queryKeys.posts.detail(id),
+    queryFn: () => postsApi.getById(id),
+    enabled: !!id,
+  })
+}
+
+// Hook para buscar posts de um autor
+export function usePostsByAuthor(authorId: string, params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.byAuthor(authorId, params),
+    queryFn: () => postsApi.getByAuthor(authorId, params),
+    enabled: !!authorId,
+  })
+}
+
+// Hook para buscar posts por pesquisa
+export function useSearchPosts(query: string, params?: PaginationParams) {
+  return useQuery({
+    queryKey: queryKeys.posts.search(query, params),
+    queryFn: () => postsApi.search(query, params),
+    enabled: query.length > 2, // Só busca se tiver mais de 2 caracteres
+  })
+}
+
+// ======= Mutations =======
+
+// Hook para criar um post
+export function useCreatePost() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: CreatePostDTO) => postsApi.create(data),
+    onSuccess: () => {
+      // Invalida listas de posts para refetch
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.feed() })
+    },
+  })
+}
+
+// Hook para atualizar um post
+export function useUpdatePost() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: UpdatePostDTO }) => postsApi.update(id, data),
+    onSuccess: (updatedPost, { id }) => {
+      // Atualiza o cache do post específico
+      queryClient.setQueryData(queryKeys.posts.detail(id), updatedPost)
+
+      // Invalida listas para refetch
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.feed() })
+    },
+  })
+}
+
+// Hook para deletar um post
+export function useDeletePost() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => postsApi.delete(id),
+    onSuccess: (_, id) => {
+      // Remove do cache
+      queryClient.removeQueries({ queryKey: queryKeys.posts.detail(id) })
+
+      // Invalida listas para refetch
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
+      queryClient.invalidateQueries({ queryKey: queryKeys.posts.feed() })
+    },
+  })
+}
