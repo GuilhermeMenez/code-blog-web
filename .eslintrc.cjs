@@ -26,6 +26,8 @@ module.exports = {
   ignorePatterns: [
     "dist",
     "node_modules",
+    "public/mockServiceWorker.js",
+    "src/route-tree.gen.ts",
     "tsconfig.json",
     "tsconfig.app.json",
     "tsconfig.node.json",

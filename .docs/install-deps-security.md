@@ -1,12 +1,34 @@
-# Comando sugerido para futuras instalações
+# Instalação segura de dependências (sem .npmrc)
 
-## Utilizar padrão por cenário:
+Objetivo: impedir atualizações automáticas inesperadas e reduzir risco de supply chain.
 
----
+## Padrão obrigatório
 
-- Instalação reprodutível em máquina nova/CI: **npm ci --ignore-scripts**
-- Atualizar só lockfile após editar dependências manualmente: **npm install --package-lock-only --ignore-scripts**
-- Instalar/atualizar pacote de forma intencional e exata: **npm install pacote@versao --save-exact --ignore-scripts**
-- Como já está ativo **save-exact=true** em .npmrc:1, o **--save-exact** vira opcional.
+1. Instalar ou atualizar pacote de forma explícita:
 
---
+```bash
+npm install nome-pacote@x.y.z --save-exact --ignore-scripts
+```
+
+2. Instalação reprodutível em CI e máquinas novas:
+
+```bash
+npm ci --ignore-scripts
+```
+
+3. Atualizar somente o lockfile (sem instalar tudo):
+
+```bash
+npm install --package-lock-only --ignore-scripts
+```
+
+## Regras rápidas
+
+- Sem .npmrc, use --save-exact em toda instalação com npm install.
+- Não usar faixas com ^ ou ~ em package.json.
+- Sempre commitar package-lock.json junto com mudanças de dependências.
+
+## Controles mínimos de segurança (importante)
+
+- No CI, falhar build se detectar ^ ou ~ em package.json.
+- Rodar npm audit no pipeline para bloquear vulnerabilidades conhecidas antes do deploy.
