@@ -4,19 +4,7 @@ Aplicação web para blog de código desenvolvida com React 19 e tecnologias mod
 
 ---
 
-## 📚 Índice
-
-- [Stack](#-stack)
-- [Requisitos](#-requisitos)
-- [Instalação](#-instalação)
-- [Scripts Disponíveis](#-scripts-disponíveis)
-- [Estrutura de Diretórios](#-estrutura-de-diretórios)
-- [Padrões de Nomenclatura](#-padrões-de-nomenclatura)
-- [Estrutura de Componentes](#-estrutura-de-componentes)
-
----
-
-## 🛠 Stack
+## Stack
 
 | Categoria         | Tecnologia                                                  | Versão         |
 |-------------------|-------------------------------------------------------------|----------------|
@@ -36,40 +24,29 @@ Aplicação web para blog de código desenvolvida com React 19 e tecnologias mod
 
 ---
 
-## 📋 Requisitos
-
-Antes de começar, certifique-se de ter instalado:
+## Requisitos
 
 - **Node.js** >= 20.x
-- **npm** >= 10.x (gerenciador de pacotes padrão do projeto)
+- **npm** >= 10.x
 
 ---
 
-## 🚀 Instalação
-
-### 1. Clone o repositório
+## Quick Start
 
 ```bash
 git clone <repository-url>
 cd code-blog-web
-```
-
-### 2. Instale as dependências
-
-```bash
 npm install
 ```
 
-### 3. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto:
+Configure as variáveis de ambiente criando um arquivo `.env` na raiz:
 
 ```env
 VITE_API_URL='http://localhost:8080/'
 VITE_ENABLE_MOCKS=false
 ```
 
-### 4. Inicie o servidor de desenvolvimento
+Inicie o servidor de desenvolvimento:
 
 ```bash
 npm start
@@ -79,7 +56,7 @@ A aplicação estará disponível em `http://localhost:5173`
 
 ---
 
-## 📜 Scripts Disponíveis
+## Scripts
 
 | Script     | Comando            | Descrição                                            |
 |------------|--------------------|------------------------------------------------------|
@@ -92,133 +69,20 @@ A aplicação estará disponível em `http://localhost:5173`
 
 ---
 
-## 📁 Estrutura de Diretórios
+## Documentação
 
-```
-src/
-├── assets/                       # Assets estáticos
-│   └── icons/                    # Componentes de ícones SVG
-│
-├── components/
-│   ├── ui/                       # Componentes primitivos (Button, Input, etc.)
-│   ├── layout/                   # Componentes de layout (Header, Footer, etc.)
-│   └── common/                   # Componentes compartilhados
-│
-├── hooks/                        # Custom hooks (useAuth, usePosts, useUsers)
-│
-├── http/
-│   ├── endpoints/                # Funções de chamadas API (auth, posts, users)
-│   └── axios.ts                  # Configuração do cliente HTTP
-│
-├── lib/                          # Configurações de bibliotecas externas
-│
-├── pages/                        # Páginas (TanStack Router file-based)
-│
-├── types/                        # Definições de tipos e interfaces
-├── enums/                        # Definições de enums
-├── constants/                    # Constantes da aplicação
-│
-├── utils/                        # Funções utilitárias
-│
-├── App.tsx                       # Componente raiz da aplicação
-├── index.css                     # Estilos globais e configuração Tailwind
-├── main.tsx                      # Entry point da aplicação
-└── route-tree.gen.ts             # Arquivo gerado pelo TanStack Router
-```
+| Documento                                     | Descrição                                                 |
+|-----------------------------------------------|-----------------------------------------------------------|
+| [docs/](docs/README.md)                      | Hub de documentação do projeto                            |
+| [docs/architecture.md](docs/architecture.md)  | Arquitetura, estrutura de diretórios e fluxo de dados     |
+| [docs/conventions.md](docs/conventions.md)    | Nomenclatura, padrões de código e componentes             |
+| [docs/operations.md](docs/operations.md)      | Setup operacional, scripts, mocks e segurança             |
+| [specs/](specs/README.md)                    | Especificações de mudanças e features                     |
+| [agents/](agents/project-context.md)         | Contexto e regras para agentes de IA                      |
 
 ---
 
-## 📝 Padrões de Nomenclatura
+## Licença
 
-| Tipo            | Convenção                  | Exemplo                           |
-|-----------------|----------------------------|-----------------------------------|
-| **Componentes** | `PascalCase.tsx`           | `Button.tsx`, `PostCard.tsx`      |
-| **Ícones**      | `PascalCaseIcon.tsx`       | `PlusIcon.tsx`, `SearchIcon.tsx`  |
-| **Hooks**       | `useCamelCase.ts`          | `usePosts.ts`, `useAuth.ts`       |
-| **HTTP/Lib**    | `kebab-case.ts`            | `posts.ts`, `query-client.ts`     |
-| **Pages**       | TanStack Router file-based | `index.tsx`, `$postId/index.tsx`  |
-| **Estilos**     | `kebab-case.css`           | `index.css`                       |
-| **Types**       | `kebab-case.types.ts`      | `posts.types.ts`, `auth.types.ts` |
-| **Enums**       | `kebab-case.enums.ts`      | `posts.enums.ts`                  |
-| **Constantes**  | `kebab-case.constants.ts`  | `api.constants.ts`                |
-| **Utilitários** | `kebab-case.ts`            | `format-date.ts`                  |
-
----
-
-## 🧩 Estrutura de Componentes
-
-Os componentes seguem um padrão consistente utilizando **Tailwind Variants** para gerenciamento de variantes e **Tailwind Merge** para composição de classes.
-
-### Exemplo de Componente
-
-```tsx
-import { tv, type VariantProps } from 'tailwind-variants'
-import { twMerge } from 'tailwind-merge'
-import type { ComponentProps } from 'react'
-
-// 1. Definição das variantes com tailwind-variants
-export const buttonVariants = tv({
-  base: [
-    'inline-flex cursor-pointer items-center justify-center font-medium rounded-lg border transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-    'data-disabled:pointer-events-none data-disabled:opacity-50',
-  ],
-  variants: {
-    variant: {
-      primary: 'border-primary bg-primary text-primary-foreground hover:bg-primary-hover',
-      secondary: 'border-border bg-secondary text-secondary-foreground hover:bg-muted',
-      ghost: 'border-transparent bg-transparent text-muted-foreground hover:text-foreground',
-      destructive: 'border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90',
-    },
-    size: {
-      sm: 'h-6 px-2 gap-1.5 text-xs [&_svg]:size-3',
-      md: 'h-7 px-3 gap-2 text-sm [&_svg]:size-3.5',
-      lg: 'h-9 px-4 gap-2.5 text-base [&_svg]:size-4',
-    },
-  },
-  defaultVariants: { variant: 'primary', size: 'md' },
-})
-
-// 2. Interface do componente extendendo props nativas + variantes
-export interface ButtonProps
-  extends ComponentProps<'button'>,
-    VariantProps<typeof buttonVariants> {}
-
-// 3. Componente funcional (sem forwardRef no React 19)
-export function Button({ 
-  className, 
-  variant, 
-  size, 
-  disabled, 
-  children, 
-  ...props 
-}: ButtonProps) {
-  return (
-    <button
-      type="button"
-      data-slot="button"
-      data-disabled={disabled ? '' : undefined}
-      className={twMerge(buttonVariants({ variant, size }), className)}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </button>
-  )
-}
-```
-
-### Principais Características
-
-- **React 19**: Não utiliza `forwardRef` (ref é passado automaticamente via props)
-- **Tailwind Variants**: Gerencia variantes de estilo de forma type-safe
-- **Tailwind Merge**: Permite sobrescrever classes via prop `className`
-- **Data Attributes**: Utiliza `data-*` para estados (ex: `data-disabled`)
-- **Tailwind CSS v4**: Utiliza `@theme` e CSS variables para tokens de design
-
----
-
-## 📄 Licença
-
-Este projeto é privado e de uso interno
+Este projeto é privado e de uso interno.
 
