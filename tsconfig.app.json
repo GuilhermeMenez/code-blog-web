@@ -25,7 +25,7 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@mocks/*": ["./.mocks/*"]
+      "@mocks/*": ["./src/mocks/*"]
     }
   },
   "include": ["src"]

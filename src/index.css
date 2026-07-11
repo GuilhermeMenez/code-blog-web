@@ -47,7 +47,6 @@
   --text-10xl: 8rem;
 }
 
-/* Utilitário customizado para o background da landing */
 @utility bg-auth-landing-dark {
   background-image: url('/src/assets/svgs/auth-landing-dark.svg');
 }

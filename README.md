@@ -4,19 +4,20 @@ Aplicação web para blog de código desenvolvida com React 19 e tecnologias mod
 
 ---
 
-## 📚 Índice
+## Índice
 
 - [Stack](#-stack)
 - [Requisitos](#-requisitos)
 - [Instalação](#-instalação)
 - [Scripts Disponíveis](#-scripts-disponíveis)
+- [Segurança de Dependências](#-segurança-de-dependências)
 - [Estrutura de Diretórios](#-estrutura-de-diretórios)
 - [Padrões de Nomenclatura](#-padrões-de-nomenclatura)
 - [Estrutura de Componentes](#-estrutura-de-componentes)
 
 ---
 
-## 🛠 Stack
+## Stack
 
 | Categoria         | Tecnologia                                                  | Versão         |
 |-------------------|-------------------------------------------------------------|----------------|
@@ -36,7 +37,7 @@ Aplicação web para blog de código desenvolvida com React 19 e tecnologias mod
 
 ---
 
-## 📋 Requisitos
+## Requisitos
 
 Antes de começar, certifique-se de ter instalado:
 
@@ -45,7 +46,10 @@ Antes de começar, certifique-se de ter instalado:
 
 ---
 
-## 🚀 Instalação
+## Instalação
+
+> **Importante**: Este projeto segue uma política de segurança para a cadeia de suprimentos.
+> Siga a documentação em `SECURITY.md` e `install-deps-security.md` para garantir a instalação segura das dependências e execute verificações de segurança antes de compilar ou publicar.
 
 ### 1. Clone o repositório
 
@@ -57,7 +61,13 @@ cd code-blog-web
 ### 2. Instale as dependências
 
 ```bash
-npm install
+npm run deps:ci
+```
+
+### 2.1 Rebuild controlado de pacotes confiáveis (quando necessário)
+
+```bash
+npm run deps:rebuild:trusted
 ```
 
 ### 3. Configure as variáveis de ambiente
@@ -79,7 +89,7 @@ A aplicação estará disponível em `http://localhost:5173`
 
 ---
 
-## 📜 Scripts Disponíveis
+## Scripts Disponíveis
 
 | Script     | Comando            | Descrição                                            |
 |------------|--------------------|------------------------------------------------------|
@@ -89,10 +99,26 @@ A aplicação estará disponível em `http://localhost:5173`
 | `lint`     | `npm run lint`     | Executa o ESLint para verificar problemas no código  |
 | `lint:fix` | `npm run lint:fix` | Executa o ESLint e corrige problemas automaticamente |
 | `format`   | `npm run format`   | Formata o código com Prettier                        |
+| `deps:ci`  | `npm run deps:ci`  | Instala dependências de forma determinística e segura |
+| `deps:add` | `npm run deps:add -- pacote@x.y.z` | Adiciona pacote com versão exata e sem scripts |
+| `deps:update-lock` | `npm run deps:update-lock` | Atualiza apenas o lockfile com scripts desabilitados |
+| `deps:audit:full` | `npm run deps:audit:full` | Executa auditoria completa de vulnerabilidades |
+| `security:scan` | `npm run security:scan` | Varredura de IOC e versões comprometidas do TanStack |
+| `security:check` | `npm run security:check` | Varredura + auditoria completa |
 
 ---
 
-## 📁 Estrutura de Diretórios
+## Segurança de Dependências
+
+- Política resumida: `.github/SECURITY.md` (fallback: `SECURITY.md`)
+- Playbook completo: `security/install-deps-security.md`
+- Lista monitorada de versões comprometidas do TanStack: `security/tanstack-compromised-versions.txt`
+- Bloqueio de fluxo inseguro de instalação: `security/enforce-safe-install.cjs`
+- Scanner automatizado de supply chain: `security/scan-supply-chain.cjs`
+
+---
+
+## Estrutura de Diretórios
 
 ```
 src/
@@ -128,14 +154,14 @@ src/
 
 ---
 
-## 📝 Padrões de Nomenclatura
+## Padrões de Nomenclatura
 
 | Tipo            | Convenção                  | Exemplo                           |
 |-----------------|----------------------------|-----------------------------------|
 | **Componentes** | `PascalCase.tsx`           | `Button.tsx`, `PostCard.tsx`      |
 | **Ícones**      | `PascalCaseIcon.tsx`       | `PlusIcon.tsx`, `SearchIcon.tsx`  |
 | **Hooks**       | `useCamelCase.ts`          | `usePosts.ts`, `useAuth.ts`       |
-| **HTTP/Lib**    | `kebab-case.ts`            | `posts.ts`, `query-client.ts`     |
+| **Http/Lib**    | `kebab-case.ts`            | `posts.ts`, `query-client.ts`     |
 | **Pages**       | TanStack Router file-based | `index.tsx`, `$postId/index.tsx`  |
 | **Estilos**     | `kebab-case.css`           | `index.css`                       |
 | **Types**       | `kebab-case.types.ts`      | `posts.types.ts`, `auth.types.ts` |
@@ -145,7 +171,7 @@ src/
 
 ---
 
-## 🧩 Estrutura de Componentes
+## Estrutura de Componentes
 
 Os componentes seguem um padrão consistente utilizando **Tailwind Variants** para gerenciamento de variantes e **Tailwind Merge** para composição de classes.
 
@@ -218,7 +244,6 @@ export function Button({
 
 ---
 
-## 📄 Licença
+## Licença
 
 Este projeto é privado e de uso interno
-

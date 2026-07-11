@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { worker } from '@mocks/browser'
+import { worker } from '@/mocks/browser'
 import './index.css'
 
 import App from './App'

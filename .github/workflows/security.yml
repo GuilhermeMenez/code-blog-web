@@ -1,0 +1,43 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Restrict default GITHUB_TOKEN permissions to read-only.
+# Never use pull_request_target — it grants write perms and was the attack
+# vector in the TanStack Mini Shai-Hulud supply chain incident (May 2026).
+permissions:
+  contents: read
+
+jobs:
+  security:
+    name: Supply chain & audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm run deps:ci
+
+      - name: Supply chain scan
+        run: npm run security:scan
+
+      - name: Vulnerability audit
+        run: npm run deps:audit:full
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: "http://localhost:8080/"
+          VITE_ENABLE_MOCKS: "false"

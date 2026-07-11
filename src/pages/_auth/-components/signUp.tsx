@@ -53,7 +53,6 @@ export function SignUp({ setFormType }: SignUpProps) {
       password: formData.get('password') as string,
     }
 
-    // Validação de campos antes da chamada API
     const validationErrors = validateForm(formValues)
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
@@ -87,11 +86,6 @@ export function SignUp({ setFormType }: SignUpProps) {
             <p className="text-center text-md text-danger-40">{errors.auth}</p> 
           </div>
         }
-
-        {/* TO-DO:
-          - Ajustar size de Icons 
-          - Revisar alterações       
-        */}
 
         <Form
           className="flex flex-col gap-6 w-full max-w-93"
