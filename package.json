@@ -3,39 +3,69 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
+    "preinstall": "node security/enforce-safe-install.cjs",
     "start": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "format": "prettier --write .",
+    "preview": "vite preview",
+    "deps:ci": "npm ci --ignore-scripts",
+    "deps:add": "npm install --save-exact --ignore-scripts",
+    "deps:update-lock": "npm install --package-lock-only --ignore-scripts",
+    "deps:rebuild:trusted": "npm rebuild esbuild msw",
+    "deps:audit": "npm audit --omit=dev",
+    "deps:audit:full": "npm audit",
+    "security:scan": "node security/scan-supply-chain.cjs",
+    "security:check": "npm run security:scan && npm run deps:audit:full"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "axios": "^1.8.4",
-    "bootstrap": "^5.3.5",
-    "jwt-decode": "^4.0.0",
-    "path": "^0.12.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.5.2",
-    "uuid": "^11.1.0"
+    "@base-ui/react": "1.1.0",
+    "@tailwindcss/vite": "4.1.18",
+    "@tanstack/react-query": "5.90.20",
+    "@tanstack/react-router": "1.155.0",
+    "axios": "1.16.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "3.4.0",
+    "tailwind-variants": "3.2.2",
+    "tailwindcss": "4.1.18"
+  },
+  "overrides": {
+    "@babel/core": "7.29.7",
+    "axios": "1.16.1",
+    "form-data": "4.0.6",
+    "follow-redirects": "1.16.0",
+    "js-yaml": "4.3.0",
+    "postcss": "8.5.10"
   },
   "devDependencies": {
-    "@eslint/js": "^9.22.0",
-    "@types/bootstrap": "^5.2.10",
-    "@types/js-cookie": "^3.0.6",
-    "@types/jwt-decode": "^2.2.1",
-    "@types/node": "^24.4.0",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react-swc": "^3.8.0",
-    "eslint": "^9.22.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
-    "sass": "^1.87.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.26.1",
-    "vite": "^6.3.1"
+    "@eslint/js": "9.39.2",
+    "@tanstack/router-plugin": "1.155.0",
+    "@types/node": "24.10.9",
+    "@types/react": "19.2.9",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.1.2",
+    "eslint": "9.39.2",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-react-refresh": "0.4.26",
+    "globals": "16.5.0",
+    "msw": "2.12.7",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.53.1",
+    "vite": "7.3.6"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

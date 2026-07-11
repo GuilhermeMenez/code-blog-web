@@ -1,18 +1,26 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+      generatedRouteTree: './src/route-tree.gen.ts',
+      routesDirectory: './src/pages',
+      routeToken: 'layout',
+    }),
+    react(),
+    tailwindcss(),
+  ],
   resolve: {
     alias: {
-      '@/api': path.resolve(__dirname, './src/api'),
-      '@/assets': path.resolve(__dirname, './src/assets'),
-      '@/components': path.resolve(__dirname, './src/components'),
-      '@/contexts': path.resolve(__dirname, './src/contexts'),
-      '@/hooks': path.resolve(__dirname, './src/hooks'),
-      '@/types': path.resolve(__dirname, './src/types'),
-    }
-  }
+      '@': path.resolve(__dirname, './src'),
+      '@mocks': path.resolve(__dirname, './mocks'),
+    },
+  },
 })
