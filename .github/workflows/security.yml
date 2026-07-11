@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 # Restrict default GITHUB_TOKEN permissions to read-only.
 # Never use pull_request_target — it grants write perms and was the attack
@@ -12,10 +15,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
 jobs:
   security:
     name: Supply chain & audit
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
