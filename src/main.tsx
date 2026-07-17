@@ -1,22 +1,32 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { worker } from '@/mocks/browser'
-import './index.css'
 
 import App from './App'
+import './index.css'
 
 async function enableMocks() {
-  if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCKS === 'true') {
-    return await worker.start({
-      onUnhandledRequest: 'bypass',
-    })
-  }
+  if (!import.meta.env.DEV) return
+  if (import.meta.env.VITE_ENABLE_MOCKS !== 'true') return
+
+  const { worker } = await import('@/mocks/browser')
+
+  await worker.start({
+    onUnhandledRequest: 'warn',
+  })
 }
 
-enableMocks().then(() => {
+async function bootstrap() {
+  try {
+    await enableMocks()
+  } catch (error) {
+    console.error('Failed to initialize MSW', error)
+  }
+
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <App />
     </StrictMode>,
   )
-})
+}
+
+bootstrap()

@@ -62,7 +62,7 @@ export function Input({
       {label && (
         <Field.Label
           data-slot="input-label"
-          className="block mb-1 text-sm font-inter font-medium text-white-20"
+          className="block mb-2 text-sm font-inter font-medium text-white-20"
         >
           {label}
         </Field.Label>

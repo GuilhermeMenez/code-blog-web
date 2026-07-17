@@ -3,7 +3,7 @@ import { isApiError, isClientError } from '@/types/api-error.types'
 
 function handleQueryError(error: unknown): void {
   if (isApiError(error)) {
-    // Log apenas em desenvolvimento
+    // Log somente desenvolvimento
     if (import.meta.env.DEV) {
       console.error(`[Query Error] Status: ${error.status}, Message: ${error.message}`)
     }
@@ -11,11 +11,26 @@ function handleQueryError(error: unknown): void {
 }
 
 function handleQueryRetry(failureCount: number, error: unknown): boolean {
-  // Não retry para erros 4xx (client errors)
-  if (isApiError(error) && isClientError(error)) {
+  if (failureCount >= 1) {
     return false
   }
-  return failureCount < 1
+
+  // Retry apenas para erros normalizados
+  if (!isApiError(error)) {
+    return false
+  }
+
+  // Nao retry para erros 4xx (client errors)
+  if (isClientError(error)) {
+    if (error.status === 408 || error.status === 429) {
+      return true
+    }
+
+    return false
+  }
+
+  // Erro de conexao / 5xx
+  return error.status === 0 || error.status >= 500
 }
 
 export const queryClient = new QueryClient({
@@ -30,7 +45,7 @@ export const queryClient = new QueryClient({
     },
     mutations: {
       onError: handleQueryError,
-      retry: 1,
+      retry: false,
     },
   },
 })

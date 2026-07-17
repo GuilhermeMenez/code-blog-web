@@ -52,6 +52,7 @@ export function useUpdateProfile() {
 
   return useMutation({
     mutationFn: (data: UpdateProfileDTO) => usersApi.updateProfile(data),
+    retry: false,
     onSuccess: (updatedProfile) => {
       // Atualiza cache do perfil
       queryClient.setQueryData(
@@ -71,6 +72,7 @@ export function useFollowUser() {
 
   return useMutation({
     mutationFn: (userId: string) => usersApi.follow(userId),
+    retry: false,
     onSuccess: (_, userId) => {
       // Invalida perfil do usuário seguido
       queryClient.invalidateQueries({ queryKey: queryKeys.users.detail(userId) })
@@ -91,6 +93,7 @@ export function useUnfollowUser() {
 
   return useMutation({
     mutationFn: (userId: string) => usersApi.unfollow(userId),
+    retry: false,
     onSuccess: (_, userId) => {
       // Invalida perfil do usuário
       queryClient.invalidateQueries({ queryKey: queryKeys.users.detail(userId) })
