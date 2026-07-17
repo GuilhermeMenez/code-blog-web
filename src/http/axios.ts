@@ -28,7 +28,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (isAxiosError(error)) {
-      const status = error.response?.status ?? 500
+      const status = error.response ? error.response.status : 0
       const data = error.response?.data
 
       // Validação segura com type guard

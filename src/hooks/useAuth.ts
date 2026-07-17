@@ -38,6 +38,7 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: (data: LoginDTO) => authApi.login(data),
+    retry: false,
     onSuccess: (response) => {
       // Salva token
       localStorage.setItem('token', response.token)
@@ -58,6 +59,7 @@ export function useRegister() {
 
   return useMutation({
     mutationFn: (data: RegisterDTO) => authApi.register(data),
+    retry: false,
     onSuccess: (response) => {
       // Salva token
       localStorage.setItem('token', response.token)
@@ -78,6 +80,7 @@ export function useLogout() {
 
   return useMutation({
     mutationFn: authApi.logout,
+    retry: false,
     onSettled: () => {
       // Remove token mesmo se a API falhar
       localStorage.removeItem('token')

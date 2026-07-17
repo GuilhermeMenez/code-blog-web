@@ -59,6 +59,7 @@ export function useCreatePost() {
 
   return useMutation({
     mutationFn: (data: CreatePostDTO) => postsApi.create(data),
+    retry: false,
     onSuccess: () => {
       // Invalida listas de posts para refetch
       queryClient.invalidateQueries({ queryKey: queryKeys.posts.lists() })
@@ -73,6 +74,7 @@ export function useUpdatePost() {
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdatePostDTO }) => postsApi.update(id, data),
+    retry: false,
     onSuccess: (updatedPost, { id }) => {
       // Atualiza o cache do post específico
       queryClient.setQueryData(queryKeys.posts.detail(id), updatedPost)
@@ -90,6 +92,7 @@ export function useDeletePost() {
 
   return useMutation({
     mutationFn: (id: string) => postsApi.delete(id),
+    retry: false,
     onSuccess: (_, id) => {
       // Remove do cache
       queryClient.removeQueries({ queryKey: queryKeys.posts.detail(id) })

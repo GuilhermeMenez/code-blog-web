@@ -1,21 +1,13 @@
-// ============================================
-// API Error - Discriminated Union Pattern
-// Padrão moderno para React 19 + TypeScript
-// ============================================
+// ======= API Error - Discriminated Union Pattern =======
 
-/**
- * Estrutura de resposta de erro da API
- */
+// Estrutura de resposta de erro da API
 export interface ApiErrorResponse {
   message?: string
   code?: string
   details?: Record<string, unknown>
 }
 
-/**
- * Tipo de erro da API usando discriminated union
- * Mais seguro que classes para bundlers modernos (Vite)
- */
+// Tipo de erro da API usando discriminated union
 export interface ApiError {
   readonly _tag: 'ApiError'
   readonly message: string
@@ -24,18 +16,13 @@ export interface ApiError {
   readonly details?: Record<string, unknown>
 }
 
-/**
- * Parâmetros para criar um ApiError
- */
+// Parametros para criar um ApiError
 export type CreateApiErrorParams = Omit<ApiError, '_tag'>
 
-// ============================================
-// Factory Function
-// ============================================
 
-/**
- * Cria um objeto ApiError imutável
- */
+// ======= Factory Function =======
+
+// Cria um objeto ApiError imutavel
 export function createApiError(params: CreateApiErrorParams): ApiError {
   return Object.freeze({
     _tag: 'ApiError' as const,
@@ -46,21 +33,16 @@ export function createApiError(params: CreateApiErrorParams): ApiError {
   })
 }
 
-// ============================================
-// Type Guards
-// ============================================
 
-/**
- * Verifica se o valor possui estrutura de resposta de erro da API
- */
+// ======= Type Guards =======
+
+// Verifica se o valor possui estrutura de resposta de erro da API
 export function isApiErrorResponse(data: unknown): data is ApiErrorResponse {
   return typeof data === 'object' && data !== null
 }
 
-/**
- * Type guard robusto para ApiError
- * Funciona mesmo com code splitting e HMR
- */
+
+// Type guard para ApiError (mesmo com code splitting e HMR)
 export function isApiError(error: unknown): error is ApiError {
   return (
     typeof error === 'object' &&
@@ -70,9 +52,8 @@ export function isApiError(error: unknown): error is ApiError {
   )
 }
 
-// ============================================
-// Helper Functions (funções puras)
-// ============================================
+
+// ======= Helper Functions (funcoes puras) =======
 
 export const isUnauthorized = (error: ApiError): boolean => error.status === 401
 
@@ -86,13 +67,10 @@ export const isServerError = (error: ApiError): boolean => error.status >= 500
 
 export const isClientError = (error: ApiError): boolean => error.status >= 400 && error.status < 500
 
-// ============================================
-// Utility Functions
-// ============================================
 
-/**
- * Extrai mensagem de erro de forma segura
- */
+// ======= Utility Functions =======
+
+// Extrai error message de forma segura
 export function getErrorMessage(error: unknown): string {
   if (isApiError(error)) {
     return error.message

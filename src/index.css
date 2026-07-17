@@ -28,7 +28,7 @@
   --color-accent-30: #856DE5;
 
   --color-success-50: #1A8917;
-  --color-success-40: #34A845;
+  --color-success-40: #34AB45;
   --color-success-30: #52BD62;
 
   --color-danger-50: #C84141;
@@ -48,31 +48,54 @@
 }
 
 @utility bg-auth-landing-dark {
-  background-image: url('/src/assets/svgs/auth-landing-dark.svg');
+  background-image: url('./assets/svgs/auth-landing-dark.svg');
+}
+
+@layer base {
+  * {
+    margin: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :root {
+    --color-background: var(--color-white-50);
+    --color-text-primary: var(--color-black-50);
+    color-scheme: light;
+  }
+
+  .dark {
+    --color-background: var(--color-black-50);
+    --color-text-primary: var(--color-white-50);
+    color-scheme: dark;
+  }
+
+  body {
+    font-family: var(--font-inter);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+  }
 }
 
 @layer components {
   .focus-ring {
     @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-white-30 focus-visible:ring-offset-black-50;
   }
-}
-
-:root {
-  --color-background: var(--color-white-50);
-  --color-text-primary: var(--color-black-50);
-}
-
-.dark {
-  --color-background: var(--color-black-50);
-  --color-text-primary: var(--color-white-50);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-text-primary);
 }
