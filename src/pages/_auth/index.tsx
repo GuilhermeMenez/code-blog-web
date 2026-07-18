@@ -3,8 +3,8 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
-import { SignIn } from './-components/signIn'
-import { SignUp } from './-components/signUp'
+import { SignIn } from './-components/SignIn'
+import { SignUp } from './-components/SignUp'
 
 export const Route = createFileRoute('/_auth/')({
   component: Landing,

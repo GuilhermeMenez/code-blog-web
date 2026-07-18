@@ -7,7 +7,7 @@ import { SearchIcon } from '@/assets/icons/SearchIcon'
 
 export const inputVariants = tv({
   base: [
-    'flex items-center gap-3 text-md font-inter rounded-sm bg-black-20 text-white-40 border border-transparent group-data-invalid:border-danger-40/60'
+    'flex items-center gap-3 text-md font-inter rounded-sm bg-black-20 text-white-40 border border-transparent group-data-invalid:border-danger-40/60',
   ],
   variants: {
     variant: {
@@ -32,7 +32,7 @@ export const inputIconVariants = tv({
 })
 
 export const inputControlVariants = tv({
-  base: 'peer w-full h-full bg-transparent outline-none text-white-40 placeholder:text-slate-50',
+  base: 'peer size-full bg-transparent outline-none text-white-40 placeholder:text-slate-50',
 })
 
 export interface InputProps

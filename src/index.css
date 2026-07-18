@@ -98,4 +98,16 @@
   .focus-ring {
     @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-white-30 focus-visible:ring-offset-black-50;
   }
+
+  .header-item {
+    @apply flex justify-center items-center text-white-20 hover:text-white-40 cursor-pointer
+  }
+
+  .icon-box {
+    @apply flex justify-center items-center w-6 h-6
+  }
+
+  .dot {
+    @apply absolute top-1.25 right-0.5 w-3.5 h-3.5 border-2 border-black-50 bg-accent-50 rounded-full
+  }
 }
