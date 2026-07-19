@@ -1,6 +1,9 @@
 import { EditIcon } from '@/assets/icons/EditIcons'
 import { SearchIcon } from '@/assets/icons/SearchIcon'
 import { BellIcon } from '@/assets/icons/BellIcon'
+import { Avatar } from "@/components/ui/Avatar"
+
+import codeBobJrAvatar from "@/assets/images/mocks/code-bob-jr.jpg"
 
 interface HeaderProps {
   isMenuOpen: boolean
@@ -29,6 +32,14 @@ export function Header({ isMenuOpen }: HeaderProps) {
             <div className="dot" />
             <BellIcon width={21} height={21} />
           </div>
+        </button>
+
+        <button className="group p-0.5 ml-1 bg-black-50 rounded-full header-item focus-ring">
+          <Avatar
+            // src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+            src={codeBobJrAvatar}
+            letter="CB"
+          />
         </button>
       </div>
     </div>
