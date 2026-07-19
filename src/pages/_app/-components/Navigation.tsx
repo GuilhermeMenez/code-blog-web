@@ -1,7 +1,11 @@
-import { HamburgerIcon } from "@/assets/icons/HamburgerIcon"
-import { Wordmark } from "@/assets/svgs/Wordmark"
 import { Link } from "@tanstack/react-router"
 import { twMerge } from "tailwind-merge"
+
+import { Wordmark } from "@/assets/svgs/Wordmark"
+import { HamburgerIcon } from "@/assets/icons/HamburgerIcon"
+import { HomeIcon } from "@/assets/icons/HomeIcon"
+import { FavGroupIcon } from "@/assets/icons/FavGroupIcon"
+import { ProfileIcon } from "@/assets/icons/ProfileIcon"
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -22,9 +26,15 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
   const closeButtonClass = twMerge(
     menuButtonBaseClass,
     isMenuOpen
-      ? "opacity-100 transition-opacity duration-800"
+      ? "opacity-100 transition-opacity duration-850"
       : "opacity-0 pointer-events-none transition-opacity duration-150",
   )
+
+  const navigationItems = [
+    { to: '/feed', label: 'Feed', icon: HomeIcon, iconSize: 20 },
+    { to: '/favorites', label: 'Favoritos', icon: FavGroupIcon, iconSize: 16 },
+    { to: '/me', label: 'Perfil', icon: ProfileIcon, iconSize: 17 },
+  ]
 
   return (
     <>
@@ -49,7 +59,7 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
             to="/feed"
             className={twMerge(
               "flex h-[38px] items-center pt-1 transition-transform ease-in-out",
-              isMenuOpen ? "-translate-x-10 duration-350" : "translate-x-0 duration-300",
+              isMenuOpen ? "-translate-x-11 duration-350" : "translate-x-0 duration-300",
             )}
           >
             <Wordmark width={110} height={33} />
@@ -74,13 +84,31 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
       >
         <nav
           className={twMerge(
-            "fixed top-0 left-0 z-1000 h-screen w-78 px-2.5 pt-17.5 pb-4 border-r border-slate-30 bg-black-40 transition-transform duration-350 ease-in-out",
+            "fixed top-0 left-0 z-1000 h-screen w-78 px-2.5 pt-21 pb-4 border-r border-slate-30 bg-black-40 transition-transform duration-350 ease-in-out",
             isMenuOpen ? "translate-x-0" : "-translate-x-full pointer-events-none",
           )}
           aria-label="Navegação principal"
         >
-          <ul className="flex flex-col gap-3">
-          </ul>
+          <div className="flex flex-col gap-3">
+            {navigationItems.map(({ to, label, icon: Icon, iconSize }) => (
+              <Link
+                key={to}
+                to={to}
+                className="
+                  relative justify-start gap-4 px-3 py-1 header-item focus-ring rounded-xs
+                  before:absolute before:-left-1.5 before:top-1/2 before:h-7 before:w-0.5 before:bg-accent-50 before:-translate-y-1/2 before:opacity-0"
+                activeProps={{
+                  className: "text-white-40 before:opacity-100 before:scale-y-100 ",
+                }}
+              >
+                <div className="icon-box">
+                  <Icon size={iconSize} />
+                </div>
+
+                <span className="font-inter text-base font-normal">{label}</span>
+              </Link>
+            ))}
+          </div>
         </nav>
       </aside>
     </>
