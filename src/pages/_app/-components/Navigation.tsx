@@ -46,7 +46,6 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
           "fixed top-4 left-6 z-1001 flex w-full items-center justify-between transition-[max-width] ease-in-out",
           isMenuOpen ? "max-w-63" : "max-w-46.5",
         )}
-        aria-label="Navegação principal"
       >
         <div className="flex items-center gap-3">
           <button
@@ -60,6 +59,7 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
 
           <Link
             to="/feed"
+            aria-label="Ir para o feed"
             className={twMerge(
               "flex items-center pt-1.25 rounded-xs transition-transform ease-in-out focus-ring",
               isMenuOpen ? "-translate-x-11 duration-350" : "translate-x-0 duration-300",
