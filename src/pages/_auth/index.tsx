@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
+import { Wordmark } from '@/assets/svgs/Wordmark'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
 import { SignIn } from './-components/SignIn'
@@ -29,17 +30,13 @@ function Landing() {
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center w-full">
         <div className="flex max-w-[90%] w-full mx-8">
           <div className="flex justify-between items-center w-full h-18.75">
-            <Link to="/" className="flex items-center gap-4">
+            <Link to="/" className="flex items-center gap-4 rounded-xs focus-ring">
               <div className="hidden sm:flex pointer-events-none">
-                <img src="src/assets/svgs/logo.svg" alt="Logo Code Blog" className="w-auto h-8" />
+                <img src="src/assets/svgs/brand-mark.svg" alt="Logo Code Blog" className="w-auto h-8" />
               </div>
 
-              <div className="pt-2 pointer-events-none">
-                <img
-                  src="src/assets/svgs/text-logo.svg"
-                  alt="Logo Texto Code Blog"
-                  className="w-auto h-8"
-                />
+              <div className="pt-2 pointer-events-none ">
+                <Wordmark width={118} />
               </div>
             </Link>
 

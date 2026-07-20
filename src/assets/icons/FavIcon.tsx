@@ -1,6 +1,6 @@
-import type { IconProps } from '@/types/icon.types'
+import type { SvgProps } from '@/types/svg.types'
 
-export function FavIcon({ size, className, ...props }: IconProps) {
+export function FavIcon({ size, className, ...props }: SvgProps) {
   return (
     <svg
       width={size}

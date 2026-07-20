@@ -1,10 +1,10 @@
-import type { IconProps } from '@/types/icon.types'
+import type { SvgProps } from '@/types/svg.types'
 
-export function ProfileIcon({ size, className, ...props }: IconProps) {
+export function UserIcon({ size, className, ...props }: SvgProps) {
   return (
     <svg
       width={size}
-      // height={size} TO-DO: ajustar props
+      height={size}
       viewBox="0 0 14 17"
       fill="none"
       className={className}

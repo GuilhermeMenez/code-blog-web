@@ -13,7 +13,6 @@ import { Route as AppLayoutRouteImport } from './pages/_app/layout'
 import { Route as DesignSystemIndexRouteImport } from './pages/design-system/index'
 import { Route as AuthIndexRouteImport } from './pages/_auth/index'
 import { Route as AppFeedIndexRouteImport } from './pages/_app/feed/index'
-import { Route as AppFavoritesIndexRouteImport } from './pages/_app/favorites/index'
 import { Route as AppWriterIndexRouteImport } from './pages/_app/$writer/index'
 import { Route as AppMeLibraryRouteImport } from './pages/_app/me/library'
 import { Route as AppMeFollowingRouteImport } from './pages/_app/me/following'
@@ -36,11 +35,6 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
 const AppFeedIndexRoute = AppFeedIndexRouteImport.update({
   id: '/feed/',
   path: '/feed/',
-  getParentRoute: () => AppLayoutRoute,
-} as any)
-const AppFavoritesIndexRoute = AppFavoritesIndexRouteImport.update({
-  id: '/favorites/',
-  path: '/favorites/',
   getParentRoute: () => AppLayoutRoute,
 } as any)
 const AppWriterIndexRoute = AppWriterIndexRouteImport.update({
@@ -70,7 +64,6 @@ export interface FileRoutesByFullPath {
   '/me/following': typeof AppMeFollowingRoute
   '/me/library': typeof AppMeLibraryRoute
   '/$writer/': typeof AppWriterIndexRoute
-  '/favorites/': typeof AppFavoritesIndexRoute
   '/feed/': typeof AppFeedIndexRoute
   '/$writer/$postId/': typeof AppWriterPostIdIndexRoute
 }
@@ -80,7 +73,6 @@ export interface FileRoutesByTo {
   '/me/following': typeof AppMeFollowingRoute
   '/me/library': typeof AppMeLibraryRoute
   '/$writer': typeof AppWriterIndexRoute
-  '/favorites': typeof AppFavoritesIndexRoute
   '/feed': typeof AppFeedIndexRoute
   '/$writer/$postId': typeof AppWriterPostIdIndexRoute
 }
@@ -92,7 +84,6 @@ export interface FileRoutesById {
   '/_app/me/following': typeof AppMeFollowingRoute
   '/_app/me/library': typeof AppMeLibraryRoute
   '/_app/$writer/': typeof AppWriterIndexRoute
-  '/_app/favorites/': typeof AppFavoritesIndexRoute
   '/_app/feed/': typeof AppFeedIndexRoute
   '/_app/$writer/$postId/': typeof AppWriterPostIdIndexRoute
 }
@@ -104,7 +95,6 @@ export interface FileRouteTypes {
     | '/me/following'
     | '/me/library'
     | '/$writer/'
-    | '/favorites/'
     | '/feed/'
     | '/$writer/$postId/'
   fileRoutesByTo: FileRoutesByTo
@@ -114,7 +104,6 @@ export interface FileRouteTypes {
     | '/me/following'
     | '/me/library'
     | '/$writer'
-    | '/favorites'
     | '/feed'
     | '/$writer/$postId'
   id:
@@ -125,7 +114,6 @@ export interface FileRouteTypes {
     | '/_app/me/following'
     | '/_app/me/library'
     | '/_app/$writer/'
-    | '/_app/favorites/'
     | '/_app/feed/'
     | '/_app/$writer/$postId/'
   fileRoutesById: FileRoutesById
@@ -166,13 +154,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppFeedIndexRouteImport
       parentRoute: typeof AppLayoutRoute
     }
-    '/_app/favorites/': {
-      id: '/_app/favorites/'
-      path: '/favorites'
-      fullPath: '/favorites/'
-      preLoaderRoute: typeof AppFavoritesIndexRouteImport
-      parentRoute: typeof AppLayoutRoute
-    }
     '/_app/$writer/': {
       id: '/_app/$writer/'
       path: '/$writer'
@@ -208,7 +189,6 @@ interface AppLayoutRouteChildren {
   AppMeFollowingRoute: typeof AppMeFollowingRoute
   AppMeLibraryRoute: typeof AppMeLibraryRoute
   AppWriterIndexRoute: typeof AppWriterIndexRoute
-  AppFavoritesIndexRoute: typeof AppFavoritesIndexRoute
   AppFeedIndexRoute: typeof AppFeedIndexRoute
   AppWriterPostIdIndexRoute: typeof AppWriterPostIdIndexRoute
 }
@@ -217,7 +197,6 @@ const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppMeFollowingRoute: AppMeFollowingRoute,
   AppMeLibraryRoute: AppMeLibraryRoute,
   AppWriterIndexRoute: AppWriterIndexRoute,
-  AppFavoritesIndexRoute: AppFavoritesIndexRoute,
   AppFeedIndexRoute: AppFeedIndexRoute,
   AppWriterPostIdIndexRoute: AppWriterPostIdIndexRoute,
 }

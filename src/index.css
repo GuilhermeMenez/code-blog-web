@@ -45,6 +45,9 @@
   --text-md: 0.875rem;
   --text-9xl: 7.375rem;
   --text-10xl: 8rem;
+  
+  /* animations */
+  --animate-spin: spin 2s linear infinite;
 }
 
 @utility bg-auth-landing-dark {
@@ -96,7 +99,7 @@
 
 @layer components {
   .focus-ring {
-    @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-white-30 focus-visible:ring-offset-black-50;
+    @apply focus-visible:outline-1 focus-visible:outline-white-30 focus-visible:outline-offset-2;
   }
 
   .header-item {

@@ -75,7 +75,7 @@ export function SignUp({ setFormType }: SignUpProps) {
   return (
     <div className={twMerge('flex flex-col gap-16 py-14', errors.auth ? 'gap-10' : 'gap-14')}>
       <div className="flex flex-col items-center gap-6">
-        <img src="src/assets/svgs/logo.svg" alt="Logo Code Blog" className="w-auto h-10" />
+        <img src="src/assets/svgs/brand-mark.svg" alt="Logo Code Blog" className="w-auto h-10" />
         <h2 className="font-source font-light text-2xl">Participe do Code Blog</h2>
       </div>
 
