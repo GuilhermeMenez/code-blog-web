@@ -1,14 +1,14 @@
-import { Link } from "@tanstack/react-router"
-import { twMerge } from "tailwind-merge"
+import { Link } from '@tanstack/react-router'
+import { twMerge } from 'tailwind-merge'
 
-import { Separator } from "@base-ui/react"
+import { Separator } from '@base-ui/react'
 
-import { Wordmark } from "@/assets/svgs/Wordmark"
-import { HamburgerIcon } from "@/assets/icons/HamburgerIcon"
-import { HomeIcon } from "@/assets/icons/HomeIcon"
-import { FavGroupIcon } from "@/assets/icons/FavGroupIcon"
-import { UserIcon } from "@/assets/icons/UserIcon"
-import { UserGroupIcon } from "@/assets/icons/UserGroupIcon"
+import { Wordmark } from '@/assets/svgs/Wordmark'
+import { HamburgerIcon } from '@/assets/icons/HamburgerIcon'
+import { HomeIcon } from '@/assets/icons/HomeIcon'
+import { FavGroupIcon } from '@/assets/icons/FavGroupIcon'
+import { UserIcon } from '@/assets/icons/UserIcon'
+import { UserGroupIcon } from '@/assets/icons/UserGroupIcon'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -29,7 +29,7 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
   const closeButtonClass = twMerge(
     menuButtonBaseClass,
     isMenuOpen
-      ? "opacity-100 transition-opacity duration-850"
+      ? "opacity-100 transition-opacity duration-900"
       : "opacity-0 pointer-events-none transition-opacity duration-150",
   )
 
@@ -43,7 +43,7 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
     <>
       <div
         className={twMerge(
-          "fixed top-4 left-6 z-1001 flex w-full items-center justify-between transition-[max-width] ease-in-out",
+          "fixed top-4 left-6 z-101 flex w-full items-center justify-between transition-[max-width] ease-in-out",
           isMenuOpen ? "max-w-63" : "max-w-46.5",
         )}
       >
@@ -54,7 +54,7 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
             onClick={() => setIsMenuOpen(true)}
             aria-label="Abrir menu"
           >
-            <HamburgerIcon width={20} height={20} />
+            <HamburgerIcon width={20} />
           </button>
 
           <Link
@@ -75,7 +75,7 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
           onClick={() => setIsMenuOpen(false)}
           aria-label="Fechar menu"
         >
-          <HamburgerIcon width={20} height={20} />
+          <HamburgerIcon width={20} />
         </button>
       </div>
 
@@ -87,7 +87,7 @@ export function Navigation({ isMenuOpen, setIsMenuOpen }: NavigationProps) {
       >
         <nav
           className={twMerge(
-            "fixed top-0 left-0 flex flex-col gap-8 h-screen w-73 px-3 pt-22 pb-4 border-r border-slate-20 bg-black-40 transition-transform duration-350 ease-in-out z-1000",
+            "fixed top-0 left-0 flex flex-col gap-8 h-screen w-73 px-3 pt-22 pb-4 border-r border-slate-20 bg-black-40 transition-transform duration-350 ease-in-out z-100",
             isMenuOpen ? "translate-x-0" : "-translate-x-full pointer-events-none",
           )}
           aria-label="Navegação principal"

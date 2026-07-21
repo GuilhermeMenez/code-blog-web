@@ -13,9 +13,9 @@ export const Route = createFileRoute('/_auth/')({
 
 function Landing() {
   const [authDialogOpen, setAuthDialogOpen] = useState(false)
-  const [formType, setFormType] = useState<'signIn' | 'signUp'>('signIn')
+  const [formType, setFormType] = useState<'sign-in' | 'sign-up'>('sign-in')
 
-  function handleOpenAuthDialog(type: 'signIn' | 'signUp') {
+  function handleOpenAuthDialog(type: 'sign-in' | 'sign-up') {
     setFormType(type)
     setAuthDialogOpen(true)
   }
@@ -41,11 +41,11 @@ function Landing() {
             </Link>
 
             <nav className="flex items-center gap-4">
-              <Button variant="ghost" size="md" onClick={handleOpenAuthDialog.bind(null, 'signIn')}>
+              <Button variant="ghost" size="md" onClick={handleOpenAuthDialog.bind(null, 'sign-in')}>
                 Entrar
               </Button>
 
-              <Button variant="primary" size="md" onClick={handleOpenAuthDialog.bind(null, 'signUp')}>
+              <Button variant="primary" size="md" onClick={handleOpenAuthDialog.bind(null, 'sign-up')}>
                 Cadastre-se
               </Button>
             </nav>
@@ -75,7 +75,7 @@ function Landing() {
         size="xl"
         showCloseButton
       > 
-        {formType === 'signIn'? (
+        {formType === 'sign-in'? (
           <SignIn setFormType={setFormType} />
         ) : (
           <SignUp setFormType={setFormType} />

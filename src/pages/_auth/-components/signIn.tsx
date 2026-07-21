@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 
 interface SignInProps {
-  setFormType: (type: 'signIn' | 'signUp') => void
+  setFormType: (type: 'sign-in' | 'sign-up') => void
 }
 
 type FormErrors = Record<string, string>
@@ -117,7 +117,7 @@ export function SignIn({ setFormType }: SignInProps) {
             Não tem uma conta?{' '}
             <span
               className="font-normal text-accent-30 hover:underline cursor-pointer"
-              onClick={setFormType.bind(null, 'signUp')}
+              onClick={setFormType.bind(null, 'sign-up')}
             >
               Cadastre-se
             </span>
