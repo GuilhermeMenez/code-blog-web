@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
-import { useRegister } from "@/hooks/useAuth"
-import { twMerge } from "tailwind-merge"
+import { useRegister } from '@/hooks/useAuth'
+import { twMerge } from 'tailwind-merge'
 import { isApiError, isUnauthorized } from '@/types/api-error.types'
 
 import { validateName } from '@/utils/validators/validate-name'
@@ -10,10 +10,10 @@ import { validateRegisterPassword } from '@/utils/validators/validate-password'
 import { Form } from '@base-ui/react'
 import { AlertIcon } from '@/assets/icons/AlertIcon'
 import { Input } from '@/components/ui/Input'
-import { Button } from "@/components/ui/Button"
+import { Button } from '@/components/ui/Button'
 
 interface SignUpProps {
-  setFormType: (type: 'signIn' | 'signUp') => void
+  setFormType: (type: 'sign-in' | 'sign-up') => void
 }
 
 type FormErrors = Record<string, string>
@@ -75,7 +75,7 @@ export function SignUp({ setFormType }: SignUpProps) {
   return (
     <div className={twMerge('flex flex-col gap-16 py-14', errors.auth ? 'gap-10' : 'gap-14')}>
       <div className="flex flex-col items-center gap-6">
-        <img src="src/assets/svgs/logo.svg" alt="Logo Code Blog" className="w-auto h-10" />
+        <img src="src/assets/svgs/brand-mark.svg" alt="Logo Code Blog" className="w-auto h-10" />
         <h2 className="font-source font-light text-2xl">Participe do Code Blog</h2>
       </div>
 
@@ -131,7 +131,7 @@ export function SignUp({ setFormType }: SignUpProps) {
             Já tem uma conta?{' '}
             <span
               className="font-normal text-accent-30 hover:underline cursor-pointer"
-              onClick={() => setFormType('signIn')}
+              onClick={() => setFormType('sign-in')}
             >
               Entrar
             </span>

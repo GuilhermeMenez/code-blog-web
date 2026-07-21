@@ -5,9 +5,9 @@ import { twMerge } from 'tailwind-merge'
 import { Field } from '@base-ui/react/field'
 import { SearchIcon } from '@/assets/icons/SearchIcon'
 
-export const inputVariants = tv({
+const inputVariants = tv({
   base: [
-    'flex items-center gap-3 text-md font-inter rounded-sm bg-black-20 text-white-40 border border-transparent group-data-invalid:border-danger-40/60'
+    'flex items-center gap-3 text-md font-inter rounded-sm bg-black-20 text-white-40 border border-transparent group-data-invalid:border-danger-40/60',
   ],
   variants: {
     variant: {
@@ -27,12 +27,12 @@ export const inputVariants = tv({
   },
 })
 
-export const inputIconVariants = tv({
+const inputIconVariants = tv({
   base: 'order-first flex items-center justify-center text-slate-50 peer-focus:text-white-40',
 })
 
-export const inputControlVariants = tv({
-  base: 'peer w-full h-full bg-transparent outline-none text-white-40 placeholder:text-slate-50',
+const inputControlVariants = tv({
+  base: 'peer size-full bg-transparent outline-none text-white-40 placeholder:text-slate-50',
 })
 
 export interface InputProps

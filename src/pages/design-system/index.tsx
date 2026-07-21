@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { PlusIcon } from '@/assets/icons/PlusIcon'
+
 import { Button } from '@/components/ui/Button'
-import { Loader } from '@/components/ui/Loader'
 import { Input } from '@/components/ui/Input'
+import { Avatar } from '@/components/ui/Avatar'
+import { Loader } from '@/components/ui/Loader'
 
 export const Route = createFileRoute('/design-system/')({
   component: DesignSystem,
@@ -522,6 +524,17 @@ function DesignSystem() {
           <Button variant="secondary" size="md" onClick={() => alert(`Input value: ${label}`)}>
             Show Value
           </Button>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-8">
+        <p className="text-lg font-bold text-foreground">Avatar</p>
+
+        <div className="flex items-center gap-4">
+          <Avatar src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop" letter="CB" size='giant' />
+          <Avatar src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop" letter="CB" size='large' />
+          <Avatar src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop" letter="CB" size='medium' />
+          <Avatar src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop" letter="CB" size='small' />
         </div>
       </div>
 

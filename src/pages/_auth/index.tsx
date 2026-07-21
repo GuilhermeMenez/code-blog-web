@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
+import { Wordmark } from '@/assets/svgs/Wordmark'
 import { Button } from '@/components/ui/Button'
 import { Dialog } from '@/components/ui/Dialog'
-import { SignIn } from './-components/signIn'
-import { SignUp } from './-components/signUp'
+import { SignIn } from './-components/SignIn'
+import { SignUp } from './-components/SignUp'
 
 export const Route = createFileRoute('/_auth/')({
   component: Landing,
@@ -12,9 +13,9 @@ export const Route = createFileRoute('/_auth/')({
 
 function Landing() {
   const [authDialogOpen, setAuthDialogOpen] = useState(false)
-  const [formType, setFormType] = useState<'signIn' | 'signUp'>('signIn')
+  const [formType, setFormType] = useState<'sign-in' | 'sign-up'>('sign-in')
 
-  function handleOpenAuthDialog(type: 'signIn' | 'signUp') {
+  function handleOpenAuthDialog(type: 'sign-in' | 'sign-up') {
     setFormType(type)
     setAuthDialogOpen(true)
   }
@@ -29,26 +30,22 @@ function Landing() {
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center w-full">
         <div className="flex max-w-[90%] w-full mx-8">
           <div className="flex justify-between items-center w-full h-18.75">
-            <Link to="/" className="flex items-center gap-4">
+            <Link to="/" className="flex items-center gap-4 rounded-xs focus-ring">
               <div className="hidden sm:flex pointer-events-none">
-                <img src="src/assets/svgs/logo.svg" alt="Logo Code Blog" className="w-auto h-8" />
+                <img src="src/assets/svgs/brand-mark.svg" alt="Logo Code Blog" className="w-auto h-8" />
               </div>
 
-              <div className="pt-2 pointer-events-none">
-                <img
-                  src="src/assets/svgs/text-logo.svg"
-                  alt="Logo Texto Code Blog"
-                  className="w-auto h-8"
-                />
+              <div className="pt-2 pointer-events-none ">
+                <Wordmark width={118} />
               </div>
             </Link>
 
             <nav className="flex items-center gap-4">
-              <Button variant="ghost" size="md" onClick={handleOpenAuthDialog.bind(null, 'signIn')}>
+              <Button variant="ghost" size="md" onClick={handleOpenAuthDialog.bind(null, 'sign-in')}>
                 Entrar
               </Button>
 
-              <Button variant="primary" size="md" onClick={handleOpenAuthDialog.bind(null, 'signUp')}>
+              <Button variant="primary" size="md" onClick={handleOpenAuthDialog.bind(null, 'sign-up')}>
                 Cadastre-se
               </Button>
             </nav>
@@ -78,7 +75,7 @@ function Landing() {
         size="xl"
         showCloseButton
       > 
-        {formType === 'signIn'? (
+        {formType === 'sign-in'? (
           <SignIn setFormType={setFormType} />
         ) : (
           <SignUp setFormType={setFormType} />

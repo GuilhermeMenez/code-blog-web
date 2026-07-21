@@ -5,5 +5,5 @@ export const Route = createFileRoute('/_app/me/library')({
 })
 
 function Library() {
-  return <div>Biblioteca</div>
+  return <div>Favoritos</div>
 }

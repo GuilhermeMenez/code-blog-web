@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge'
 
 import { Loader } from './Loader'
 
-export const buttonVariants = tv({
+const buttonVariants = tv({
 	base: [
 		'relative inline-flex justify-center items-center font-inter font-light rounded-md border select-none cursor-pointer focus-ring',
 		'data-disabled:pointer-events-none data-disabled:opacity-50',

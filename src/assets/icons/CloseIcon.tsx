@@ -1,6 +1,6 @@
-import type { IconProps } from '@/types/icon.types'
+import type { SvgProps } from '@/types/svg.types'
 
-export function CloseIcon({ size, className, ...props }: IconProps) {
+export function CloseIcon({ size, className, ...props }: SvgProps) {
   return (
     <svg
       width={size}

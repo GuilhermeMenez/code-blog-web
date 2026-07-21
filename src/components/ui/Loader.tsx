@@ -1,7 +1,7 @@
-import type { IconProps } from '@/types/icon.types'
+import type { SvgProps } from '@/types/svg.types'
 import { twMerge } from 'tailwind-merge'
 
-interface LoaderProps extends IconProps {
+interface LoaderProps extends SvgProps {
   size?: LoaderSizeKey
 }
 
@@ -21,9 +21,9 @@ export function Loader({ size, className, ...props }: LoaderProps) {
       <svg
         width={LoaderSizes[size || 'md']}
         height={LoaderSizes[size || 'md']}
-        className="animate-spin"
         viewBox="0 0 18 18"
         fill="none"
+        className="animate-spin"
         data-loader
         xmlns="http://www.w3.org/2000/svg"
         {...props}
@@ -34,7 +34,7 @@ export function Loader({ size, className, ...props }: LoaderProps) {
           width="16.6"
           height="16.6"
           rx="8.3"
-          stroke="#FAFAFA"
+          stroke="currentColor"
           strokeOpacity="0.04"
           strokeWidth="1.4"
         />

@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 
 interface SignInProps {
-  setFormType: (type: 'signIn' | 'signUp') => void
+  setFormType: (type: 'sign-in' | 'sign-up') => void
 }
 
 type FormErrors = Record<string, string>
@@ -68,7 +68,7 @@ export function SignIn({ setFormType }: SignInProps) {
   return (
     <div className={twMerge('flex flex-col py-14', errors.auth ? 'gap-10' : 'gap-14')}>
       <div className="flex flex-col items-center gap-6">
-        <img src="src/assets/svgs/logo.svg" alt="Logo Code Blog" className="w-auto h-10" />
+        <img src="src/assets/svgs/brand-mark.svg" alt="Logo Code Blog" className="w-auto h-10" />
         <h2 className="font-source font-light text-2xl">Bem-vindo de volta</h2>
       </div>
 
@@ -117,7 +117,7 @@ export function SignIn({ setFormType }: SignInProps) {
             Não tem uma conta?{' '}
             <span
               className="font-normal text-accent-30 hover:underline cursor-pointer"
-              onClick={setFormType.bind(null, 'signUp')}
+              onClick={setFormType.bind(null, 'sign-up')}
             >
               Cadastre-se
             </span>

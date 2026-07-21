@@ -14,6 +14,7 @@ import { Route as DesignSystemIndexRouteImport } from './pages/design-system/ind
 import { Route as AuthIndexRouteImport } from './pages/_auth/index'
 import { Route as AppFeedIndexRouteImport } from './pages/_app/feed/index'
 import { Route as AppWriterIndexRouteImport } from './pages/_app/$writer/index'
+import { Route as AppMeSettingsRouteImport } from './pages/_app/me/settings'
 import { Route as AppMeLibraryRouteImport } from './pages/_app/me/library'
 import { Route as AppMeFollowingRouteImport } from './pages/_app/me/following'
 import { Route as AppWriterPostIdIndexRouteImport } from './pages/_app/$writer/$postId/index'
@@ -42,6 +43,11 @@ const AppWriterIndexRoute = AppWriterIndexRouteImport.update({
   path: '/$writer/',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppMeSettingsRoute = AppMeSettingsRouteImport.update({
+  id: '/me/settings',
+  path: '/me/settings',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 const AppMeLibraryRoute = AppMeLibraryRouteImport.update({
   id: '/me/library',
   path: '/me/library',
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/design-system/': typeof DesignSystemIndexRoute
   '/me/following': typeof AppMeFollowingRoute
   '/me/library': typeof AppMeLibraryRoute
+  '/me/settings': typeof AppMeSettingsRoute
   '/$writer/': typeof AppWriterIndexRoute
   '/feed/': typeof AppFeedIndexRoute
   '/$writer/$postId/': typeof AppWriterPostIdIndexRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByTo {
   '/design-system': typeof DesignSystemIndexRoute
   '/me/following': typeof AppMeFollowingRoute
   '/me/library': typeof AppMeLibraryRoute
+  '/me/settings': typeof AppMeSettingsRoute
   '/$writer': typeof AppWriterIndexRoute
   '/feed': typeof AppFeedIndexRoute
   '/$writer/$postId': typeof AppWriterPostIdIndexRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   '/design-system/': typeof DesignSystemIndexRoute
   '/_app/me/following': typeof AppMeFollowingRoute
   '/_app/me/library': typeof AppMeLibraryRoute
+  '/_app/me/settings': typeof AppMeSettingsRoute
   '/_app/$writer/': typeof AppWriterIndexRoute
   '/_app/feed/': typeof AppFeedIndexRoute
   '/_app/$writer/$postId/': typeof AppWriterPostIdIndexRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
     | '/design-system/'
     | '/me/following'
     | '/me/library'
+    | '/me/settings'
     | '/$writer/'
     | '/feed/'
     | '/$writer/$postId/'
@@ -103,6 +113,7 @@ export interface FileRouteTypes {
     | '/design-system'
     | '/me/following'
     | '/me/library'
+    | '/me/settings'
     | '/$writer'
     | '/feed'
     | '/$writer/$postId'
@@ -113,6 +124,7 @@ export interface FileRouteTypes {
     | '/design-system/'
     | '/_app/me/following'
     | '/_app/me/library'
+    | '/_app/me/settings'
     | '/_app/$writer/'
     | '/_app/feed/'
     | '/_app/$writer/$postId/'
@@ -161,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWriterIndexRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/me/settings': {
+      id: '/_app/me/settings'
+      path: '/me/settings'
+      fullPath: '/me/settings'
+      preLoaderRoute: typeof AppMeSettingsRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/me/library': {
       id: '/_app/me/library'
       path: '/me/library'
@@ -188,6 +207,7 @@ declare module '@tanstack/react-router' {
 interface AppLayoutRouteChildren {
   AppMeFollowingRoute: typeof AppMeFollowingRoute
   AppMeLibraryRoute: typeof AppMeLibraryRoute
+  AppMeSettingsRoute: typeof AppMeSettingsRoute
   AppWriterIndexRoute: typeof AppWriterIndexRoute
   AppFeedIndexRoute: typeof AppFeedIndexRoute
   AppWriterPostIdIndexRoute: typeof AppWriterPostIdIndexRoute
@@ -196,6 +216,7 @@ interface AppLayoutRouteChildren {
 const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppMeFollowingRoute: AppMeFollowingRoute,
   AppMeLibraryRoute: AppMeLibraryRoute,
+  AppMeSettingsRoute: AppMeSettingsRoute,
   AppWriterIndexRoute: AppWriterIndexRoute,
   AppFeedIndexRoute: AppFeedIndexRoute,
   AppWriterPostIdIndexRoute: AppWriterPostIdIndexRoute,
