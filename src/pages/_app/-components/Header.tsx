@@ -25,7 +25,7 @@ export function Header() {
           aria-label="Buscar no Code Blog"
         >
           <div className="icon-box">
-            <SearchIcon size={20} />
+            <SearchIcon size={19} />
           </div>
         </button>
 
@@ -36,7 +36,7 @@ export function Header() {
         >
           <div className="icon-box">
             <div className="dot" />
-            <BellIcon width={19} />
+            <BellIcon width={18} />
           </div>
         </button>
 

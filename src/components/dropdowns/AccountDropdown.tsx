@@ -22,21 +22,32 @@ export function AccountDropdown() {
           className="group p-0.5 ml-1 rounded-full header-item focus-ring"
           aria-label="Menu de usuário"
         >
-          <Avatar src={srcMock} letter="CB" />
+          <Avatar src={srcMock} letter="CB" size="medium" />
         </button>
       }
     >
-      <div className="flex flex-col gap-3.5">
-        <div></div>
+      <div className="flex flex-col gap-4">
+        <DropdownItem>
+          <Link
+            to="/me/settings"
+            activeOptions={{ exact: true }}
+            className="group flex items-center gap-4 px-1 py-2"
+          >
+            <Avatar src={srcMock} letter="CB" size="large" />
 
-        <Separator orientation="horizontal" className="h-px bg-slate-20" />
+            <div className="flex flex-col gap-0.5">
+              <p className="font-normal text-md text-white-30 group-hover:text-white-40">Code Bob</p>
+              <p className="font-normal text-xs text-white-20 group-hover:text-white-30">bobgood@mail.com</p>
+            </div>
+          </Link>
+        </DropdownItem>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <DropdownItem>
             <Link
               to="/me/settings"
               activeOptions={{ exact: true }}
-              className="justify-start gap-4 px-1.5 py-1 header-item focus-ring rounded-xs"
+              className="justify-start gap-3 px-1.5 py-1 header-item focus-ring rounded-xs"
             >
               <div className="icon-box">
                 <SettingsIcon size={19} />
@@ -50,10 +61,10 @@ export function AccountDropdown() {
             <Link
               to="/me/settings"
               activeOptions={{ exact: true }}
-              className="justify-start gap-4 px-1.5 py-1 header-item focus-ring rounded-xs"
+              className="justify-start gap-3 px-1.5 py-1 header-item focus-ring rounded-xs"
             >
               <div className="icon-box">
-                <HelpIcon size={18} />
+                <HelpIcon size={19} />
               </div>
 
               <span className="font-inter text-md font-normal">Ajuda</span>
@@ -63,7 +74,7 @@ export function AccountDropdown() {
 
         <Separator orientation="horizontal" className="h-px bg-slate-20" />
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <DropdownItem>
             <Link
               to="/me/settings"
@@ -91,7 +102,7 @@ export function AccountDropdown() {
           <Link
             to="/me/settings"
             activeOptions={{ exact: true }}
-            className="justify-start gap-4 px-1.5 py-1 header-item focus-ring rounded-xs"
+            className="justify-start gap-3 px-1.5 py-1 header-item focus-ring rounded-xs"
           >
             <div className="icon-box">
               <LogoutIcon size={17} />

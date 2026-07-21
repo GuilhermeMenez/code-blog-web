@@ -15,7 +15,7 @@ const dropdownPopupVariants = tv({
   variants: {
     size: {
       sm: 'w-[186px] p-2',
-      md: 'w-[240px] px-3 py-3.5',
+      md: 'w-[240px] px-3.5 py-4',
     },
   },
   defaultVariants: {
