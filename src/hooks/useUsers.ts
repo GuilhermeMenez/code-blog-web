@@ -3,8 +3,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { usersApi } from '@/http/endpoints/users'
 import { queryKeys } from '@/lib/query-client'
 
-import type { PaginationParams } from '@/types/common.types'
-import type { UpdateProfileDTO } from '@/types/users.types'
+import type { PaginationParams } from '@/http/schemas/common.schema'
+import type { UpdateProfileDTO } from '@/http/schemas/users.schema'
 
 // ======= Queries =======
 

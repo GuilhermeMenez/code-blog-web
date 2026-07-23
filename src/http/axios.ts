@@ -1,5 +1,6 @@
 import axios, { isAxiosError } from 'axios'
-import { createApiError, isApiErrorResponse, type ApiError } from '@/types/api-error.types'
+import { createApiError, type ApiError } from '@/types/api-error.types'
+import { apiErrorResponseSchema } from '@/http/schemas/common.schema'
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -31,8 +32,9 @@ api.interceptors.response.use(
       const status = error.response ? error.response.status : 0
       const data = error.response?.data
 
-      // Validação segura com type guard
-      const errorData = isApiErrorResponse(data) ? data : {}
+      // Validação segura com Zod
+      const parsed = apiErrorResponseSchema.safeParse(data)
+      const errorData = parsed.success ? parsed.data : {}
 
       const apiError: ApiError = createApiError({
         message: errorData.message ?? error.message ?? 'Unexpected error',

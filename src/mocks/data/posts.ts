@@ -1,4 +1,4 @@
-import type { Post } from '@/types/posts.types'
+import type { Post } from '@/http/schemas/posts.schema'
 
 export const mockPosts: Post[] = [
   {

@@ -2,10 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useRegister } from '@/hooks/useAuth'
 import { twMerge } from 'tailwind-merge'
 import { isApiError, isUnauthorized } from '@/types/api-error.types'
-
-import { validateName } from '@/utils/validators/validate-name'
-import { validateEmail } from '@/utils/validators/validate-email'
-import { validateRegisterPassword } from '@/utils/validators/validate-password'
+import { registerSchema } from '@/http/schemas/auth.schema'
 
 import { Form } from '@base-ui/react'
 import { AlertIcon } from '@/assets/icons/AlertIcon'
@@ -22,27 +19,6 @@ export function SignUp({ setFormType }: SignUpProps) {
   const { mutate: register, isPending } = useRegister()
   const [errors, setErrors] = useState<FormErrors>({})
 
-  function validateForm(formValues: { name: string; email: string; password: string }): FormErrors {
-    const errors: FormErrors = {}
-
-    const nameError = validateName(formValues.name)
-    if (nameError) {
-      errors.name = nameError
-    }
-
-    const emailError = validateEmail(formValues.email)
-    if (emailError) {
-      errors.email = emailError
-    }
-
-    const passwordError = validateRegisterPassword(formValues.password)
-    if (passwordError) {
-      errors.password = passwordError
-    }
-
-    return errors
-  }
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -53,15 +29,18 @@ export function SignUp({ setFormType }: SignUpProps) {
       password: formData.get('password') as string,
     }
 
-    const validationErrors = validateForm(formValues)
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
+    const result = registerSchema.safeParse(formValues)
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors
+      setErrors(Object.fromEntries(
+        Object.entries(fieldErrors).map(([key, msgs]) => [key, msgs?.[0] ?? ''])
+      ))
       return
     }
 
     setErrors({})
 
-    register(formValues, {
+    register(result.data, {
       onError: (error) => {
         if (isApiError(error) && isUnauthorized(error)) {
           setErrors({ auth: 'Erro ao validar dados. Tente novamente.' })

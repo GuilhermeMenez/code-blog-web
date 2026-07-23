@@ -1,4 +1,4 @@
-import type { PaginatedResponse, PaginationParams } from '@/types/common.types'
+import type { PaginatedResponse, PaginationParams } from '@/http/schemas/common.schema'
 
 export function paginate<T>(
   items: T[],

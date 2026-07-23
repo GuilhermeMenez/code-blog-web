@@ -1,12 +1,5 @@
 // ======= API Error - Discriminated Union Pattern =======
 
-// Estrutura de resposta de erro da API
-export interface ApiErrorResponse {
-  message?: string
-  code?: string
-  details?: Record<string, unknown>
-}
-
 // Tipo de erro da API usando discriminated union
 export interface ApiError {
   readonly _tag: 'ApiError'
@@ -35,12 +28,6 @@ export function createApiError(params: CreateApiErrorParams): ApiError {
 
 
 // ======= Type Guards =======
-
-// Verifica se o valor possui estrutura de resposta de erro da API
-export function isApiErrorResponse(data: unknown): data is ApiErrorResponse {
-  return typeof data === 'object' && data !== null
-}
-
 
 // Type guard para ApiError (mesmo com code splitting e HMR)
 export function isApiError(error: unknown): error is ApiError {

@@ -29,20 +29,23 @@
     "@tailwindcss/vite": "4.1.18",
     "@tanstack/react-query": "5.90.20",
     "@tanstack/react-router": "1.155.0",
-    "axios": "1.16.1",
+    "axios": "1.18.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "tailwind-merge": "3.4.0",
     "tailwind-variants": "3.2.2",
-    "tailwindcss": "4.1.18"
+    "tailwindcss": "4.1.18",
+    "zod": "4.4.3"
   },
   "overrides": {
     "@babel/core": "7.29.7",
-    "axios": "1.16.1",
+    "axios": "1.18.1",
+    "brace-expansion@1": "1.1.16",
+    "brace-expansion@2": "2.1.2",
     "form-data": "4.0.6",
     "follow-redirects": "1.16.0",
     "js-yaml": "4.3.0",
-    "postcss": "8.5.10"
+    "postcss": "8.5.22"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",

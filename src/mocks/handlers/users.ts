@@ -1,7 +1,7 @@
 import { http, HttpResponse, delay } from 'msw'
 import { mockUsers, findUserById, currentUser } from '../data'
 import { paginate, extractPaginationParams } from '../utils/pagination'
-import type { UpdateProfileDTO } from '@/types/users.types'
+import type { UpdateProfileDTO } from '@/http/schemas/users.schema'
 
 // Simulated follow relationships
 const followingMap = new Map<string, Set<string>>([

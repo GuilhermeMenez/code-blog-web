@@ -1,15 +1,16 @@
 import { api } from '@/http/axios'
-import type { AuthResponse, LoginDTO, RegisterDTO, User } from '@/types/auth.types'
+import { authResponseSchema, userSchema } from '@/http/schemas/auth.schema'
+import type { AuthResponse, LoginDTO, RegisterDTO, User } from '@/http/schemas/auth.schema'
 
 export const authApi = {
   login: async (data: LoginDTO): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/login', data)
-    return response.data
+    const response = await api.post('/auth/login', data)
+    return authResponseSchema.parse(response.data)
   },
 
   register: async (data: RegisterDTO): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/register', data)
-    return response.data
+    const response = await api.post('/auth/register', data)
+    return authResponseSchema.parse(response.data)
   },
 
   logout: async (): Promise<void> => {
@@ -17,8 +18,8 @@ export const authApi = {
   },
 
   me: async (): Promise<User> => {
-    const response = await api.get<User>('/auth/me')
-    return response.data
+    const response = await api.get('/auth/me')
+    return userSchema.parse(response.data)
   },
 
   refreshToken: async (): Promise<{ token: string }> => {

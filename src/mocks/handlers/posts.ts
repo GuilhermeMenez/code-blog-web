@@ -1,7 +1,7 @@
 import { http, HttpResponse, delay } from 'msw'
 import { mockPosts, findPostById, filterPostsByAuthor, searchPosts, currentUser } from '../data'
 import { paginate, extractPaginationParams } from '../utils/pagination'
-import type { CreatePostDTO, UpdatePostDTO } from '@/types/posts.types'
+import type { CreatePostDTO, UpdatePostDTO } from '@/http/schemas/posts.schema'
 
 export const postsHandlers = [
   // GET /posts

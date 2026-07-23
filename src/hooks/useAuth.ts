@@ -4,7 +4,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { authApi } from '@/http/endpoints/auth'
 import { queryKeys } from '@/lib/query-client'
 
-import type { LoginDTO, RegisterDTO } from '@/types/auth.types'
+import type { LoginDTO, RegisterDTO } from '@/http/schemas/auth.schema'
 
 // ======= Queries =======
 

@@ -2,9 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useLogin } from '@/hooks/useAuth'
 import { twMerge } from 'tailwind-merge'
 import { isApiError, isUnauthorized } from '@/types/api-error.types'
-
-import { validateEmail } from '@/utils/validators/validate-email'
-import { validateLoginPassword } from '@/utils/validators/validate-password'
+import { loginSchema } from '@/http/schemas/auth.schema'
 
 import { Form } from '@base-ui/react'
 import { AlertIcon } from '@/assets/icons/AlertIcon'
@@ -21,22 +19,6 @@ export function SignIn({ setFormType }: SignInProps) {
   const { mutate: login, isPending } = useLogin()
   const [errors, setErrors] = useState<FormErrors>({})
 
-  function validateForm(formValues: { email: string; password: string }): FormErrors {
-    const errors: FormErrors = {}
-
-    const emailError = validateEmail(formValues.email)
-    if (emailError) {
-      errors.email = emailError
-    }
-
-    const passwordError = validateLoginPassword(formValues.password)
-    if (passwordError) {
-      errors.password = passwordError
-    }
-
-    return errors
-  }
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -46,15 +28,18 @@ export function SignIn({ setFormType }: SignInProps) {
       password: formData.get('password') as string,
     }
 
-    const validationErrors = validateForm(formValues)
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
+    const result = loginSchema.safeParse(formValues)
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors
+      setErrors(Object.fromEntries(
+        Object.entries(fieldErrors).map(([key, msgs]) => [key, msgs?.[0] ?? ''])
+      ))
       return
     }
 
     setErrors({})
 
-    login(formValues, {
+    login(result.data, {
       onError: (error) => {
         if (isApiError(error) && isUnauthorized(error)) {
           setErrors({ auth: 'Email ou senha inválidos. Tente novamente.' })

@@ -1,5 +1,5 @@
-import type { User, AuthResponse } from '@/types/auth.types'
-import type { UserProfile } from '@/types/users.types'
+import type { User, AuthResponse } from '@/http/schemas/auth.schema'
+import type { UserProfile } from '@/http/schemas/users.schema'
 
 export const mockUsers: UserProfile[] = [
   {
