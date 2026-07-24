@@ -1,5 +1,5 @@
 import { QueryClient } from '@tanstack/react-query'
-import { isApiError, isClientError } from '@/types/api-error.types'
+import { isApiError, isClientError } from '@/api/api-error'
 
 function handleQueryError(error: unknown): void {
   if (isApiError(error)) {

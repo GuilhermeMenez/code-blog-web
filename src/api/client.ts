@@ -1,5 +1,5 @@
 import axios, { isAxiosError } from 'axios'
-import { createApiError, type ApiError } from '@/types/api-error.types'
+import { createApiError, type ApiError } from '@/api/api-error'
 import { apiErrorResponseSchema } from '@/api/schemas/common'
 
 export const api = axios.create({

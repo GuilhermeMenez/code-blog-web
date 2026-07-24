@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useRegister } from '@/hooks/useAuth'
 import { twMerge } from 'tailwind-merge'
-import { isApiError, isUnauthorized } from '@/types/api-error.types'
+import { isApiError, isUnauthorized } from '@/api/api-error'
 import { registerSchema } from '@/api/schemas/auth'
 
 import { Form } from '@base-ui/react'

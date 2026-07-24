@@ -6,4 +6,3 @@ export interface SvgProps extends React.SVGProps<SVGSVGElement> {
   radius?: string
   className?: string
 }
-
