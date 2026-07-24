@@ -28,6 +28,7 @@ Aplicação web para blog de código desenvolvida com React 19 e tecnologias mod
 | **Variantes**     | [Tailwind Variants](https://www.tailwind-variants.org/)     | 3              |
 | **Merge Classes** | [Tailwind Merge](https://github.com/dcastil/tailwind-merge) | 3              |
 | **UI Headless**   | [Base UI React](https://base-ui.com/)                       | 1              |
+| **Validação**     | [Zod](https://zod.dev/)                                     | 4              |
 | **HTTP Client**   | [Axios](https://axios-http.com/)                            | 1              |
 | **Server State**  | [TanStack Query](https://tanstack.com/query)                | 5              |
 | **Roteamento**    | [TanStack Router](https://tanstack.com/router)              | 1 (file-based) |
@@ -122,21 +123,26 @@ A aplicação estará disponível em `http://localhost:5173`
 
 ```
 src/
+├── api/
+│   ├── schemas/                  # Schemas e tipos inferidos (auth, posts, users, common)
+│   ├── client.ts                 # Configuração do cliente HTTP (Axios)
+│   ├── auth.ts                   # Funções de chamadas API — autenticação
+│   ├── posts.ts                  # Funções de chamadas API — posts
+│   └── users.ts                  # Funções de chamadas API — usuários
+│
 ├── assets/                       # Assets estáticos
 │   └── icons/                    # Componentes de ícones SVG
+│   ├── images/                   # Imagens e banners
+│   └── svgs/                     # SVG estáticos e personalizáveis
 │
 ├── components/
-│   ├── ui/                       # Componentes primitivos (Button, Input, etc.)
-│   ├── layout/                   # Componentes de layout (Header, Footer, etc.)
-│   └── common/                   # Componentes compartilhados
+│   └── ui/                       # Componentes primitivos (Button, Input, etc.)
 │
 ├── hooks/                        # Custom hooks (useAuth, usePosts, useUsers)
 │
-├── http/
-│   ├── endpoints/                # Funções de chamadas API (auth, posts, users)
-│   └── axios.ts                  # Configuração do cliente HTTP
-│
 ├── lib/                          # Configurações de bibliotecas externas
+│
+├── mocks/                        # Configurações de mocks (MSW)
 │
 ├── pages/                        # Páginas (TanStack Router file-based)
 │
@@ -158,13 +164,15 @@ src/
 
 | Tipo            | Convenção                  | Exemplo                           |
 |-----------------|----------------------------|-----------------------------------|
+| **Api**         | `kebab-case.ts`            | `client.ts`, `auth.ts`            |
 | **Componentes** | `PascalCase.tsx`           | `Button.tsx`, `PostCard.tsx`      |
 | **Ícones**      | `PascalCaseIcon.tsx`       | `PlusIcon.tsx`, `SearchIcon.tsx`  |
 | **Hooks**       | `useCamelCase.ts`          | `usePosts.ts`, `useAuth.ts`       |
-| **Http/Lib**    | `kebab-case.ts`            | `posts.ts`, `query-client.ts`     |
+| **Lib**         | `kebab-case.ts`            | `query-client.ts`                 |
+| **Mocks**       | `kebab-case.ts`            | `index.tsx`. `auth.ts`            |
 | **Pages**       | TanStack Router file-based | `index.tsx`, `$postId/index.tsx`  |
 | **Estilos**     | `kebab-case.css`           | `index.css`                       |
-| **Types**       | `kebab-case.types.ts`      | `posts.types.ts`, `auth.types.ts` |
+| **Types**       | `kebab-case.types.ts`      | `auth.types.ts`                   |
 | **Enums**       | `kebab-case.enums.ts`      | `posts.enums.ts`                  |
 | **Constantes**  | `kebab-case.constants.ts`  | `api.constants.ts`                |
 | **Utilitários** | `kebab-case.ts`            | `format-date.ts`                  |

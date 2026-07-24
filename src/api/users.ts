@@ -1,8 +1,8 @@
-import { api } from '@/http/axios'
-import { userProfileSchema, followResponseSchema } from '@/http/schemas/users.schema'
-import { paginatedResponseSchema } from '@/http/schemas/common.schema'
-import type { UserProfile, UpdateProfileDTO, FollowResponse } from '@/http/schemas/users.schema'
-import type { PaginatedResponse, PaginationParams } from '@/http/schemas/common.schema'
+import { api } from '@/api/client'
+import { userProfileSchema, followResponseSchema } from '@/api/schemas/users'
+import { paginatedResponseSchema } from '@/api/schemas/common'
+import type { UserProfile, UpdateProfileDTO, FollowResponse } from '@/api/schemas/users'
+import type { PaginatedResponse, PaginationParams } from '@/api/schemas/common'
 
 const paginatedUsersSchema = paginatedResponseSchema(userProfileSchema)
 

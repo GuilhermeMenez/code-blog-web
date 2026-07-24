@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { postsApi } from '@/http/endpoints/posts'
+import { postsApi } from '@/api/posts'
 import { queryKeys } from '@/lib/query-client'
 
-import type { PaginationParams } from '@/http/schemas/common.schema'
-import type { CreatePostDTO, UpdatePostDTO } from '@/http/schemas/posts.schema'
+import type { PaginationParams } from '@/api/schemas/common'
+import type { CreatePostDTO, UpdatePostDTO } from '@/api/schemas/posts'
 
 // ======= Queries =======
 

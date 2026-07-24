@@ -1,6 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { currentUser, createAuthResponse, findUserByEmail } from '../data'
-import type { LoginDTO, RegisterDTO } from '@/http/schemas/auth.schema'
+import type { LoginDTO, RegisterDTO } from '@/api/schemas/auth'
 
 export const authHandlers = [
   // POST /auth/login

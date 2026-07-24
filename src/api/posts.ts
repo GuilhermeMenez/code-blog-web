@@ -1,8 +1,8 @@
-import { api } from '@/http/axios'
-import { postSchema } from '@/http/schemas/posts.schema'
-import { paginatedResponseSchema } from '@/http/schemas/common.schema'
-import type { Post, CreatePostDTO, UpdatePostDTO } from '@/http/schemas/posts.schema'
-import type { PaginatedResponse, PaginationParams } from '@/http/schemas/common.schema'
+import { api } from '@/api/client'
+import { postSchema } from '@/api/schemas/posts'
+import { paginatedResponseSchema } from '@/api/schemas/common'
+import type { Post, CreatePostDTO, UpdatePostDTO } from '@/api/schemas/posts'
+import type { PaginatedResponse, PaginationParams } from '@/api/schemas/common'
 
 const paginatedPostsSchema = paginatedResponseSchema(postSchema)
 

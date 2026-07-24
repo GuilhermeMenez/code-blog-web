@@ -1,6 +1,6 @@
-import { api } from '@/http/axios'
-import { authResponseSchema, userSchema } from '@/http/schemas/auth.schema'
-import type { AuthResponse, LoginDTO, RegisterDTO, User } from '@/http/schemas/auth.schema'
+import { api } from '@/api/client'
+import { authResponseSchema, userSchema } from '@/api/schemas/auth'
+import type { AuthResponse, LoginDTO, RegisterDTO, User } from '@/api/schemas/auth'
 
 export const authApi = {
   login: async (data: LoginDTO): Promise<AuthResponse> => {
