@@ -25,7 +25,7 @@
     "security:check": "npm run security:scan && npm run deps:audit:full"
   },
   "dependencies": {
-    "@base-ui/react": "1.1.0",
+    "@base-ui/react": "1.6.0",
     "@tailwindcss/vite": "4.1.18",
     "@tanstack/react-query": "5.90.20",
     "@tanstack/react-router": "1.155.0",
@@ -40,12 +40,12 @@
   "overrides": {
     "@babel/core": "7.29.7",
     "axios": "1.18.1",
-    "brace-expansion@1": "1.1.16",
-    "brace-expansion@2": "2.1.2",
+    "brace-expansion": "5.0.8",
     "form-data": "4.0.6",
     "follow-redirects": "1.16.0",
     "js-yaml": "4.3.0",
-    "postcss": "8.5.22"
+    "postcss": "8.5.22",
+    "seroval": "1.5.6"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
