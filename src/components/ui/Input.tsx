@@ -74,7 +74,7 @@ export function Input({
         {isSearch && <span className={inputIconVariants()}>{<SearchIcon />}</span>}
       </div>
 
-      <Field.Error data-slot="input-error" className="mt-2.5 text-sm text-danger-40" />
+      <Field.Error data-slot="input-error" className="mt-2.5 text-sm text-danger-30" />
     </Field.Root>
   )
 }

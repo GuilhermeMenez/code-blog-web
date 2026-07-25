@@ -5,6 +5,7 @@ import { PlusIcon } from '@/assets/icons/PlusIcon'
 
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { OtpInput } from '@/components/ui/OtpInput'
 import { Avatar } from '@/components/ui/Avatar'
 import { Loader } from '@/components/ui/Loader'
 
@@ -17,6 +18,8 @@ export const Route = createFileRoute('/design-system/')({
 
 function DesignSystem() {
   const [label, setLabel] = useState('')
+  const [otpCode, setOtpCode] = useState('')
+  const [error, setError] = useState<string | null>("")
 
   return (
     <div className="flex flex-col gap-24 px-12 py-8">
@@ -523,6 +526,21 @@ function DesignSystem() {
 
           <Button variant="secondary" size="md" onClick={() => alert(`Input value: ${label}`)}>
             Show Value
+          </Button>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-8 ">
+        <p className="text-lg font-bold text-foreground">OTP Input</p>
+
+        <OtpInput
+          error={error}
+          onValueChange={(value) => setOtpCode(value)}
+        />
+
+        <div className="w-2xl">
+          <Button variant="secondary" size="md" onClick={() => setError(otpCode !== '123456' ? 'Código inválido' : null)}>
+            Validation
           </Button>
         </div>
       </div>
